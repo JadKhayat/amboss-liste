@@ -253,6 +253,11 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);font-weight:600}
 .chips button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 #sListe{display:flex;flex-direction:column;gap:26px}
+.seg.sSeg{margin:0}
+.gruppe>h2 .n{white-space:nowrap}
+.gruppe>h2.kk{flex-direction:column;align-items:flex-start;gap:2px;text-transform:none;letter-spacing:0}
+.gruppe>h2.kk .kd{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.02em;display:flex;justify-content:space-between;width:100%;gap:8px}
+.gruppe>h2.kk .kt{font-size:16px;font-weight:600;color:var(--fg);line-height:1.3}
 .dt{flex:none;min-width:38px;height:30px;padding:0 5px;border-radius:7px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:11px;letter-spacing:.02em}
 .zeile .m .art2{font-size:12px;font-weight:600;color:var(--accent)}
 .unterlagen{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
@@ -297,6 +302,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
   <div class="skripte" id="v-skripte" hidden>
     <div class="suche"><input type="search" id="sSuche" placeholder="Skripte durchsuchen" aria-label="Skripte durchsuchen" autocomplete="off"></div>
+    <div class="seg sSeg" role="group" aria-label="Sortierung der Skripte"><button type="button" data-sa="fach">Nach Fach</button><button type="button" data-sa="kurs">Nach Kurs</button></div>
     <nav class="chips" id="sChips" aria-label="Fächer"></nav>
     <div id="sListe"></div>
   </div>
@@ -721,10 +727,12 @@ function dateienZuKurs(k){return dateien.filter(f=>f.kurs===k.id)}
 const TYPEN={pdf:["PDF","#E5484D"],doc:["DOC","#2B6CB0"],docx:["DOC","#2B6CB0"],ppt:["PPT","#D9711C"],pptx:["PPT","#D9711C"],xls:["XLS","#2F855A"],xlsx:["XLS","#2F855A"],apkg:["ANKI","#3B82C4"],html:["WEB","#6B46C1"],md:["TEXT","#6E6E73"],txt:["TEXT","#6E6E73"],png:["BILD","#B7791F"],jpg:["BILD","#B7791F"],jpeg:["BILD","#B7791F"]};
 function typ(f){const m=/\.([a-z0-9]+)$/i.exec((f.datei||f.url||"").split(/[?#]/)[0]);return (m&&TYPEN[m[1].toLowerCase()])||["LINK","#0B4151"]}
 function semDatei(f){const k=kursVon(f);return k?semVon(k):f.datum?semIndex(f.datum):null}
-let sFach=null,sText="";
+let sFach=null,sText="",sAnsicht=ls.get("skripteAnsicht")==="kurs"?"kurs":"fach";
+document.querySelectorAll("[data-sa]").forEach(b=>b.addEventListener("click",()=>{sAnsicht=b.dataset.sa;ls.set("skripteAnsicht",sAnsicht);renderSkripte()}));
 document.getElementById("sSuche").addEventListener("input",e=>{sText=e.target.value.trim().toLowerCase();renderSkripte()});
 function renderSkripte(){
   const root=$("sListe"),chips=$("sChips");root.replaceChildren();chips.replaceChildren();
+  document.querySelectorAll("[data-sa]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.sa===sAnsicht));
   const imSem=dateien.filter(f=>{const s=semDatei(f);return s===null||semAuswahl===null||s===semAuswahl});
   if(!imSem.length){root.append(el("div","empty",dateien.length?"Für dieses Semester sind noch keine Skripte hinterlegt.":"Noch keine Skripte hinterlegt. Sobald welche da sind, findest du sie hier nach Fach sortiert."));chips.hidden=true;return}
   const faecher=[...new Set(imSem.map(f=>f.fach||"Sonstiges"))].sort((a,b)=>a.localeCompare(b,"de"));
@@ -734,19 +742,29 @@ function renderSkripte(){
   chip("Alle",null);faecher.forEach(f=>chip(f,f));
   const treffer=imSem.filter(f=>(!sFach||(f.fach||"Sonstiges")===sFach)&&(!sText||[f.t,f.fach,f.w,f.art,(kursVon(f)||{}).kurs].join(" ").toLowerCase().includes(sText)));
   if(!treffer.length){root.append(el("div","empty","Keine Skripte gefunden."));return}
-  const gruppen=new Map();treffer.forEach(f=>{const g=f.fach||"Sonstiges";if(!gruppen.has(g))gruppen.set(g,[]);gruppen.get(g).push(f)});
-  [...gruppen.keys()].sort((a,b)=>a.localeCompare(b,"de")).forEach(g=>{
-    const liste=gruppen.get(g).sort((a,b)=>{const da=(kursVon(a)||{}).datum||a.datum||"",db_=(kursVon(b)||{}).datum||b.datum||"";return db_.localeCompare(da)||String(a.t).localeCompare(String(b.t),"de")});
-    const sec=el("section","gruppe"),h=el("h2",null,g);h.append(el("span","n",liste.length+(liste.length===1?" Datei":" Dateien")));const l=el("div","liste");sec.append(h,l);
+  const datumVon=f=>(kursVon(f)||{}).datum||f.datum||"";
+  const nachKurs=sAnsicht==="kurs";
+  const schluessel=f=>{if(!nachKurs)return f.fach||"Sonstiges";const k=kursVon(f);return k?"k:"+k.id:f.datum?"d:"+f.datum:"z"};
+  const gruppen=new Map();treffer.forEach(f=>{const g=schluessel(f);if(!gruppen.has(g))gruppen.set(g,[]);gruppen.get(g).push(f)});
+  const ordnung=nachKurs?(a,b)=>{const fa=gruppen.get(a)[0],fb=gruppen.get(b)[0];const da=datumVon(fa),db_=datumVon(fb);
+      if(!da!==!db_)return da?-1:1;return db_.localeCompare(da)||((kursVon(fb)||{}).zeit||"").localeCompare((kursVon(fa)||{}).zeit||"")}
+    :(a,b)=>a.localeCompare(b,"de");
+  [...gruppen.keys()].sort(ordnung).forEach(g=>{
+    const liste=gruppen.get(g).sort((a,b)=>datumVon(b).localeCompare(datumVon(a))||String(a.t).localeCompare(String(b.t),"de"));
+    const anz=el("span","n",liste.length+(liste.length===1?" Datei":" Dateien"));let h;
+    if(nachKurs){const f0=liste[0],k=kursVon(f0),d=datumVon(f0);const tag=d?TAGE[new Date(d+"T12:00:00").getDay()]+" "+fmt(new Date(d+"T12:00:00"))+d.slice(0,4):"Ohne Datum";
+      h=el("h2","kk");const kd=el("span","kd");kd.append(el("span",null,k?tag+" · "+(k.zeit||""):tag),anz);h.append(kd,el("span","kt",k?k.kurs:(d?"Ohne Kurs":"Ohne Kurs und Datum")))}
+    else{h=el("h2",null,g);h.append(anz)}
+    const sec=el("section","gruppe"),l=el("div","liste");sec.append(h,l);
     liste.forEach(f=>{const a=el("a","zeile link");a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";
       const [tx,fa]=typ(f);const ic=el("span","dt",tx);ic.style.background=fa;
       const m=el("div","m");if(f.art)m.append(el("span","art2",f.art));m.append(el("span","t",f.t||f.datei||f.url));
-      const k=kursVon(f),d=k?k.datum:f.datum;const u=[k?k.kurs:null,d?fmt(new Date(d+"T12:00:00"))+d.slice(0,4):null,f.w].filter(Boolean).join(" · ");if(u)m.append(el("span","u",u));
+      const k=kursVon(f),d=k?k.datum:f.datum;const u=(nachKurs?[f.fach,f.w]:[k?k.kurs:null,d?fmt(new Date(d+"T12:00:00"))+d.slice(0,4):null,f.w]).filter(Boolean).join(" · ");if(u)m.append(el("span","u",u));
       a.append(ic,m);l.append(a)});
     root.append(sec)});
 }
 /* ---------- Bereiche ---------- */
-const LEAD={skripte:"Skripte zu den Kursen, nach Fach sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+const LEAD={skripte:"Skripte zu den Kursen, nach Fach oder Kurs sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
 function zeigeBereich(){
   const v={"#liste":"liste","#skripte":"skripte","#profil":"profil"}[location.hash]||"start";
   $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("v-skripte").hidden=v!=="skripte";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
