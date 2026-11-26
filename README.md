@@ -1,4 +1,4 @@
-# Amboss-Liste
+# Lernplaner
 
 Amboss-Kapitel zur Vorbereitung auf die Pflichtkurse im klinischen Abschnitt (Uni Münster), Semester für Semester.
 
