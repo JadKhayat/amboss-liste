@@ -201,6 +201,22 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .kurs.blink{animation:blink 1.6s ease-out}
 @keyframes blink{0%,30%{background:var(--tint)}100%{background:var(--card)}}
 @media (max-width:760px){.start{grid-template-columns:1fr}}
+/* Skripte */
+.skripte{display:flex;flex-direction:column;gap:18px;max-width:780px;width:100%}
+.suche input{width:100%;font:inherit;font-size:17px;padding:9px 14px 9px 36px;border:0;border-radius:10px;background:var(--fill);color:var(--fg);-webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238E8E93' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px 50%;background-size:17px}
+.suche input:focus{outline:2px solid var(--accent);outline-offset:0}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px}
+.chips::-webkit-scrollbar{display:none}
+.chips button{all:unset;flex:none;white-space:nowrap;font-size:15px;padding:7px 14px;border-radius:999px;background:var(--card);color:var(--fg);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);font-weight:600}
+.chips button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#sListe{display:flex;flex-direction:column;gap:26px}
+.dt{flex:none;min-width:38px;height:30px;padding:0 5px;border-radius:7px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:11px;letter-spacing:.02em}
+.zeile .m .art2{font-size:12px;font-weight:600;color:var(--accent)}
+.unterlagen{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.unterlagen a{font-size:13px;font-weight:500;padding:4px 10px;border-radius:999px;background:var(--tint);color:var(--accent);text-decoration:none}
+.unterlagen a:hover{text-decoration:underline}
 /* Profil */
 .profil{display:flex;flex-direction:column;gap:26px;max-width:640px;width:100%}
 .profil .who{border-radius:var(--r)}
@@ -223,6 +239,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <nav class="tabs" id="tabs" aria-label="Bereiche">
     <a href="#start" data-v="start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Übersicht</a>
     <a href="#liste" data-v="liste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/></svg>Amboss-Liste</a>
+    <a href="#skripte" data-v="skripte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Skripte</a>
     <a href="#profil" data-v="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6.2 18.6c1.3-2.2 3.4-3.4 5.8-3.4s4.5 1.2 5.8 3.4"/></svg><span id="tabProfil">Profil</span></a>
   </nav>
   <div class="start" id="v-start" hidden>
@@ -236,6 +253,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <section class="gruppe" id="sFort"></section>
       <section class="gruppe" id="sQuellen"></section>
     </div>
+  </div>
+  <div class="skripte" id="v-skripte" hidden>
+    <div class="suche"><input type="search" id="sSuche" placeholder="Skripte durchsuchen" aria-label="Skripte durchsuchen" autocomplete="off"></div>
+    <nav class="chips" id="sChips" aria-label="Fächer"></nav>
+    <div id="sListe"></div>
   </div>
   <div class="profil" id="v-profil" hidden>
     <section class="gruppe"><h2>Anmeldung</h2>
@@ -297,7 +319,7 @@ const QUELLEN=[
   {t:"Kreuzmich",url:"https://muenster.kreuzmich.de",w:"Altklausuren kreuzen",f:"#C0392B"},
 ];
 const TAGE=["So","Mo","Di","Mi","Do","Fr","Sa"];
-let kurse=[], db=null;
+let kurse=[], db=null, dateien=[];
 let nurOffen=false; try{nurOffen=localStorage.getItem("nurOffen")==="1"}catch(e){}
 document.getElementById("nurOffen").checked=nurOffen;
 document.getElementById("nurOffen").addEventListener("change",e=>{nurOffen=e.target.checked;try{localStorage.setItem("nurOffen",nurOffen?"1":"0")}catch(_){}render()});
@@ -514,12 +536,15 @@ function render(){
         txt.append(link);if(a.vk){txt.append(el("span","badge vk","Vorklinik"))}if(a.w){txt.append(el("span","why"," · "+a.w))}
         li.append(cb,txt);ul.append(li)});
       body.append(ul);
+      const du=dateienZuKurs(k);
+      if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,"📄 "+f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
       const dup=art(k).filter(a=>besitzer.get(a.id)!==k);
       if(dup.length){body.append(el("p","dup","Schon bei einem früheren Kurs: "+dup.map(a=>{const b=besitzer.get(a.id);return a.t+(b?" ("+fmt(new Date(b.datum+"T12:00:00"))+")":"")}).join(" · ")))}
       row.append(when,body);sec.append(row)}
     root.append(sec)}
   baueIndex(idx);
   renderStart(sichtbar);
+  renderSkripte();
 }
 /* ---------- Startseite ---------- */
 const p2=n=>String(n).padStart(2,"0");
@@ -592,13 +617,46 @@ function nachBereich(){
   zeigeBereich();const z=sprungZiel;sprungZiel=null;
   const r=z&&document.getElementById("k-"+z);
   if(r){r.scrollIntoView({block:"start"});r.classList.remove("blink");void r.offsetWidth;r.classList.add("blink")}else window.scrollTo({top:0})}
+/* ---------- Skripte ----------
+   dateien.json: {"dateien":[{"t":Titel, "datei":"skripte/<Fach>/<Name>.pdf" ODER "url":"https://…",
+     "fach", "kurs": Kurs-ID aus kurse.json (optional), "datum": "JJJJ-MM-TT" (optional), "art": "Eigenes Skript" | "Unterlagen" …, "w": kurzer Hinweis (optional)}]} */
+const dateiUrl=f=>f.url||String(f.datei||"").split("/").map(encodeURIComponent).join("/");
+const kursVon=f=>f.kurs?kurse.find(k=>k.id===f.kurs):null;
+function dateienZuKurs(k){return dateien.filter(f=>f.kurs===k.id)}
+const TYPEN={pdf:["PDF","#E5484D"],doc:["DOC","#2B6CB0"],docx:["DOC","#2B6CB0"],ppt:["PPT","#D9711C"],pptx:["PPT","#D9711C"],xls:["XLS","#2F855A"],xlsx:["XLS","#2F855A"],apkg:["ANKI","#3B82C4"],html:["WEB","#6B46C1"],md:["TEXT","#6E6E73"],txt:["TEXT","#6E6E73"],png:["BILD","#B7791F"],jpg:["BILD","#B7791F"],jpeg:["BILD","#B7791F"]};
+function typ(f){const m=/\.([a-z0-9]+)$/i.exec((f.datei||f.url||"").split(/[?#]/)[0]);return (m&&TYPEN[m[1].toLowerCase()])||["LINK","#0B4151"]}
+function semDatei(f){const k=kursVon(f);return k?semVon(k):f.datum?semIndex(f.datum):null}
+let sFach=null,sText="";
+document.getElementById("sSuche").addEventListener("input",e=>{sText=e.target.value.trim().toLowerCase();renderSkripte()});
+function renderSkripte(){
+  const root=$("sListe"),chips=$("sChips");root.replaceChildren();chips.replaceChildren();
+  const imSem=dateien.filter(f=>{const s=semDatei(f);return s===null||semAuswahl===null||s===semAuswahl});
+  if(!imSem.length){root.append(el("div","empty",dateien.length?"Für dieses Semester sind noch keine Skripte hinterlegt.":"Noch keine Skripte hinterlegt. Sobald welche da sind, findest du sie hier nach Fach sortiert."));chips.hidden=true;return}
+  const faecher=[...new Set(imSem.map(f=>f.fach||"Sonstiges"))].sort((a,b)=>a.localeCompare(b,"de"));
+  if(sFach&&!faecher.includes(sFach))sFach=null;
+  chips.hidden=faecher.length<2;
+  const chip=(label,wert)=>{const b=el("button",null,label);b.type="button";b.setAttribute("aria-pressed",sFach===wert);b.addEventListener("click",()=>{sFach=wert;renderSkripte()});chips.append(b)};
+  chip("Alle",null);faecher.forEach(f=>chip(f,f));
+  const treffer=imSem.filter(f=>(!sFach||(f.fach||"Sonstiges")===sFach)&&(!sText||[f.t,f.fach,f.w,f.art,(kursVon(f)||{}).kurs].join(" ").toLowerCase().includes(sText)));
+  if(!treffer.length){root.append(el("div","empty","Keine Skripte gefunden."));return}
+  const gruppen=new Map();treffer.forEach(f=>{const g=f.fach||"Sonstiges";if(!gruppen.has(g))gruppen.set(g,[]);gruppen.get(g).push(f)});
+  [...gruppen.keys()].sort((a,b)=>a.localeCompare(b,"de")).forEach(g=>{
+    const liste=gruppen.get(g).sort((a,b)=>{const da=(kursVon(a)||{}).datum||a.datum||"",db_=(kursVon(b)||{}).datum||b.datum||"";return db_.localeCompare(da)||String(a.t).localeCompare(String(b.t),"de")});
+    const sec=el("section","gruppe"),h=el("h2",null,g);h.append(el("span","n",liste.length+(liste.length===1?" Datei":" Dateien")));const l=el("div","liste");sec.append(h,l);
+    liste.forEach(f=>{const a=el("a","zeile link");a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";
+      const [tx,fa]=typ(f);const ic=el("span","dt",tx);ic.style.background=fa;
+      const m=el("div","m");if(f.art)m.append(el("span","art2",f.art));m.append(el("span","t",f.t||f.datei||f.url));
+      const k=kursVon(f),d=k?k.datum:f.datum;const u=[k?k.kurs:null,d?fmt(new Date(d+"T12:00:00"))+d.slice(0,4):null,f.w].filter(Boolean).join(" · ");if(u)m.append(el("span","u",u));
+      a.append(ic,m);l.append(a)});
+    root.append(sec)});
+}
 /* ---------- Bereiche ---------- */
-const LEAD={profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+const LEAD={skripte:"Deine Skripte und Unterlagen, nach Fach sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
 function zeigeBereich(){
-  const v=location.hash==="#liste"?"liste":location.hash==="#profil"?"profil":"start";
-  $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
+  const v={"#liste":"liste","#skripte":"skripte","#profil":"profil"}[location.hash]||"start";
+  $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("v-skripte").hidden=v!=="skripte";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
   document.querySelectorAll("#tabs a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
-  document.title=v==="liste"?"Amboss-Liste · Lernplaner":v==="profil"?"Profil · Lernplaner":"Lernplaner"}
+  document.title=({liste:"Amboss-Liste · ",skripte:"Skripte · ",profil:"Profil · "}[v]||"")+"Lernplaner"}
 window.addEventListener("hashchange",nachBereich);
 zeigeBereich();
 let schreibt=Promise.resolve();
@@ -614,6 +672,7 @@ function abhaken(k,id,val){
 }
 (async()=>{
   try{const r=await fetch("kurse.json?v="+Date.now(),{cache:"no-store"});const d=await r.json();kurse=d.kurse||[];semTitel=(d.semester&&typeof d.semester==="object")?d.semester:{};baueSemester();
+    try{const r2=await fetch("dateien.json?v="+Date.now(),{cache:"no-store"});if(r2.ok){const d2=await r2.json();dateien=Array.isArray(d2.dateien)?d2.dateien:[]}}catch(e){dateien=[]}
     $("hinweis").textContent=d.stand?"Kursliste zuletzt aktualisiert: "+d.stand.split("-").reverse().join(".")+".":""}
   catch(e){$("liste").replaceChildren(el("div","empty","Die Kursliste konnte nicht geladen werden. Seite neu laden."));return}
   render();
