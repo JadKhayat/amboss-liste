@@ -554,7 +554,7 @@ function baueIndex(eintraege){
 function render(){
   const root=document.getElementById("liste");root.replaceChildren();const idx=[];
   let ges=0,ok=0;
-  const sichtbar=kurse.filter(k=>(semAuswahl===null||semVon(k)===semAuswahl)&&!(ohneAus&&keineKlausur(k)));
+  const sichtbar=kurse.filter(k=>!k.ohneAmboss&&(semAuswahl===null||semVon(k)===semAuswahl)&&!(ohneAus&&keineKlausur(k)));
   besitzer=new Map();
   [...sichtbar].sort((a,b)=>(a.datum+a.zeit).localeCompare(b.datum+b.zeit)).forEach(k=>art(k).forEach(a=>{if(!besitzer.has(a.id))besitzer.set(a.id,k)}));
   sichtbar.forEach(k=>{eigen(k).forEach(a=>{ges++;if(fertig(a.id))ok++})});

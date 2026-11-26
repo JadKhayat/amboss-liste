@@ -1,3 +1,172 @@
 {
- "dateien": []
+ "dateien": [
+  {
+   "t": "POL Fall 2 – Bäckerasthma (Skript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 2 – Bäckerasthma – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-06-pol-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 2/POL Fall 2 – Bäckerasthma – Kurzskript.pdf"
+  },
+  {
+   "t": "POL Fall 3 – Vergiftungen und cholinerges System (Skript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 3 – Vergiftungen und cholinerges System – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-20-pol-4",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 3/POL Fall 3 – Vergiftungen und cholinerges System – Kurzskript.pdf"
+  },
+  {
+   "t": "POL Fall 4 – Falldarstellung (Kurzskript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 4 – Falldarstellung – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-06-pol-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 4/POL Fall 4 – Falldarstellung – Kurzskript.pdf"
+  },
+  {
+   "t": "POL Fall 4 – Herzinsuffizienz (Skript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 4 – Herzinsuffizienz – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-20-pol-5",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 4/POL Fall 4 – Herzinsuffizienz – Kurzskript.pdf"
+  },
+  {
+   "t": "POL Fall 5 – Falldarstellung (Kurzskript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 5 – Falldarstellung – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-20-pol-5",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 5/POL Fall 5 – Falldarstellung – Kurzskript.pdf"
+  },
+  {
+   "t": "POL Fall 5 – Narkose (Skript)",
+   "datei": "skripte/Allgemeine Pharmakologie/POL Fall 5 – Narkose – Kurzskript.pdf",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "2026-11-27-pol-6",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Allgemeine Pharmakologie/Material/PoL/PoL 5/POL Fall 5 – Narkose – Kurzskript.pdf"
+  },
+  {
+   "t": "Kurzskript Anamnese",
+   "datei": "skripte/Skills Lab/Kurzskript Anamnese (2026-10-27).pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-10-13-skillslab-1",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/01 Hygiene und Anamnese/Kurzskript Anamnese (2026-10-27).pdf"
+  },
+  {
+   "t": "Kurzskript Händehygiene",
+   "datei": "skripte/Skills Lab/Kurzskript Händehygiene (2026-10-27).pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-10-13-skillslab-1",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/01 Hygiene und Anamnese/Kurzskript Händehygiene (2026-10-27).pdf"
+  },
+  {
+   "t": "Skript Abdomen",
+   "datei": "skripte/Skills Lab/Skript Abdomen SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-10-27-skillslab-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/03 Abdomen/Skript Abdomen SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Lunge und Thorax",
+   "datei": "skripte/Skills Lab/Skript Lunge und Thorax SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-10-29-skillslab-4",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/04 Lunge und Thorax/Skript Lunge und Thorax SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Herz",
+   "datei": "skripte/Skills Lab/Skript Herz SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-03-skillslab-5",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/05 Herz/Skript Herz SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Schmierinfektionen und aseptisches Arbeiten",
+   "datei": "skripte/Skills Lab/Skript Schmierinfektionen und aseptisches Arbeiten SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-04-skillslab-hygiene",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/11 Schmierinfektionen und aseptisches Arbeiten/Skript Schmierinfektionen und aseptisches Arbeiten SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Neurologie",
+   "datei": "skripte/Skills Lab/Skript Neurologie SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-10-skillslab-6",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/06 Neurologie/Skript Neurologie SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Arzneimitteltherapiesicherheit",
+   "datei": "skripte/Skills Lab/Skript Arzneimitteltherapiesicherheit SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-11-skillslab-8",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/08 Arzneimitteltherapiesicherheit/Skript Arzneimitteltherapiesicherheit SkillsLab.pdf"
+  },
+  {
+   "t": "Skript Visitentraining",
+   "datei": "skripte/Skills Lab/Skript Visitentraining SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-16-skillslab-visite",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/00 Visitentraining I/Skript Visitentraining SkillsLab.pdf"
+  },
+  {
+   "t": "Spickzettel Befunde und Arztbrief",
+   "datei": "skripte/Skills Lab/Spickzettel Befunde und Arztbrief SkillsLab.pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-16-skillslab-visite",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/00 Visitentraining I/Spickzettel Befunde und Arztbrief SkillsLab.pdf"
+  },
+  {
+   "t": "Spickzettel Befunde und Arztbrief (1 Seite)",
+   "datei": "skripte/Skills Lab/Spickzettel Befunde und Arztbrief SkillsLab (1 Seite).pdf",
+   "fach": "Skills Lab",
+   "kurs": "2026-11-16-skillslab-visite",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Skillslab/00 Visitentraining I/Spickzettel Befunde und Arztbrief SkillsLab (1 Seite).pdf"
+  },
+  {
+   "t": "Überblick vier Ärztinnen (Sitzung 3)",
+   "datei": "skripte/Geschichte, Theorie, Ethik der Medizin/Überblick vier Ärztinnen Sitzung 3 (2026-11-24).pdf",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "2026-11-24-gte-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Geschichte, Theorie, Ethik der Medizin/Skripte/Überblick vier Ärztinnen Sitzung 3 (2026-11-24).pdf"
+  },
+  {
+   "t": "Kurzskript Franziska Tiburtius",
+   "datei": "skripte/Geschichte, Theorie, Ethik der Medizin/Kurzskript Franziska Tiburtius (2026-11-24).pdf",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "2026-11-24-gte-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Geschichte, Theorie, Ethik der Medizin/Skripte/Kurzskript Franziska Tiburtius (2026-11-24).pdf"
+  },
+  {
+   "t": "Biographie Franziska Tiburtius (ausführlich)",
+   "datei": "skripte/Geschichte, Theorie, Ethik der Medizin/Biographie Franziska Tiburtius ausführlich (2026-11-24).pdf",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "2026-11-24-gte-3",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Geschichte, Theorie, Ethik der Medizin/Skripte/Biographie Franziska Tiburtius ausführlich (2026-11-24).pdf"
+  },
+  {
+   "t": "Kurzskript Lucie Adelsberger",
+   "datei": "skripte/Geschichte, Theorie, Ethik der Medizin/Kurzskript Lucie Adelsberger (2026-11-26).pdf",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "2026-11-26-gte-4",
+   "art": "Eigenes Skript",
+   "quelle": "Module/1. Klinisches Semester/Geschichte, Theorie, Ethik der Medizin/Skripte/Kurzskript Lucie Adelsberger (2026-11-26).pdf"
+  }
+ ]
 }
