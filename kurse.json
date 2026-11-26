@@ -1,0 +1,705 @@
+{
+ "stand": "2026-11-26",
+ "kurse": [
+  {
+   "id": "2026-10-13-skillslab-1",
+   "artikel": [
+    {
+     "id": "En08Eg",
+     "t": "Anamnese",
+     "w": "Aufbau und Gesprächsführung"
+    },
+    {
+     "id": "WQ0PEf",
+     "t": "Antisepsis",
+     "w": "Händedesinfektion"
+    },
+    {
+     "id": "_f05K2",
+     "t": "Nosokomiale Infektionen",
+     "w": "Basishygiene, Prävention"
+    }
+   ],
+   "datum": "2026-10-13",
+   "fach": "Skills Lab",
+   "kurs": "Termin 1: Händehygiene und Anamnese",
+   "thema": "Anamnese erheben (Schema, SAMPLER) und Händehygiene nach den 5 Momenten der WHO",
+   "zeit": "09:15"
+  },
+  {
+   "id": "2026-10-14-arbeitssicherheit",
+   "artikel": [
+    {
+     "id": "wQ0hyf",
+     "t": "Arbeitsmedizinische Organe und Gesetze",
+     "w": "Arbeitsschutzgesetz, Zuständigkeiten"
+    },
+    {
+     "id": "9Q0Nyf",
+     "t": "Verhütung und Früherkennung beruflich bedingter Schäden",
+     "w": "Vorsorge, Schutzmaßnahmen"
+    }
+   ],
+   "datum": "2026-10-14",
+   "fach": "Studienorganisation",
+   "kurs": "Grundlagen der Arbeitssicherheit",
+   "thema": "Arbeitsschutz im Studium und in der Klinik",
+   "zeit": "10:15"
+  },
+  {
+   "id": "2026-10-15-skillslab-2",
+   "artikel": [
+    {
+     "id": "XL09wg",
+     "t": "Ablauf einer allgemeinen körperlichen Aufnahmeuntersuchung",
+     "w": "Vitalparameter im Untersuchungsablauf"
+    },
+    {
+     "id": "hE0cv3",
+     "t": "Hämodynamisches Monitoring",
+     "w": "Blutdruckmessung"
+    },
+    {
+     "id": "xH0Esh",
+     "t": "Kindervorsorgeuntersuchungen",
+     "w": "Perzentilen, Wachstum"
+    }
+   ],
+   "datum": "2026-10-15",
+   "fach": "Skills Lab",
+   "kurs": "Termin 2: Wachstums- und Vitalparameter",
+   "thema": "Puls, Blutdruck, Atemfrequenz, Temperatur, Größe und Gewicht erheben",
+   "zeit": "10:15"
+  },
+  {
+   "id": "2026-10-19-nuklearmedizin-1",
+   "artikel": [
+    {
+     "id": "Mn0MFg",
+     "t": "Nuklearmedizin und Strahlenschutz",
+     "w": "Grundlagen, Geräte, Tracer"
+    },
+    {
+     "id": "k60mOS",
+     "t": "Ionisierende Strahlung",
+     "vk": true,
+     "w": "Strahlenarten, Dosisgrößen"
+    },
+    {
+     "id": "hK0cTS",
+     "t": "Aufbau der Materie",
+     "vk": true,
+     "w": "Radioaktiver Zerfall, Halbwertszeit"
+    }
+   ],
+   "datum": "2026-10-19",
+   "fach": "Nuklearmedizin",
+   "kurs": "Praktikum Teil 1: Medizinische Physik und Radiopharmazie",
+   "termine": 2,
+   "thema": "19. und 21.10. · Gammakamera, PET, Radionuklide und Radiopharmaka",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-10-22-strahlenbiologie",
+   "artikel": [
+    {
+     "id": "k60mOS",
+     "t": "Ionisierende Strahlung",
+     "vk": true,
+     "w": "Energiedosis, Äquivalentdosis, Wirkung"
+    },
+    {
+     "id": "Yp0nLS",
+     "t": "Replikation und Reparaturmechanismen der DNA",
+     "vk": true,
+     "w": "Doppelstrangbruch-Reparatur"
+    },
+    {
+     "id": "L50wkg",
+     "t": "Strahlentherapie",
+     "w": "Fraktionierung"
+    }
+   ],
+   "datum": "2026-10-22",
+   "fach": "Strahlenbiologie",
+   "kurs": "Praktikum der Strahlenbiologie",
+   "termine": 2,
+   "thema": "22. und 23.10. · Teil 1 radiologische Größen, Teil 2 Zellüberleben, Fraktionierung, DNA-Reparatur",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-10-23-pol-1",
+   "artikel": [],
+   "datum": "2026-10-23",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Einführung",
+   "thema": "Erster Termin: Fall 1 (Felicitas Fränkel) wird vorgestellt, noch kein Fall besprochen. Die Amboss-Kapitel zu Fall 1 stehen beim 30.10.",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-10-26-nuklearmedizin-2",
+   "artikel": [
+    {
+     "id": "il0J9T",
+     "t": "Schilddrüsenszintigrafie",
+     "w": "heißer und kalter Knoten"
+    },
+    {
+     "id": "JN0sXg",
+     "t": "Knochenszintigrafie",
+     "w": "Indikationen, Befunde"
+    },
+    {
+     "id": "Gl0ByT",
+     "t": "Radioiodtherapie",
+     "w": "Indikationen, Strahlenschutz"
+    }
+   ],
+   "datum": "2026-10-26",
+   "fach": "Nuklearmedizin",
+   "kurs": "Praktikum Teil 2: Bildgebung und Therapie",
+   "termine": 2,
+   "thema": "26. und 27.10. · Szintigrafie, PET und nuklearmedizinische Therapie",
+   "zeit": "16:15"
+  },
+  {
+   "id": "2026-10-27-skillslab-3",
+   "artikel": [
+    {
+     "id": "8n0OEg",
+     "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
+     "w": "Abdomen-Untersuchung, Zeichen"
+    },
+    {
+     "id": "N50-4g",
+     "t": "Akutes Abdomen",
+     "w": "klinische Zeichen"
+    }
+   ],
+   "datum": "2026-10-27",
+   "fach": "Skills Lab",
+   "kurs": "Termin 3: Körperliche Untersuchung Abdomen",
+   "thema": "Inspektion, Auskultation, Perkussion und Palpation des Abdomens",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-10-28-strahlentherapie",
+   "artikel": [
+    {
+     "id": "L50wkg",
+     "t": "Strahlentherapie",
+     "w": "Konzepte, Indikationen, Nebenwirkungen"
+    }
+   ],
+   "datum": "2026-10-28",
+   "fach": "Strahlentherapie",
+   "kurs": "Praktikum der Strahlentherapie",
+   "thema": "Führung und Demonstration: Wirkprinzip, kurativ und palliativ, adjuvant, neoadjuvant, definitiv",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-10-29-skillslab-4",
+   "artikel": [
+    {
+     "id": "tl0XAT",
+     "t": "Klinische Untersuchung der Lunge",
+     "w": "Perkussion, Auskultation"
+    },
+    {
+     "id": "8n0OEg",
+     "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
+     "w": "Thorax-Befunde"
+    }
+   ],
+   "datum": "2026-10-29",
+   "fach": "Skills Lab",
+   "kurs": "Termin 4: Körperliche Untersuchung Lunge und Thorax",
+   "thema": "Untersuchung von Thorax und Lunge",
+   "zeit": "14:00"
+  },
+  {
+   "id": "2026-10-30-pol-2",
+   "artikel": [
+    {
+     "id": "Tg06u2",
+     "t": "Phäochromozytom",
+     "w": "Klinik, Metanephrine, Clonidin-Hemmtest"
+    },
+    {
+     "id": "oo001S",
+     "t": "Vegetatives Nervensystem",
+     "vk": true,
+     "w": "Sympathikus, Transmitter, Abbau"
+    },
+    {
+     "id": "tN0X1g",
+     "t": "Sympathomimetika",
+     "w": "adrenerge Rezeptoren, Agonisten"
+    },
+    {
+     "id": "8N0O1g",
+     "t": "Antisympathotonika",
+     "w": "α-Blocker, α-Methyldopa, Clonidin"
+    },
+    {
+     "id": "uN0p1g",
+     "t": "Betablocker",
+     "w": "β-Antagonisten"
+    },
+    {
+     "id": "VO0GrT",
+     "t": "Hypertensive Schwangerschaftserkrankungen",
+     "w": "α-Methyldopa in der Schwangerschaft"
+    }
+   ],
+   "datum": "2026-10-30",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Fall 1 (Felicitas Fränkel)",
+   "thema": "Lernziele aus Ilias: Phäochromozytom; Diagnose (Metanephrine, Clonidin-Hemmtest); Aufbau und Funktion des Sympathikus; Transmitter im vegetativen Nervensystem (Metaboliten, Abbauprodukte); adrenerge Rezeptoren mit Subtypen; Agonisten und Antagonisten; α-Methyldopa in der Schwangerschaft",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-11-02-patho-mikro-1",
+   "artikel": [
+    {
+     "id": "VP0GdT",
+     "t": "Zelluläre Veränderungen und Anpassungsreaktionen",
+     "w": "Hyperplasie, Atrophie, Nekroseformen"
+    },
+    {
+     "id": "pi0Lsf",
+     "t": "Benignes Prostatasyndrom",
+     "w": "Z521, Pathologie"
+    },
+    {
+     "id": "3h0Sdf",
+     "t": "Chronisch-obstruktive Lungenerkrankung",
+     "w": "Z643, Emphysemformen"
+    },
+    {
+     "id": "5h0ief",
+     "t": "Tuberkulose",
+     "w": "Z692, Granulom, Miliartuberkulose"
+    },
+    {
+     "id": "fg0ku2",
+     "t": "Cushing-Syndrom",
+     "w": "184, ACTH-abhängige NNR-Hyperplasie"
+    },
+    {
+     "id": "SS0y_2",
+     "t": "Akute Pankreatitis",
+     "w": "Z698, Fettgewebsnekrose"
+    }
+   ],
+   "datum": "2026-11-02",
+   "fach": "Allgemeine Pathologie",
+   "kurs": "Mikroskopie, Thema 1: Anpassungsreaktionen",
+   "thema": "Präparate laut Mikro-Skript: Z521 Prostatahyperplasie · Z643 Lungenemphysem · Z692 Miliartuberkulose · 184 knotige NNR-Hyperplasie · Z698 Pankreatitis mit Fettgewebsnekrose",
+   "zeit": "08:30"
+  },
+  {
+   "id": "2026-11-02-patho-mikro-2",
+   "artikel": [
+    {
+     "id": "wS0hbf",
+     "t": "Myokardinfarkt",
+     "w": "Z709, Infarktstadien histologisch"
+    },
+    {
+     "id": "s70tMh",
+     "t": "Atherosklerose und kardiovaskuläre Prävention",
+     "w": "Z690, Plaque-Stadien"
+    },
+    {
+     "id": "ch0a1f",
+     "t": "Periphere arterielle Verschlusskrankheit",
+     "w": "Z690, Beinarterienverschluss"
+    },
+    {
+     "id": "dh0o1f",
+     "t": "Aortenaneurysma",
+     "w": "Z669, Wandaufbau, EVG-Färbung"
+    },
+    {
+     "id": "CS0qbf",
+     "t": "Infektiöse Endokarditis",
+     "w": "SP1-6, Abgrenzung zur NBTE/Libman-Sacks"
+    },
+    {
+     "id": "4J038S",
+     "t": "Präparatekasten Pathologie",
+     "w": "Histobilder zum Vergleich"
+    }
+   ],
+   "datum": "2026-11-02",
+   "fach": "Allgemeine Pathologie",
+   "kurs": "Mikroskopie, Thema 2: Herz-Kreislauf",
+   "thema": "Präparate laut Mikro-Skript: Z687 anämischer Niereninfarkt · Z709 Myokardinfarkt · Z690 Arteriosklerose mit Gefäßverschluss (Beinarterie) · Z669 Aortenaneurysma (EVG) · SP1-6 ulzeropolypöse Endokarditis (NBTE)",
+   "zeit": "09:15"
+  },
+  {
+   "id": "2026-11-02-strahlentherapie-2",
+   "artikel": [
+    {
+     "id": "L50wkg",
+     "t": "Strahlentherapie",
+     "w": "Akut- und Spätfolgen, Therapiekonzepte"
+    },
+    {
+     "id": "WM0Png",
+     "t": "Allgemeine Onkologie",
+     "w": "TNM, kurativ vs. palliativ, multimodale Therapie"
+    },
+    {
+     "id": "k60mOS",
+     "t": "Ionisierende Strahlung",
+     "vk": true,
+     "w": "Dosis, deterministische und stochastische Wirkung"
+    }
+   ],
+   "datum": "2026-11-02",
+   "fach": "Strahlentherapie",
+   "kurs": "Praktikum der Strahlentherapie: Patientenvorstellung",
+   "termine": 2,
+   "thema": "2. und 3.11. · Patientengespräch (Anamnese, Erleben der Strahlentherapie), danach Diskussion mit Strahlenbiologie, Strahlenphysik und Radioonkologie",
+   "zeit": "16:15"
+  },
+  {
+   "id": "2026-11-03-skillslab-5",
+   "artikel": [
+    {
+     "id": "rM0fJg",
+     "t": "Untersuchungsmethoden in der Kardiologie",
+     "w": "Auskultation des Herzens, Herztöne und -geräusche"
+    },
+    {
+     "id": "8n0OEg",
+     "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
+     "w": "Herzuntersuchung, Pulse"
+    }
+   ],
+   "datum": "2026-11-03",
+   "fach": "Skills Lab",
+   "kurs": "Termin 5: Körperliche Untersuchung Herz",
+   "thema": "Untersuchung von Herz und Thorax (Inspektion, Palpation, Auskultation); Stethoskop mitbringen; Pre-Test in Ilias",
+   "zeit": "12:15"
+  },
+  {
+   "id": "2026-11-04-skillslab-hygiene",
+   "artikel": [
+    {
+     "id": "G0aBhQ",
+     "t": "AMBOSS-Pflegewissen: Isolationsmaßnahmen",
+     "w": "Isolierungsarten, Schutzausrüstung"
+    },
+    {
+     "id": "_f05K2",
+     "t": "Nosokomiale Infektionen",
+     "w": "Multiresistente Erreger (MRE), Prävention"
+    },
+    {
+     "id": "WQ0PEf",
+     "t": "Antisepsis",
+     "w": "Aseptisches Arbeiten, Händedesinfektion"
+    }
+   ],
+   "datum": "2026-11-04",
+   "fach": "Skills Lab",
+   "kurs": "Praktikum Skills Lab 11 Hygiene und Termin 11",
+   "termine": 2,
+   "thema": "09:15 Praktikum Hygiene (Skript Teil II: isolierte Pflege, Kontaktisolierung, Isolierung bei aerogenen Infektionen, Kohortenisolierung, An- und Ausziehen der Schutzausrüstung) · 10:15 Termin 11: Schmierinfektionen und aseptisches Arbeiten",
+   "zeit": "09:15"
+  },
+  {
+   "id": "2026-11-06-pol-3",
+   "artikel": [
+    {
+     "id": "Ph0WVf",
+     "t": "Asthma bronchiale",
+     "w": "Definition, Stufentherapie, Theophyllin, LTRA, Omalizumab"
+    },
+    {
+     "id": "tN0X1g",
+     "t": "Sympathomimetika",
+     "w": "β2-Sympathomimetika kurz und lang wirksam"
+    },
+    {
+     "id": "sN0tcg",
+     "t": "Parasympatholytika",
+     "w": "inhalative Muskarinantagonisten"
+    },
+    {
+     "id": "km0mfg",
+     "t": "Glucocorticoide",
+     "w": "inhalativ und systemisch"
+    },
+    {
+     "id": "Pm0Wfg",
+     "t": "Antihistaminika",
+     "w": "Wirkung, UAW"
+    }
+   ],
+   "datum": "2026-11-06",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Fall 2 (Günther Schulte)",
+   "thema": "Lernziele aus Ilias: Definition Asthma bronchiale; Wirkmechanismen, UAWs und Applikationswege von β2-Sympathomimetika (kurz und lang), Parasympatholytika, Theophyllin, Glucocorticoiden, Leukotrienrezeptorantagonisten, Omalizumab, Mastzellstabilisatoren, Antihistaminika. Dein Teil: Theophyllin. Theophyllin, Montelukast und Omalizumab haben kein eigenes Amboss-Kapitel, sie stehen im Kapitel Asthma bronchiale; Mastzellstabilisatoren stehen in Asthma bronchiale und Antihistaminika.",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-11-06-radiologie-1",
+   "artikel": [
+    {
+     "id": "in0JGg",
+     "t": "Röntgen",
+     "w": "Technik, Absorption, Strahlenschutz"
+    },
+    {
+     "id": "KN0UXg",
+     "t": "Computertomografie",
+     "w": "Technik, Indikation, Befund"
+    },
+    {
+     "id": "pN0LXg",
+     "t": "Magnetresonanztomografie",
+     "w": "Prinzip, Kontraindikationen"
+    }
+   ],
+   "datum": "2026-11-06",
+   "fach": "Radiologie",
+   "kurs": "Praktikum der Radiologie, Teil 1: Diagnostische Radiologie",
+   "thema": "Demonstration der radiologischen Diagnostik: Röntgen, CT, MRT (in Ilias keine Unterlagen)",
+   "zeit": "12:15"
+  },
+  {
+   "id": "2026-11-10-skillslab-6",
+   "artikel": [
+    {
+     "id": "o500Og",
+     "t": "Neurologische Untersuchung",
+     "w": "Vigilanz, Motorik, Reflexe, Stand und Gang"
+    },
+    {
+     "id": "XL09wg",
+     "t": "Ablauf einer allgemeinen körperlichen Aufnahmeuntersuchung",
+     "w": "Einordnung der neurologischen Untersuchung"
+    }
+   ],
+   "datum": "2026-11-10",
+   "fach": "Skills Lab",
+   "keineKlausur": true,
+   "kurs": "Termin 6: Klinische Untersuchung Neurologie (keine Klausur)",
+   "thema": "Neurologische Untersuchung; Pre-Test in Ilias. Skills Lab ist kein Klausurfach.",
+   "zeit": "11:15"
+  },
+  {
+   "id": "2026-11-11-skillslab-8",
+   "artikel": [
+    {
+     "id": "OC0IHR",
+     "t": "AMBOSS-Pflegewissen: Medikamentenmanagement",
+     "w": "Medikationsprozess, Fehlerquellen"
+    },
+    {
+     "id": "7N04cg",
+     "t": "Pharmakologische Grundlagen",
+     "w": "Grundbegriffe zur Arzneimitteltherapie"
+    },
+    {
+     "id": "8n0OEg",
+     "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
+     "w": "Wiederholung körperliche Untersuchung"
+    }
+   ],
+   "datum": "2026-11-11",
+   "fach": "Skills Lab",
+   "keineKlausur": true,
+   "kurs": "Termin 8: Arzneimitteltherapiesicherheit und Wiederholung der körperlichen Untersuchung (keine Klausur)",
+   "thema": "Strategien gegen Medikationsfehler von der Anamnese bis zur Gabe; Wiederholung der körperlichen Untersuchung. Skills Lab ist kein Klausurfach.",
+   "zeit": "15:15"
+  },
+  {
+   "id": "2026-11-16-skillslab-visite",
+   "artikel": [
+    {
+     "id": "OK0IgS",
+     "t": "Beziehung zwischen Ärzt:innen und Patient:innen",
+     "vk": true,
+     "w": "Kommunikation, Gesprächsführung"
+    },
+    {
+     "id": "En08Eg",
+     "t": "Anamnese",
+     "w": "Aufbau und Gesprächsführung"
+    }
+   ],
+   "datum": "2026-11-16",
+   "fach": "Skills Lab",
+   "keineKlausur": true,
+   "kurs": "Medical Skills Lab: Visitentraining I (keine Klausur)",
+   "termine": 2,
+   "thema": "16. und 17.11. · Visitentraining am Krankenbett. In Ilias noch keine Unterlagen, Kapitel daher nur zu Gesprächsführung und Anamnese (Auswahl ohne Lernziele, unsicher). Skills Lab ist kein Klausurfach.",
+   "zeit": "10:15"
+  },
+  {
+   "id": "2026-11-20-pol-4",
+   "artikel": [
+    {
+     "id": "mG0V-h",
+     "t": "Grundlagen der Akuttoxikologie",
+     "w": "Allgemeinmaßnahmen, Antidote"
+    },
+    {
+     "id": "Wt0Pc3",
+     "t": "Primäre Giftelimination - AMBOSS-SOP",
+     "w": "Resorption vermindern"
+    },
+    {
+     "id": "Af0RK2",
+     "t": "Überblick über Vergiftungen",
+     "w": "Alkylphosphate, Paracetamol, Opioide"
+    },
+    {
+     "id": "zQ0rAf",
+     "t": "Erkrankungen durch organische Lösungsmittel, Insektizide, Halogenkohlenwasserstoffe",
+     "w": "Methanol, Ethanol/Fomepizol als Antidot"
+    },
+    {
+     "id": "4h03Vf",
+     "t": "Intoxikation mit Kohlenstoffmonoxid oder -dioxid",
+     "w": "CO, Sauerstofftherapie"
+    },
+    {
+     "id": "yN0ddg",
+     "t": "Opioide",
+     "w": "Intoxikation, Naloxon"
+    },
+    {
+     "id": "CN0qWg",
+     "t": "Benzodiazepine",
+     "w": "Intoxikation, Flumazenil"
+    },
+    {
+     "id": "BN0zWg",
+     "t": "Nicht-Opioid-Analgetika",
+     "w": "Paracetamol, Acetylcystein"
+    },
+    {
+     "id": "Vm0Geg",
+     "t": "Herzglykoside",
+     "w": "Digitalisintoxikation, Antidot"
+    },
+    {
+     "id": "Yt0nX3",
+     "t": "Anticholinerges Syndrom",
+     "w": "Atropinvergiftung, Physostigmin"
+    },
+    {
+     "id": "sN0tcg",
+     "t": "Parasympatholytika",
+     "w": "M-Antagonisten"
+    },
+    {
+     "id": "HN0Kcg",
+     "t": "Parasympathomimetika",
+     "w": "direkte und indirekte, Alkylphosphatintoxikation"
+    }
+   ],
+   "datum": "2026-11-20",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs, 1. Block: Fall 3 (Luise Lehmann)",
+   "thema": "Lernziele aus Ilias: Allgemeinmaßnahmen bei akuten Intoxikationen (Giftresorption vermindern, Giftelimination beschleunigen); Methanol/Ethanol, CO, Säuren/Laugen mit Antidoten; Medikamentenintoxikationen (Opiate, Benzodiazepine, Paracetamol, Digitalisglykoside, Atropin); cholinerges System (Parasympatholytika, direkte und indirekte Parasympathomimetika); Alkylphosphatintoxikation. Zu Säuren/Laugen gibt es kein eigenes Amboss-Kapitel.",
+   "zeit": "14:15"
+  },
+  {
+   "id": "2026-11-20-pol-5",
+   "artikel": [
+    {
+     "id": "rS0faf",
+     "t": "Herzinsuffizienz",
+     "w": "Symptome, NYHA, Diagnostik, 4-Säulen-Therapie"
+    },
+    {
+     "id": "gm0FUg",
+     "t": "Diuretika",
+     "w": "Überblick, Angriffsorte im Nephron"
+    },
+    {
+     "id": "hm0c2g",
+     "t": "Schleifendiuretika",
+     "w": "NKCC2, UAW"
+    },
+    {
+     "id": "Sm0yUg",
+     "t": "Thiaziddiuretika",
+     "w": "Wirkung, UAW (Hypokaliämie, Hyperkalzämie)"
+    },
+    {
+     "id": "3m0S2g",
+     "t": "Kaliumsparende Diuretika",
+     "w": "Triamteren, Amilorid, MRA (Spironolacton, Eplerenon)"
+    },
+    {
+     "id": "1m02eg",
+     "t": "RAAS-Inhibitoren",
+     "w": "ACE-Hemmer, AT1-Blocker"
+    },
+    {
+     "id": "Vm0Geg",
+     "t": "Herzglykoside",
+     "w": "positive Inotropie, Digoxin"
+    },
+    {
+     "id": "uN0p1g",
+     "t": "Betablocker",
+     "w": "Prognose bei HFrEF"
+    }
+   ],
+   "datum": "2026-11-20",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs, 2. Block: Fall 4 (Friedrich Röttgen)",
+   "thema": "Lernziele aus Ilias: Herzinsuffizienz (Symptome, Diagnose, NYHA-Stadien, klinische Befunde); positiv inotrope Pharmaka (Herzglykoside); Diuretika und RAAS-Hemmer zur Vor- und Nachlastsenkung (Thiazide, Schleifendiuretika, K⁺-sparende Diuretika, MRA, ACE-Hemmer, AT1-Blocker); Hemmung der neurohumoralen Aktivierung am Beispiel der β-Blocker. Dein Kurzskript dazu liegt in „PoL 4“.",
+   "zeit": "15:45"
+  },
+  {
+   "id": "2026-11-27-pol-6",
+   "artikel": [
+    {
+     "id": "hl0c9T",
+     "t": "Allgemeinanästhesie",
+     "w": "Verlauf einer Narkose, Einleitung, RSI"
+    },
+    {
+     "id": "CN0qWg",
+     "t": "Benzodiazepine",
+     "w": "Prämedikation, Midazolam"
+    },
+    {
+     "id": "DN01Wg",
+     "t": "Muskelrelaxanzien",
+     "w": "depolarisierend/nicht-depolarisierend, Antagonisierung"
+    },
+    {
+     "id": "vN0A1g",
+     "t": "Injektionsanästhetika",
+     "w": "Thiopental, Propofol, Etomidat, Ketamin"
+    },
+    {
+     "id": "EN081g",
+     "t": "Inhalationsanästhetika",
+     "w": "N₂O, Iso-, Sevo-, Desfluran"
+    },
+    {
+     "id": "yN0ddg",
+     "t": "Opioide",
+     "w": "Fentanyl, Sufentanil, Remifentanil, Piritramid"
+    }
+   ],
+   "datum": "2026-11-27",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Fall 5 (Thomas Morton)",
+   "thema": "Lernziele aus Ilias: Verlauf einer Narkose; Substanzgruppen: Prämedikation (Benzodiazepine, Antiemetika, Atropin), Muskelrelaxanzien (depolarisierend und nicht-depolarisierend) und Antagonisierung, Injektionsnarkotika (Thiopental, Propofol, Etomidat mit Midazolam, Ketamin), Inhalationsnarkotika (N₂O; Iso-, Sevo-, Desfluran), Opioide (Fentanyl, Sufentanil, Alfentanil, Remifentanil; post-OP Piritramid). Quelle: Foto der Lernziele in „PoL 5“. Atropin steht im Kapitel „Anticholinerges Syndrom“ beim POL Fall 3.",
+   "zeit": "14:15"
+  }
+ ]
+}
