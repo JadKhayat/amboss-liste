@@ -471,6 +471,31 @@
    "zeit": "09:15"
   },
   {
+   "id": "2026-11-06-radiologie-1",
+   "artikel": [
+    {
+     "id": "in0JGg",
+     "t": "Röntgen",
+     "w": "Technik, Absorption, Strahlenschutz"
+    },
+    {
+     "id": "KN0UXg",
+     "t": "Computertomografie",
+     "w": "Technik, Indikation, Befund"
+    },
+    {
+     "id": "pN0LXg",
+     "t": "Magnetresonanztomografie",
+     "w": "Prinzip, Kontraindikationen"
+    }
+   ],
+   "datum": "2026-11-06",
+   "fach": "Radiologie",
+   "kurs": "Praktikum der Radiologie, Teil 1: Diagnostische Radiologie",
+   "thema": "Demonstration der radiologischen Diagnostik: Röntgen, CT, MRT (in Ilias keine Unterlagen)",
+   "zeit": "12:15"
+  },
+  {
    "id": "2026-11-06-pol-3",
    "artikel": [
     {
@@ -506,29 +531,13 @@
    "zeit": "14:15"
   },
   {
-   "id": "2026-11-06-radiologie-1",
-   "artikel": [
-    {
-     "id": "in0JGg",
-     "t": "Röntgen",
-     "w": "Technik, Absorption, Strahlenschutz"
-    },
-    {
-     "id": "KN0UXg",
-     "t": "Computertomografie",
-     "w": "Technik, Indikation, Befund"
-    },
-    {
-     "id": "pN0LXg",
-     "t": "Magnetresonanztomografie",
-     "w": "Prinzip, Kontraindikationen"
-    }
-   ],
-   "datum": "2026-11-06",
-   "fach": "Radiologie",
-   "kurs": "Praktikum der Radiologie, Teil 1: Diagnostische Radiologie",
-   "thema": "Demonstration der radiologischen Diagnostik: Röntgen, CT, MRT (in Ilias keine Unterlagen)",
-   "zeit": "12:15"
+   "id": "2026-11-09-gte-1",
+   "artikel": [],
+   "datum": "2026-11-09",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 1: Auftakt",
+   "thema": "Seminarvorstellung (Konzept, Ablauf, Organisatorisches) und inhaltlicher Einstieg: Ärzt:innen und geschlechtersensible Medizin. GTE ohne Amboss (Institutsskript).",
+   "zeit": "11:15"
   },
   {
    "id": "2026-11-10-skillslab-6",
@@ -605,6 +614,15 @@
    "termine": 2,
    "thema": "16. und 17.11. · Visitentraining am Krankenbett. In Ilias noch keine Unterlagen, Kapitel daher nur zu Gesprächsführung und Anamnese (Auswahl ohne Lernziele, unsicher). Skills Lab ist kein Klausurfach.",
    "zeit": "10:15"
+  },
+  {
+   "id": "2026-11-18-gte-2",
+   "artikel": [],
+   "datum": "2026-11-18",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 2: Zulassung von Frauen zum Medizinstudium",
+   "thema": "Die „Frauenfrage“: Positionen und Argumente der Kontroverse; soziale Geschlechterrollen und historischer Kontext. Optionale Lektüre: Burchardt (1993). GTE ohne Amboss (Institutsskript).",
+   "zeit": "16:15"
   },
   {
    "id": "2026-11-20-pol-4",
@@ -727,6 +745,24 @@
    "zeit": "15:45"
   },
   {
+   "id": "2026-11-24-gte-3",
+   "artikel": [],
+   "datum": "2026-11-24",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 3: Erste Ärztinnen – exemplarische Biographien",
+   "thema": "Pionierinnen der Medizin (Franziska Tiburtius, Rahel Hirsch, Virginia Apgar, Marianne Bogatzki); Geschichte und Anliegen des Deutschen Ärztinnenbundes. GTE ohne Amboss (Institutsskript).",
+   "zeit": "11:15"
+  },
+  {
+   "id": "2026-11-26-gte-4",
+   "artikel": [],
+   "datum": "2026-11-26",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 4: Ärztinnen im Nationalsozialismus",
+   "thema": "Verfolgte und vertriebene jüdische Ärzt:innen; Lucie Adelsberger: „Auschwitz. Ein Tatsachenbericht“ und „Medical Observations in Auschwitz“ (Lancet 1946). GTE ohne Amboss (Institutsskript).",
+   "zeit": "12:15"
+  },
+  {
    "id": "2026-11-27-pol-6",
    "artikel": [
     {
@@ -765,6 +801,44 @@
    "kurs": "POL-Kurs: Fall 5 (Thomas Morton)",
    "thema": "Lernziele aus Ilias: Verlauf einer Narkose; Substanzgruppen: Prämedikation (Benzodiazepine, Antiemetika, Atropin), Muskelrelaxanzien (depolarisierend und nicht-depolarisierend) und Antagonisierung, Injektionsnarkotika (Thiopental, Propofol, Etomidat mit Midazolam, Ketamin), Inhalationsnarkotika (N₂O; Iso-, Sevo-, Desfluran), Opioide (Fentanyl, Sufentanil, Alfentanil, Remifentanil; post-OP Piritramid). Quelle: Foto der Lernziele in „PoL 5“. Atropin steht im Kapitel „Anticholinerges Syndrom“ beim POL Fall 3.",
    "zeit": "14:15"
+  },
+  {
+   "id": "2026-12-04-gte-5",
+   "artikel": [],
+   "datum": "2026-12-04",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 5: Was ist geschlechtersensible Medizin?",
+   "thema": "Hintergründe und Fragestellungen der geschlechtersensiblen Medizin; Vorbereitung der Gruppenpräsentationen. Lektüre: Mauvais-Jarvis et al., Sex and gender (Lancet 2020). GTE ohne Amboss (Institutsskript).",
+   "zeit": "10:15"
+  },
+  {
+   "id": "2026-12-18-gte-6",
+   "artikel": [],
+   "datum": "2026-12-18",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 6 und 7: Gruppenpräsentationen I und II, Campusrundgang",
+   "thema": "Myokardinfarkt; Endometriose (deine Gruppe); Arzneimittel und Arzneimittelstudien aus geschlechtermedizinischer Sicht; medizinhistorischer Rundgang zur Geschichte der Universitätsmedizin Münster. GTE ohne Amboss (Institutsskript).",
+   "zeit": "10:15",
+   "termine": 2
+  },
+  {
+   "id": "2027-01-19-gte-8",
+   "artikel": [],
+   "datum": "2027-01-19",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 8 und 9: Gruppenpräsentationen III, World Café",
+   "thema": "Zyklusbasiertes Training und Sport; Diversität im ärztlichen Berufsalltag; World Café zu Studium, Fachrichtungen und Berufswegen von Ärztinnen und Ärzten. GTE ohne Amboss (Institutsskript).",
+   "zeit": "12:15",
+   "termine": 2
+  },
+  {
+   "id": "2027-01-20-gte-10",
+   "artikel": [],
+   "datum": "2027-01-20",
+   "fach": "Geschichte, Theorie, Ethik der Medizin",
+   "kurs": "GTE-Seminar 2, Sitzung 10: Bench&Bedside",
+   "thema": "Impulsvortrag und Gespräch mit Dr. med. Janice Jeschke (Centrum für Reproduktionsmedizin und Andrologie, UKM); Seminarabschluss und Evaluation. GTE ohne Amboss (Institutsskript).",
+   "zeit": "12:15"
   }
  ]
 }
