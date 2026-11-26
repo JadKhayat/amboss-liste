@@ -2,10 +2,10 @@
 
 Amboss-Kapitel zur Vorbereitung auf die Pflichtkurse im klinischen Abschnitt (Uni Münster), Semester für Semester.
 
-- `index.html`: die Webseite (jadkhayat.github.io/amboss-liste) mit Startseite (Übersicht), Amboss-Liste (`#liste`) und Profil (`#profil`: Anmeldung, Hell/Dunkel, Privatsphäre)
+- `index.html`: die Webseite (jadkhayat.github.io/amboss-liste) mit Startseite (Übersicht), Amboss-Liste (`#liste`) und Profil (`#profil`: Anmeldung, PIN ändern, Semester, Hell/Dunkel, Privatsphäre)
 - `kurse.json`: Kurse mit Kapiteln
 - `supabase.sql`: Nutzer mit PIN, Haken und Privatsphäre (vollständige Einrichtung)
-- `supabase-update-privatsphaere.sql`: nur das Update für die Privatsphäre-Einstellung (für eine bestehende Datenbank)
+- `supabase-update.sql`: Update für eine bestehende Datenbank (Privatsphäre, PIN ändern)
 
 ## Semester
 

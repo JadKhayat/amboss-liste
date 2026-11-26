@@ -58,6 +58,16 @@ h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-heig
 .who .status{color:var(--muted);font-size:15px}
 .who .fehler{color:var(--red)}
 .who .klein{flex-basis:100%;font-size:13px;color:var(--muted);line-height:1.4}
+.pinKarte{margin-top:10px}
+.pinKarte .who{border-radius:0;border-top:.5px solid var(--sep);padding-top:12px}
+.pinKarte .zeile[aria-expanded="true"]::after{transform:rotate(90deg)}
+.pinKarte .zeile::after{transition:transform .2s}
+#pinForm:not([hidden]){display:grid;grid-template-columns:auto minmax(0,9em);justify-content:start;align-items:center;gap:10px 14px}
+#pinForm label{font-weight:400}
+#pinForm input.pin{width:100%}
+#pinForm .knoepfe,#pinForm .status{grid-column:1/-1}
+#pinForm .knoepfe{display:flex;gap:8px;align-items:center}
+#pinForm .status:empty{display:none}
 
 /* Karte: Steuerung */
 .bar{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);overflow:hidden}
@@ -243,6 +253,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <span class="status" id="wStatus"></span>
       <span class="klein">PIN: 4 bis 8 Ziffern. Bitte keine PIN nehmen, die du woanders nutzt.</span>
     </div>
+      <div class="liste pinKarte" id="pinKarte" hidden>
+        <button type="button" class="zeile" id="pinAuf" aria-expanded="false" aria-controls="pinForm"><span class="m"><span class="t">PIN ändern</span></span></button>
+        <div class="who" id="pinForm" hidden>
+          <label for="pinAlt">Aktuelle PIN</label><input id="pinAlt" class="pin" type="password" inputmode="numeric" autocomplete="current-password" maxlength="8">
+          <label for="pinNeu1">Neue PIN</label><input id="pinNeu1" class="pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8">
+          <label for="pinNeu2">Wiederholen</label><input id="pinNeu2" class="pin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="8">
+          <span class="knoepfe"><button type="button" id="pinSpeichern">Speichern</button><button type="button" class="leise" id="pinAbbrechen">Abbrechen</button></span>
+          <span class="status" id="pinStatus"></span>
+        </div>
+      </div>
     </section>
     <section class="gruppe"><h2>Semester</h2>
       <div class="liste"><label class="wahl"><span class="vh">Semester</span><select id="semWahl"></select></label></div>
@@ -353,6 +373,7 @@ function zeigeWer(){
   $("pinBox").hidden=neu||!nutzer||darf;
   $("abmelden").hidden=!darf;
   $("loginHinweis").hidden=darf;
+  $("pinKarte").hidden=!darf;if(!darf){pinFormZu();pinStatus("")}
   $("tabProfil").textContent=darf?nutzer:"Profil";
   zeigePrivat();
   if(darf)status("Angemeldet als "+nutzer+". Deine Haken werden gespeichert.");
@@ -411,6 +432,24 @@ $("oeffentlich").addEventListener("change",async e=>{
     if(ok){oeffentlich=val;zeigePrivat()}
     else{darf=false;ls.set("pin",null);status("PIN nicht mehr gültig. Bitte neu eingeben.",true);await ladeStand()}}
   catch(err){if(fehltFunktion(err))hatPrivat=false;zeigePrivat();if(!fehltFunktion(err)){$("privFuss").textContent="Nicht gespeichert: "+err.message;$("privFuss").className="fuss fehler"}}});
+/* PIN ändern */
+function pinStatus(t,fehler){const s=$("pinStatus");s.textContent=t||"";s.className=fehler?"status fehler":"status"}
+function pinFormZu(){$("pinForm").hidden=true;$("pinAuf").setAttribute("aria-expanded","false");["pinAlt","pinNeu1","pinNeu2"].forEach(i=>$(i).value="")}
+$("pinAuf").addEventListener("click",()=>{const auf=$("pinForm").hidden;if(auf){$("pinForm").hidden=false;$("pinAuf").setAttribute("aria-expanded","true");pinStatus("");$("pinAlt").focus()}else pinFormZu()});
+$("pinAbbrechen").addEventListener("click",()=>{pinFormZu();pinStatus("")});
+["pinAlt","pinNeu1","pinNeu2"].forEach(i=>$(i).addEventListener("keydown",e=>{if(e.key==="Enter")$("pinSpeichern").click()}));
+$("pinSpeichern").addEventListener("click",async()=>{
+  const alt=$("pinAlt").value.trim(),n1=$("pinNeu1").value.trim(),n2=$("pinNeu2").value.trim();
+  if(!alt){pinStatus("Bitte die aktuelle PIN eingeben.",true);return}
+  if(!/^[0-9]{4,8}$/.test(n1)){pinStatus("Die neue PIN muss aus 4 bis 8 Ziffern bestehen.",true);return}
+  if(n1!==n2){pinStatus("Die beiden neuen PINs stimmen nicht überein.",true);return}
+  if(n1===alt){pinStatus("Die neue PIN ist dieselbe wie die alte.",true);return}
+  $("pinSpeichern").disabled=true;
+  try{const ok=await rpc("pin_aendern",{p_name:nutzer,p_pin:alt,p_neu:n1});
+    if(ok){pin=n1;ls.set("pin",n1);pinFormZu();pinStatus("PIN geändert. Auf anderen Geräten musst du dich mit der neuen PIN neu anmelden.")}
+    else{$("pinAlt").value="";pinStatus("Die aktuelle PIN ist falsch.",true)}}
+  catch(e){pinStatus(fehltFunktion(e)?"PIN ändern ist noch nicht eingerichtet (Datenbank-Update in Supabase fehlt).":e.message,true)}
+  finally{$("pinSpeichern").disabled=false}});
 /* Darstellung */
 function setzeThema(t){
   const r=document.documentElement;if(t==="light"||t==="dark")r.setAttribute("data-theme",t);else{r.removeAttribute("data-theme");t="auto"}
