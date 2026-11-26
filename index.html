@@ -632,10 +632,11 @@ function nachBereich(){
   const r=z&&document.getElementById("k-"+z);
   if(r){r.scrollIntoView({block:"start"});r.classList.remove("blink");void r.offsetWidth;r.classList.add("blink")}else window.scrollTo({top:0})}
 /* ---------- Anki ----------
-   Je Kapitel in kurse.json optional "anki": die Anki-Suchanfrage für den Ankiphil-Stapel (wie in Amboss kopiert).
+   Je Kapitel in kurse.json optional "anki": die Anki-Suchanfrage für den Ankiphil-Stapel (wie in Amboss kopiert),
+   oder "anki": false, wenn Amboss für das Kapitel keine Ankiphil-Karten anzeigt (dann kein Knopf).
    ANKI_VORLAGE: falls die Anfrage sich aus der Kapitel-ID ableiten lässt, z. B. 'tag:*{id}*' ({id}, {titel}). */
 const ANKI_VORLAGE='note:Ankiphil* AMBOSS*:*{id}*'; // Grundabfrage über die Kapitel-ID; die vollständige Amboss-Abfrage (mit nid:…) steht, wo vorhanden, in "anki"
-const ankiQuery=a=>a.anki||(ANKI_VORLAGE?ANKI_VORLAGE.replace(/\{id\}/g,a.id).replace(/\{titel\}/g,a.t):null);
+const ankiQuery=a=>a.anki===false?null:a.anki||(ANKI_VORLAGE?ANKI_VORLAGE.replace(/\{id\}/g,a.id).replace(/\{titel\}/g,a.t):null);
 const KOPIER_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
 async function kopiere(t){
   try{await navigator.clipboard.writeText(t);return true}catch(e){}
