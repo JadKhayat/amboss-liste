@@ -23,12 +23,6 @@ returns setof text language sql security definer set search_path = public as $$
   select name from public.nutzer order by lower(name);
 $$;
 
--- Haken eines Nutzers lesen (für alle sichtbar)
-create or replace function public.fortschritt(p_name text)
-returns text[] language sql security definer set search_path = public as $$
-  select fertig from public.nutzer where name = p_name;
-$$;
-
 -- Interne Hilfsfunktion: PIN prüfen, nach 5 Fehlversuchen 15 Minuten sperren
 create or replace function public._pin_ok(p_name text, p_pin text)
 returns boolean language plpgsql security definer set search_path = public, extensions as $$
@@ -83,6 +77,37 @@ begin
   update public.nutzer set fertig = p_fertig where name = p_name;
   return true;
 end $$;
+
+-- Privatsphäre (auch einzeln in supabase-update-privatsphaere.sql)
+alter table public.nutzer add column if not exists oeffentlich boolean not null default true;
+
+-- Haken eines Nutzers lesen: nur, wenn er sie freigegeben hat (sonst null)
+create or replace function public.fortschritt(p_name text)
+returns text[] language sql security definer set search_path = public as $$
+  select fertig from public.nutzer where name = p_name and oeffentlich;
+$$;
+
+-- Eigener Stand mit PIN: Haken und Sichtbarkeit (bei falscher PIN null)
+create or replace function public.mein_stand(p_name text, p_pin text)
+returns json language plpgsql security definer set search_path = public as $$
+declare r public.nutzer;
+begin
+  if not public._pin_ok(p_name, p_pin) then return null; end if;
+  select * into r from public.nutzer where name = p_name;
+  return json_build_object('fertig', r.fertig, 'oeffentlich', r.oeffentlich);
+end $$;
+
+-- Sichtbarkeit ändern (nur mit richtiger PIN)
+create or replace function public.sichtbarkeit(p_name text, p_pin text, p_oeffentlich boolean)
+returns boolean language plpgsql security definer set search_path = public as $$
+begin
+  if not public._pin_ok(p_name, p_pin) then return false; end if;
+  update public.nutzer set oeffentlich = coalesce(p_oeffentlich, true) where name = p_name;
+  return true;
+end $$;
+
+grant execute on function public.mein_stand(text, text) to anon, authenticated;
+grant execute on function public.sichtbarkeit(text, text, boolean) to anon, authenticated;
 
 grant execute on function public.liste_nutzer() to anon, authenticated;
 grant execute on function public.fortschritt(text) to anon, authenticated;

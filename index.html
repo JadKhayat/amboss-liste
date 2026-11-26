@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*,*::before,*::after{box-sizing:inherit}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Lernplaner</title>
+<script>try{var t=localStorage.getItem("thema");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <style>
@@ -17,12 +18,16 @@
   --accent:#0B4151; --accent-fg:#FFFFFF; --tint:rgba(11,65,81,.10); --fill:rgba(118,118,128,.12); --switch-off:#E9E9EB;
   --done:#8E8E93; --red:#FF3B30;
   --f:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
-  --r:12px;
+  --r:12px; --seg-on:#FFFFFF; --art-bg:#F2F2F7; color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root{
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#000000; --card:#1C1C1E; --fg:#FFFFFF; --muted:#98989F; --tert:#636366; --sep:rgba(84,84,88,.6);
   --accent:#5FA7B8; --accent-fg:#00161D; --tint:rgba(95,167,184,.18); --fill:rgba(118,118,128,.24); --switch-off:#39393D;
-  --done:#8E8E93; --red:#FF453A; color-scheme:dark}}
+  --done:#8E8E93; --red:#FF453A; --seg-on:#636366; --art-bg:#2C2C2E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#000000; --card:#1C1C1E; --fg:#FFFFFF; --muted:#98989F; --tert:#636366; --sep:rgba(84,84,88,.6);
+  --accent:#5FA7B8; --accent-fg:#00161D; --tint:rgba(95,167,184,.18); --fill:rgba(118,118,128,.24); --switch-off:#39393D;
+  --done:#8E8E93; --red:#FF453A; --seg-on:#636366; --art-bg:#2C2C2E; color-scheme:dark}
 html{background:var(--bg)}
 body{background:var(--bg);color:var(--fg);font-family:var(--f);font-size:17px;line-height:1.35;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 .wrap{max-width:1080px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
@@ -61,8 +66,7 @@ h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-heig
 .count{font-size:15px;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
 .seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px;margin:10px 16px;padding:2px!important;border-top:0!important}
 .seg button{flex:1;font:inherit;font-size:14px;font-weight:500;padding:6px 10px;border:0;border-radius:7px;background:transparent;color:var(--fg);cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
-@media (prefers-color-scheme: dark){.seg button[aria-pressed="true"]{background:#636366}}
+.seg button[aria-pressed="true"]{background:var(--seg-on);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
 .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:17px;cursor:pointer}
 .toggle input{order:2;-webkit-appearance:none;appearance:none;flex:none;width:51px;height:31px;border-radius:16px;background:var(--switch-off);position:relative;margin:0;cursor:pointer;transition:background .2s}
 .toggle input::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);transition:transform .2s}
@@ -100,8 +104,7 @@ h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-heig
 .thema{margin:0;color:var(--muted);font-size:14px;line-height:1.4}
 
 /* Kapitel mit runden Häkchen */
-ul.art{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;background:var(--bg);border-radius:10px;overflow:hidden}
-@media (prefers-color-scheme: dark){ul.art{background:#2C2C2E}}
+ul.art{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;background:var(--art-bg);border-radius:10px;overflow:hidden}
 ul.art:empty{display:none}
 ul.art li{display:flex;align-items:flex-start;gap:12px;padding:10px 12px}
 ul.art li+li{border-top:.5px solid var(--sep)}
@@ -136,8 +139,8 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .tabs{display:flex;gap:2px;background:var(--fill);border-radius:9px;padding:2px;align-self:flex-start}
 .tabs a{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:500;padding:7px 16px;border-radius:7px;color:var(--fg);text-decoration:none}
 .tabs a svg{width:18px;height:18px;flex:none}
-.tabs a[aria-current="page"]{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
-@media (prefers-color-scheme: dark){.tabs a[aria-current="page"]{background:#636366}}
+#tabProfil{max-width:14ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--seg-on);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
 @media (max-width:760px){
   .wrap{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
   .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;border-radius:0;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));gap:0;justify-content:space-around;
@@ -188,6 +191,17 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .kurs.blink{animation:blink 1.6s ease-out}
 @keyframes blink{0%,30%{background:var(--tint)}100%{background:var(--card)}}
 @media (max-width:760px){.start{grid-template-columns:1fr}}
+/* Profil */
+.profil{display:flex;flex-direction:column;gap:26px;max-width:640px;width:100%}
+.profil .who{border-radius:var(--r)}
+.liste>.toggle{padding:12px 16px}
+.liste>.seg{margin:12px 16px}
+.toggle input:disabled{opacity:.5;cursor:not-allowed}
+.fuss{margin:0;padding:7px 16px 0;font-size:13px;line-height:1.4;color:var(--muted)}
+.fuss.fehler{color:var(--red)}
+body[data-v="profil"] .sem{display:none}
+.loginHinweis{display:block;font-size:15px;color:var(--accent);text-decoration:none}
+.loginHinweis:hover{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.kurs.blink{animation:none}}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 </style>
@@ -201,16 +215,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <nav class="tabs" id="tabs" aria-label="Bereiche">
     <a href="#start" data-v="start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Übersicht</a>
     <a href="#liste" data-v="liste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/></svg>Amboss-Liste</a>
+    <a href="#profil" data-v="profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6.2 18.6c1.3-2.2 3.4-3.4 5.8-3.4s4.5 1.2 5.8 3.4"/></svg><span id="tabProfil">Profil</span></a>
   </nav>
-  <div class="who" id="who">
-    <label for="nutzerWahl">Wer bist du?</label>
-    <select id="nutzerWahl"><option value="">– Namen wählen –</option></select>
-    <span id="pinBox" hidden><input id="pinEingabe" class="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" maxlength="8" aria-label="PIN"> <button type="button" id="pinOk">Bearbeiten</button></span>
-    <span id="neuBox" hidden><input id="neuName" type="text" maxlength="40" placeholder="Dein Name" aria-label="Neuer Name"> <input id="neuPin" class="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" maxlength="8" aria-label="Neue PIN (4 bis 8 Ziffern)"> <button type="button" id="neuOk">Anlegen</button></span>
-    <button type="button" class="leise" id="abmelden" hidden>Abmelden</button>
-    <span class="status" id="wStatus"></span>
-    <span class="klein">PIN: 4 bis 8 Ziffern. Bitte keine PIN nehmen, die du woanders nutzt. Den Fortschritt der anderen kann jeder ansehen, ändern nur mit PIN.</span>
-  </div>
   <div class="start" id="v-start" hidden>
     <div class="spalte">
       <div id="sNaechst"></div>
@@ -223,8 +229,30 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <section class="gruppe" id="sQuellen"></section>
     </div>
   </div>
+  <div class="profil" id="v-profil" hidden>
+    <section class="gruppe"><h2>Anmeldung</h2>
+    <div class="who" id="who">
+      <label for="nutzerWahl">Wer bist du?</label>
+      <select id="nutzerWahl"><option value="">– Namen wählen –</option></select>
+      <span id="pinBox" hidden><input id="pinEingabe" class="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" maxlength="8" aria-label="PIN"> <button type="button" id="pinOk">Bearbeiten</button></span>
+      <span id="neuBox" hidden><input id="neuName" type="text" maxlength="40" placeholder="Dein Name" aria-label="Neuer Name"> <input id="neuPin" class="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" maxlength="8" aria-label="Neue PIN (4 bis 8 Ziffern)"> <button type="button" id="neuOk">Anlegen</button></span>
+      <button type="button" class="leise" id="abmelden" hidden>Abmelden</button>
+      <span class="status" id="wStatus"></span>
+      <span class="klein">PIN: 4 bis 8 Ziffern. Bitte keine PIN nehmen, die du woanders nutzt.</span>
+    </div>
+    </section>
+    <section class="gruppe"><h2>Darstellung</h2>
+      <div class="liste"><div class="seg" role="group" aria-label="Darstellung"><button type="button" data-thema="auto">Automatisch</button><button type="button" data-thema="light">Hell</button><button type="button" data-thema="dark">Dunkel</button></div></div>
+      <p class="fuss">„Automatisch“ folgt der Einstellung deines Geräts. Gilt nur für dieses Gerät.</p>
+    </section>
+    <section class="gruppe"><h2>Privatsphäre</h2>
+      <div class="liste"><label class="toggle"><input type="checkbox" id="oeffentlich" disabled> Fortschritt für andere sichtbar</label></div>
+      <p class="fuss" id="privFuss"></p>
+    </section>
+  </div>
   <div id="v-liste" hidden style="display:contents">
   <div class="bar">
+    <a class="loginHinweis" id="loginHinweis" href="#profil" hidden>Zum Abhaken unter „Profil“ anmelden ›</a>
     <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span class="count" id="count">–</span></div>
     <div class="seg" role="group" aria-label="Sortierung"><button type="button" id="v-woche" aria-pressed="true">Nach Woche</button><button type="button" id="v-fach" aria-pressed="false">Nach Fach</button></div>
     <label class="toggle"><input type="checkbox" id="nurOffen"> Nur offene Kurse</label>
@@ -303,10 +331,12 @@ const SUPA_URL="https://qseuqccxvmhqgelkqrvw.supabase.co", SUPA_KEY="sb_publisha
 async function rpc(fn,args){
   const r=await fetch(SUPA_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"apikey":SUPA_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
   const t=await r.text();let v=null;try{v=t?JSON.parse(t):null}catch(e){}
-  if(!r.ok)throw new Error((v&&v.message)||"Verbindung fehlgeschlagen");
+  if(!r.ok){const e=new Error((v&&v.message)||"Verbindung fehlgeschlagen");e.code=v&&v.code;throw e}
   return v}
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{if(v==null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}}};
 let nutzer=ls.get("nutzer")||"", pin=ls.get("pin")||"", darf=false;
+let privat=false, oeffentlich=true, hatPrivat=null; // hatPrivat: ob die Datenbank die Privatsphäre-Einstellung schon kennt
+const fehltFunktion=e=>e&&(e.code==="PGRST202"||/could not find the function/i.test(e.message||""));
 const $=id=>document.getElementById(id);
 function status(t,fehler){const s=$("wStatus");s.textContent=t||"";s.className=fehler?"status fehler":"status"}
 function zeigeWer(){
@@ -314,8 +344,11 @@ function zeigeWer(){
   $("neuBox").hidden=!neu;
   $("pinBox").hidden=neu||!nutzer||darf;
   $("abmelden").hidden=!darf;
+  $("loginHinweis").hidden=darf;
+  $("tabProfil").textContent=darf?nutzer:"Profil";
+  zeigePrivat();
   if(darf)status("Angemeldet als "+nutzer+". Deine Haken werden gespeichert.");
-  else if(nutzer&&!neu)status("Du siehst den Stand von "+nutzer+". Zum Abhaken PIN eingeben.");
+  else if(nutzer&&!neu)status(privat?nutzer+" hat den Fortschritt verborgen. Zum Anmelden PIN eingeben.":"Du siehst den Stand von "+nutzer+". Zum Abhaken PIN eingeben.");
   else if(!neu)status("Wähle deinen Namen oder lege dich neu an.");
 }
 async function ladeNamen(){
@@ -325,13 +358,23 @@ async function ladeNamen(){
   sel.append(new Option("+ Neu anlegen","__neu__"));
   if(nutzer&&(namen||[]).includes(nutzer))sel.value=nutzer;else{nutzer="";pin="";ls.set("nutzer",null);ls.set("pin",null)}
 }
+async function meinStand(){
+  if(hatPrivat!==false){
+    try{const v=await rpc("mein_stand",{p_name:nutzer,p_pin:pin});hatPrivat=true;return v}
+    catch(e){if(!fehltFunktion(e))throw e;hatPrivat=false}}
+  const f=await rpc("fortschritt",{p_name:nutzer});return {fertig:Array.isArray(f)?f:[],oeffentlich:true}}
 async function ladeStand(){
-  meine=new Set();
-  if(nutzer){try{const v=await rpc("fortschritt",{p_name:nutzer});if(Array.isArray(v))meine=new Set(v)}catch(e){status(e.message,true)}}
-  render()}
+  meine=new Set();privat=false;
+  if(nutzer){try{
+    if(darf){const v=await meinStand();
+      if(v){meine=new Set(v.fertig||[]);oeffentlich=v.oeffentlich!==false}
+      else{darf=false;ls.set("pin",null);status("PIN nicht mehr gültig. Bitte neu eingeben.",true)}}
+    else{const v=await rpc("fortschritt",{p_name:nutzer});if(Array.isArray(v))meine=new Set(v);else privat=true}
+  }catch(e){status(e.message,true)}}
+  zeigeWer();render()}
 async function anmelden(n,p){
   try{const ok=await rpc("pin_pruefen",{p_name:n,p_pin:p});
-    if(ok){nutzer=n;pin=p;darf=true;ls.set("nutzer",n);ls.set("pin",p);$("pinEingabe").value="";zeigeWer();render();return true}
+    if(ok){nutzer=n;pin=p;darf=true;ls.set("nutzer",n);ls.set("pin",p);$("pinEingabe").value="";await ladeStand();return true}
     darf=false;ls.set("pin",null);zeigeWer();status("PIN falsch.",true);return false}
   catch(e){darf=false;zeigeWer();status(e.message,true);return false}}
 $("nutzerWahl").addEventListener("change",async e=>{
@@ -345,8 +388,29 @@ $("neuOk").addEventListener("click",async()=>{
   if(!n){status("Bitte einen Namen eingeben.",true);return}
   if(!/^[0-9]{4,8}$/.test(p)){status("Die PIN muss aus 4 bis 8 Ziffern bestehen.",true);return}
   try{await rpc("registrieren",{p_name:n,p_pin:p});nutzer=n;await ladeNamen();$("nutzerWahl").value=n;$("neuName").value="";$("neuPin").value="";
-    await ladeStand();await anmelden(n,p)}catch(e){status(e.message,true)}});
-$("abmelden").addEventListener("click",()=>{darf=false;pin="";ls.set("pin",null);zeigeWer();render()});
+    await anmelden(n,p)}catch(e){status(e.message,true)}});
+$("abmelden").addEventListener("click",async()=>{darf=false;pin="";ls.set("pin",null);await ladeStand()});
+/* Privatsphäre */
+function zeigePrivat(){
+  const cb=$("oeffentlich"),f=$("privFuss");f.className="fuss";
+  cb.checked=darf?oeffentlich:true;cb.disabled=!darf||hatPrivat===false;
+  if(!darf)f.textContent="Melde dich oben mit deiner PIN an, um das zu ändern.";
+  else if(hatPrivat===false){f.textContent="Diese Einstellung ist noch nicht eingerichtet (Datenbank-Update in Supabase fehlt). Bis dahin ist dein Fortschritt für andere sichtbar.";f.className="fuss fehler"}
+  else f.textContent=oeffentlich?"Andere können deinen Namen auswählen und sehen, welche Kapitel du abgehakt hast. Ändern können sie nichts.":"Andere sehen nur deinen Namen in der Auswahl, aber nicht deine Haken."}
+$("oeffentlich").addEventListener("change",async e=>{
+  const val=e.target.checked;e.target.disabled=true;
+  try{const ok=await rpc("sichtbarkeit",{p_name:nutzer,p_pin:pin,p_oeffentlich:val});
+    if(ok){oeffentlich=val;zeigePrivat()}
+    else{darf=false;ls.set("pin",null);status("PIN nicht mehr gültig. Bitte neu eingeben.",true);await ladeStand()}}
+  catch(err){if(fehltFunktion(err))hatPrivat=false;zeigePrivat();if(!fehltFunktion(err)){$("privFuss").textContent="Nicht gespeichert: "+err.message;$("privFuss").className="fuss fehler"}}});
+/* Darstellung */
+function setzeThema(t){
+  const r=document.documentElement;if(t==="light"||t==="dark")r.setAttribute("data-theme",t);else{r.removeAttribute("data-theme");t="auto"}
+  ls.set("thema",t==="auto"?null:t);
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m,i)=>m.setAttribute("content",t==="light"?"#F2F2F7":t==="dark"?"#000000":(i?"#000000":"#F2F2F7")));
+  document.querySelectorAll("[data-thema]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.thema===t))}
+document.querySelectorAll("[data-thema]").forEach(b=>b.addEventListener("click",()=>setzeThema(b.dataset.thema)));
+setzeThema(ls.get("thema")||"auto");
 let auswahl={woche:null,fach:null};
 function knopf(label,zahl,fertig,aktiv,onClick){
   const b=el("button");b.type="button";b.append(el("span",null,label));
@@ -402,7 +466,7 @@ function render(){
       const ul=el("ul","art");
       eigen(k).forEach(a=>{
         const li=el("li");const done=fertig(a.id);if(done)li.classList.add("ok");
-        const cb=el("input");cb.type="checkbox";cb.id="cb-"+k.id+"-"+a.id;cb.checked=done;cb.disabled=!darf;if(!darf)cb.title="Zum Abhaken oben Namen und PIN eingeben";
+        const cb=el("input");cb.type="checkbox";cb.id="cb-"+k.id+"-"+a.id;cb.checked=done;cb.disabled=!darf;if(!darf)cb.title="Zum Abhaken unter „Profil“ anmelden";
         cb.setAttribute("aria-label",a.t+" gelesen");
         cb.addEventListener("change",()=>abhaken(k,a.id,cb.checked,cb));
         const txt=el("div");const link=el("a",null,a.t);link.href=AMBOSS+a.id;link.target="_blank";link.rel="noopener";
@@ -462,10 +526,10 @@ function renderStart(sichtbar){
   // Fortschritt
   let ges=0,ok=0;const faecher=new Map();
   sichtbar.forEach(k=>{const {g,o}=stand(k);ges+=g;ok+=o;if(!faecher.has(k.fach))faecher.set(k.fach,{g:0,o:0});const f=faecher.get(k.fach);f.g+=g;f.o+=o});
-  const l4=gruppe("sFort","Fortschritt im Semester");
+  const l4=gruppe("sFort",darf?"Dein Fortschritt im Semester":nutzer?"Fortschritt von "+nutzer:"Fortschritt im Semester");
   const gr=el("div","gross");gr.append(el("b",null,(ges?Math.round(ok/ges*100):0)+" %"),el("span",null,ok+" von "+ges+" Kapiteln gelesen"));
   const tr=el("div","track"),fi=el("div","fill");fi.style.width=(ges?ok/ges*100:0)+"%";tr.append(fi);l4.append(gr,tr);
-  if(!nutzer)l4.append(el("div","leer","Wähle oben deinen Namen, dann siehst du hier deinen Stand."));
+  if(!nutzer||privat){const a=el("a","leer loginHinweis",!nutzer?"Unter „Profil“ anmelden, dann siehst du hier deinen Stand ›":nutzer+" hat den Fortschritt verborgen.");if(!nutzer)a.href="#profil";l4.append(a)}
   [...faecher.entries()].filter(([,f])=>f.g).sort((a,b)=>a[0].localeCompare(b[0],"de")).forEach(([fach,f])=>{
     const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
     const mi=el("div","mini"),i=el("i");i.style.width=(f.o/f.g*100)+"%";mi.append(i);m.append(mi);
@@ -488,12 +552,12 @@ function nachBereich(){
   const r=z&&document.getElementById("k-"+z);
   if(r){r.scrollIntoView({block:"start"});r.classList.remove("blink");void r.offsetWidth;r.classList.add("blink")}else window.scrollTo({top:0})}
 /* ---------- Bereiche ---------- */
-const LEAD={start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+const LEAD={profil:"Anmeldung, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
 function zeigeBereich(){
-  const v=location.hash==="#liste"?"liste":"start";
-  $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("lead").textContent=LEAD[v];
+  const v=location.hash==="#liste"?"liste":location.hash==="#profil"?"profil":"start";
+  $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
   document.querySelectorAll("#tabs a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
-  document.title=v==="liste"?"Amboss-Liste · Lernplaner":"Lernplaner"}
+  document.title=v==="liste"?"Amboss-Liste · Lernplaner":v==="profil"?"Profil · Lernplaner":"Lernplaner"}
 window.addEventListener("hashchange",nachBereich);
 zeigeBereich();
 let schreibt=Promise.resolve();
@@ -514,8 +578,7 @@ function abhaken(k,id,val){
   render();
   try{await ladeNamen()}catch(e){status("Benutzer konnten nicht geladen werden: "+e.message,true)}
   zeigeWer();
-  await ladeStand();
-  if(nutzer&&pin)await anmelden(nutzer,pin);
+  if(nutzer&&pin){if(!await anmelden(nutzer,pin))await ladeStand()}else await ladeStand();
 })();
 </script>
 </body>
