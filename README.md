@@ -17,6 +17,7 @@ Neue Kurse einfach wie bisher an `kurse` anhängen, ein neues Semester erscheint
 Die Beschreibung steht in `kurse.json` unter `"semester"`, z. B. `{"WS 26/27": "1. klinisches Semester"}`.
 Spätere Semester werden ab dort automatisch weitergezählt (SS 27 = 2. klinisches Semester usw.).
 Stimmt die Zählung einmal nicht (z. B. Auslandssemester), dort einen eigenen Eintrag ergänzen.
+Ein Kurs mit `"ohneAmboss": true` (z. B. GTE) erscheint nicht in der Amboss-Liste und auf der Startseite, dient aber im Tab „Skripte“ zur Zuordnung der Skripte.
 Ein Kurs außerhalb der üblichen Zeiten kann mit `"semester": "WS 26/27"` fest zugeordnet werden.
 Die Haken gelten über alle Semester: Ein Kapitel, das schon gelesen ist, bleibt abgehakt, wenn es später wieder vorkommt.
 
