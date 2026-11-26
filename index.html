@@ -132,6 +132,63 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 }
 @media (max-width:480px){.kurs{grid-template-columns:1fr}.when b{display:inline;margin-right:6px}}
 @media (prefers-reduced-motion:reduce){.fill,.toggle input,.toggle input::after{transition:none}}
+/* Navigation: oben als Segment, auf dem Handy als Tab-Leiste unten */
+.tabs{display:flex;gap:2px;background:var(--fill);border-radius:9px;padding:2px;align-self:flex-start}
+.tabs a{display:flex;align-items:center;gap:7px;font-size:15px;font-weight:500;padding:7px 16px;border-radius:7px;color:var(--fg);text-decoration:none}
+.tabs a svg{width:18px;height:18px;flex:none}
+.tabs a[aria-current="page"]{background:var(--card);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
+@media (prefers-color-scheme: dark){.tabs a[aria-current="page"]{background:#636366}}
+@media (max-width:760px){
+  .wrap{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;border-radius:0;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));gap:0;justify-content:space-around;
+    background:color-mix(in srgb,var(--card) 88%,transparent);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid var(--sep)}
+  .tabs a{flex:1;flex-direction:column;gap:2px;font-size:11px;padding:4px 0;color:var(--done);background:none!important;box-shadow:none!important}
+  .tabs a svg{width:26px;height:26px}
+  .tabs a[aria-current="page"]{color:var(--accent);font-weight:600}
+}
+
+/* Startseite */
+.start{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
+.spalte{display:flex;flex-direction:column;gap:26px;min-width:0}
+.gruppe{display:flex;flex-direction:column}
+.gruppe>h2{font-size:13px;font-weight:400;color:var(--muted);text-transform:uppercase;letter-spacing:.02em;margin:0;padding:0 16px 7px;display:flex;justify-content:space-between;gap:8px}
+.gruppe>h2 .n{text-transform:none;letter-spacing:0}
+.liste{display:flex;flex-direction:column;background:var(--card);border-radius:var(--r);overflow:hidden}
+.zeile{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:14px;width:100%;padding:12px 16px;cursor:pointer;position:relative;color:var(--fg)}
+.zeile+.zeile::before{content:"";position:absolute;top:0;left:16px;right:0;border-top:.5px solid var(--sep)}
+.zeile:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.zeile:active{background:var(--fill)}
+.zeile::after{content:"›";color:var(--tert);font-size:22px;line-height:1;margin-left:auto;padding-left:4px}
+.zeile .d{flex:none;width:56px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.3}
+.zeile .d b{display:block;color:var(--fg);font-size:15px;font-weight:600}
+.zeile .d.heute b{color:var(--accent)}
+.zeile .m{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.zeile .m .fach{font-size:11px}
+.zeile .m .t{font-size:16px;font-weight:500;line-height:1.3}
+.zeile .m .u{font-size:13px;color:var(--muted)}
+.zeile .r{flex:none;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.zeile .r.ok{color:#34C759}
+.zeile.vorbei{opacity:.55}
+.zeile .mini{height:4px;background:var(--fill);border-radius:2px;overflow:hidden;margin-top:6px}
+.zeile .mini i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.zeile.link .ic{flex:none;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+.hero{background:var(--accent);color:var(--accent-fg);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;border:0;font:inherit;text-align:left}
+.hero:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.hero .k{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;opacity:.8}
+.hero .t{font-size:20px;font-weight:700;line-height:1.25}
+.hero .u{font-size:15px;opacity:.85}
+.hero .bar2{height:6px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;margin-top:6px}
+.hero .bar2 i{display:block;height:100%;background:var(--accent-fg);border-radius:3px}
+.leer{padding:16px;color:var(--muted);font-size:15px}
+.gross{display:flex;align-items:baseline;gap:8px;padding:14px 16px 4px}
+.gross b{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.gross span{color:var(--muted);font-size:15px}
+.liste .track{margin:6px 16px 14px;flex:none}
+.kurs{scroll-margin-top:72px}
+.kurs.blink{animation:blink 1.6s ease-out}
+@keyframes blink{0%,30%{background:var(--tint)}100%{background:var(--card)}}
+@media (max-width:760px){.start{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.kurs.blink{animation:none}}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 </style>
 
@@ -139,8 +196,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <header>
     <h1>Lernplaner</h1>
     <label class="sem" id="semBox" hidden><span class="vh">Semester</span><select id="semWahl" aria-label="Semester wählen"></select></label>
-    <p class="lead">Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist.</p>
+    <p class="lead" id="lead"></p>
   </header>
+  <nav class="tabs" id="tabs" aria-label="Bereiche">
+    <a href="#start" data-v="start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>Übersicht</a>
+    <a href="#liste" data-v="liste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/></svg>Amboss-Liste</a>
+  </nav>
   <div class="who" id="who">
     <label for="nutzerWahl">Wer bist du?</label>
     <select id="nutzerWahl"><option value="">– Namen wählen –</option></select>
@@ -150,6 +211,19 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <span class="status" id="wStatus"></span>
     <span class="klein">PIN: 4 bis 8 Ziffern. Bitte keine PIN nehmen, die du woanders nutzt. Den Fortschritt der anderen kann jeder ansehen, ändern nur mit PIN.</span>
   </div>
+  <div class="start" id="v-start" hidden>
+    <div class="spalte">
+      <div id="sNaechst"></div>
+      <section class="gruppe" id="sWoche"></section>
+      <section class="gruppe" id="sNaechsteWoche"></section>
+      <section class="gruppe" id="sNach"></section>
+    </div>
+    <div class="spalte">
+      <section class="gruppe" id="sFort"></section>
+      <section class="gruppe" id="sQuellen"></section>
+    </div>
+  </div>
+  <div id="v-liste" hidden style="display:contents">
   <div class="bar">
     <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span class="count" id="count">–</span></div>
     <div class="seg" role="group" aria-label="Sortierung"><button type="button" id="v-woche" aria-pressed="true">Nach Woche</button><button type="button" id="v-fach" aria-pressed="false">Nach Fach</button></div>
@@ -161,11 +235,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <nav class="index" id="index" aria-label="Index"><span class="ilabel">Index</span></nav>
     <main id="liste"><div class="empty">Die Kurse werden geladen.</div></main>
   </div>
+  </div>
   <p class="note" id="hinweis"></p>
 </div>
 
 <script>
 const AMBOSS="https://next.amboss.com/de/article/";
+/* Quellen auf der Startseite: t = Name, url, w = kurzer Hinweis, f = Farbe des Symbols */
+const QUELLEN=[
+  {t:"Amboss",url:"https://next.amboss.com/de",w:"Kapitel lesen",f:"#0B4151"},
+  {t:"Kreuzmich",url:"https://muenster.kreuzmich.de",w:"Altklausuren kreuzen",f:"#C0392B"},
+];
 const TAGE=["So","Mo","Di","Mi","Do","Fr","Sa"];
 let kurse=[], db=null;
 let nurOffen=false; try{nurOffen=localStorage.getItem("nurOffen")==="1"}catch(e){}
@@ -297,7 +377,7 @@ function render(){
   [...sichtbar].sort((a,b)=>(a.datum+a.zeit).localeCompare(b.datum+b.zeit)).forEach(k=>{
     const offen=eigen(k).some(a=>!fertig(a.id));
     if(nurOffen&&!offen)return;
-    const d=new Date(k.datum+"T12:00:00");const key=ansicht==="fach"?k.fach:k.datum.slice(0,4)+"-"+String(kw(d)).padStart(2,"0");
+    const d=new Date(k.datum+"T12:00:00");const key=ansicht==="fach"?k.fach:wocheKey(k);
     if(!wochen.has(key))wochen.set(key,{d,list:[]});wochen.get(key).list.push(k)});
   if(ansicht==="fach"){const s=[...wochen.entries()].sort((a,b)=>a[0].localeCompare(b[0],"de"));wochen.clear();s.forEach(([k,v])=>wochen.set(k,v))}
   if(!wochen.size){root.append(el("div","empty","Alles gelesen. Neue Kurse erscheinen hier, sobald Claude sie einträgt."));baueIndex([]);return}
@@ -314,7 +394,7 @@ function render(){
     sec.append(el("h2",null,"KW "+kw(w.d)+" · "+fmt(m)+"–"+fmt(f)+m.getFullYear()))}
     for(const k of w.list){
       const d=new Date(k.datum+"T12:00:00");
-      const row=el("article","kurs");
+      const row=el("article","kurs");row.id="k-"+k.id;
       const when=el("div","when");when.append(el("b",null,TAGE[d.getDay()]+" "+fmt(d)),document.createTextNode(k.zeit||""));
       const body=el("div","body");if(ansicht!=="fach")body.append(el("span","fach",k.fach));
       const h=el("h3",null,k.kurs);if(k.termine>1){h.append(el("span","badge",k.termine+" Termine"))}if(keineKlausur(k)){h.append(el("span","badge nk","keine Klausur"))}body.append(h);
@@ -334,7 +414,88 @@ function render(){
       row.append(when,body);sec.append(row)}
     root.append(sec)}
   baueIndex(idx);
+  renderStart(sichtbar);
 }
+/* ---------- Startseite ---------- */
+const p2=n=>String(n).padStart(2,"0");
+const iso=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());
+const wocheKey=k=>{const d=new Date(k.datum+"T12:00:00");return k.datum.slice(0,4)+"-"+p2(kw(d))};
+const nachDatum=(a,b)=>(a.datum+(a.zeit||"")).localeCompare(b.datum+(b.zeit||""));
+function stand(k){const e=eigen(k);return {g:e.length,o:e.filter(a=>fertig(a.id)).length}}
+function gruppe(id,titel,rechts){const g=$(id);g.replaceChildren();g.hidden=titel==null;if(titel==null)return null;const h=el("h2",null,titel);if(rechts)h.append(el("span","n",rechts));const l=el("div","liste");g.append(h,l);return l}
+function tageBis(datum){const h=new Date(iso(new Date())+"T12:00:00"),d=new Date(datum+"T12:00:00");return Math.round((d-h)/864e5)}
+function wann(datum){const n=tageBis(datum);return n===0?"heute":n===1?"morgen":n===-1?"gestern":n>1?"in "+n+" Tagen":"vor "+(-n)+" Tagen"}
+function kursZeile(k,heute){
+  const b=el("button","zeile");b.type="button";const d=new Date(k.datum+"T12:00:00");
+  const dd=el("div","d"+(k.datum===heute?" heute":""));dd.append(el("b",null,k.datum===heute?"Heute":TAGE[d.getDay()]+" "+fmt(d)),document.createTextNode(k.zeit||""));
+  const m=el("div","m");m.append(el("span","fach",k.fach),el("span","t",k.kurs));
+  const {g,o}=stand(k);const r=el("span","r"+(g&&o===g?" ok":""),!g?(k.artikel&&k.artikel.length?"":"–"):o===g?"✓":(g-o)+" offen");
+  if(k.datum<heute&&(!g||o===g))b.classList.add("vorbei");
+  b.append(dd,m,r);b.addEventListener("click",()=>oeffneKurs(k));return b}
+function renderStart(sichtbar){
+  const heute=iso(new Date()),mo=montag(new Date(heute+"T12:00:00")),bis=x=>{const d=new Date(mo);d.setDate(mo.getDate()+x);return iso(d)};
+  const sortiert=[...sichtbar].sort(nachDatum);
+  // Als Nächstes
+  const n=$("sNaechst");n.replaceChildren();
+  const naechst=sortiert.find(k=>k.datum>=heute);
+  if(naechst){const {g,o}=stand(naechst);const d=new Date(naechst.datum+"T12:00:00");
+    const h=el("button","hero");h.type="button";
+    h.append(el("span","k","Als Nächstes · "+wann(naechst.datum)),el("span","t",naechst.kurs),
+      el("span","u",naechst.fach+" · "+TAGE[d.getDay()]+" "+fmt(d)+(naechst.zeit?" um "+naechst.zeit:"")+(g?" · "+o+" von "+g+" Kapiteln gelesen":"")));
+    if(g){const bb=el("span","bar2"),i=el("i");i.style.width=(o/g*100)+"%";bb.append(i);h.append(bb)}
+    h.addEventListener("click",()=>oeffneKurs(naechst));n.append(h)}
+  // Diese und nächste Woche
+  const woche=sortiert.filter(k=>k.datum>=bis(0)&&k.datum<=bis(6));
+  const l1=gruppe("sWoche","Diese Woche · "+fmt(new Date(bis(0)+"T12:00:00"))+"–"+fmt(new Date(bis(4)+"T12:00:00")),woche.length?woche.length+(woche.length===1?" Kurs":" Kurse"):null);
+  if(woche.length)woche.forEach(k=>l1.append(kursZeile(k,heute)));else l1.append(el("div","leer","Diese Woche stehen keine Kurse an."));
+  const woche2=sortiert.filter(k=>k.datum>=bis(7)&&k.datum<=bis(13));
+  const l2=gruppe("sNaechsteWoche",woche2.length?"Nächste Woche · "+fmt(new Date(bis(7)+"T12:00:00"))+"–"+fmt(new Date(bis(11)+"T12:00:00")):null,woche2.length+(woche2.length===1?" Kurs":" Kurse"));
+  if(l2)woche2.forEach(k=>l2.append(kursZeile(k,heute)));
+  // Nachholen: vergangene Kurse mit offenen Kapiteln (vor dieser Woche)
+  const alt=sortiert.filter(k=>k.datum<bis(0)).filter(k=>{const {g,o}=stand(k);return g>o}).reverse();
+  if(alt.length){let summe=0;alt.forEach(k=>{const {g,o}=stand(k);summe+=g-o});
+    const l3=gruppe("sNach","Nachholen",summe+(summe===1?" Kapitel offen":" Kapitel offen"));
+    alt.slice(0,4).forEach(k=>l3.append(kursZeile(k,heute)));
+    if(alt.length>4){const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t","Alle "+alt.length+" Kurse mit offenen Kapiteln"));b.append(m);
+      b.addEventListener("click",()=>{nurOffen=true;$("nurOffen").checked=true;ls.set("nurOffen","1");auswahl.woche=null;setAnsicht("woche");geheZu("liste")});l3.append(b)}}
+  else gruppe("sNach",null);
+  // Fortschritt
+  let ges=0,ok=0;const faecher=new Map();
+  sichtbar.forEach(k=>{const {g,o}=stand(k);ges+=g;ok+=o;if(!faecher.has(k.fach))faecher.set(k.fach,{g:0,o:0});const f=faecher.get(k.fach);f.g+=g;f.o+=o});
+  const l4=gruppe("sFort","Fortschritt im Semester");
+  const gr=el("div","gross");gr.append(el("b",null,(ges?Math.round(ok/ges*100):0)+" %"),el("span",null,ok+" von "+ges+" Kapiteln gelesen"));
+  const tr=el("div","track"),fi=el("div","fill");fi.style.width=(ges?ok/ges*100:0)+"%";tr.append(fi);l4.append(gr,tr);
+  if(!nutzer)l4.append(el("div","leer","Wähle oben deinen Namen, dann siehst du hier deinen Stand."));
+  [...faecher.entries()].filter(([,f])=>f.g).sort((a,b)=>a[0].localeCompare(b[0],"de")).forEach(([fach,f])=>{
+    const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
+    const mi=el("div","mini"),i=el("i");i.style.width=(f.o/f.g*100)+"%";mi.append(i);m.append(mi);
+    b.append(m,el("span","r"+(f.o===f.g?" ok":""),f.o===f.g?"✓":f.o+"/"+f.g));
+    b.addEventListener("click",()=>{auswahl.fach=fach;setAnsicht("fach");geheZu("liste")});l4.append(b)});
+  // Quellen
+  const l5=gruppe("sQuellen","Quellen");
+  QUELLEN.forEach(q=>{const a=el("a","zeile link");a.href=q.url;a.target="_blank";a.rel="noopener";
+    const ic=el("span","ic",q.t[0]);ic.style.background=q.f||"var(--accent)";const m=el("div","m");m.append(el("span","t",q.t));if(q.w)m.append(el("span","u",q.w));
+    a.append(ic,m);l5.append(a)});
+}
+function oeffneKurs(k){
+  if(nurOffen){const {g,o}=stand(k);if(g&&o===g){nurOffen=false;$("nurOffen").checked=false;ls.set("nurOffen","0")}}
+  if(ohneAus&&keineKlausur(k)){ohneAus=false;$("ohneKlausur").checked=false;ls.set("ohneKlausur","0")}
+  auswahl.woche=wocheKey(k);setAnsicht("woche");geheZu("liste",k.id)}
+let sprungZiel=null;
+function geheZu(v,ziel){sprungZiel=ziel||null;if(location.hash!=="#"+v)location.hash="#"+v;else nachBereich()}
+function nachBereich(){
+  zeigeBereich();const z=sprungZiel;sprungZiel=null;
+  const r=z&&document.getElementById("k-"+z);
+  if(r){r.scrollIntoView({block:"start"});r.classList.remove("blink");void r.offsetWidth;r.classList.add("blink")}else window.scrollTo({top:0})}
+/* ---------- Bereiche ---------- */
+const LEAD={start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+function zeigeBereich(){
+  const v=location.hash==="#liste"?"liste":"start";
+  $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("lead").textContent=LEAD[v];
+  document.querySelectorAll("#tabs a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  document.title=v==="liste"?"Amboss-Liste · Lernplaner":"Lernplaner"}
+window.addEventListener("hashchange",nachBereich);
+zeigeBereich();
 let schreibt=Promise.resolve();
 function abhaken(k,id,val){
   if(!darf)return;

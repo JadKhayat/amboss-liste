@@ -2,7 +2,7 @@
 
 Amboss-Kapitel zur Vorbereitung auf die Pflichtkurse im klinischen Abschnitt (Uni Münster), Semester für Semester.
 
-- `index.html`: die Webseite (jadkhayat.github.io/amboss-liste)
+- `index.html`: die Webseite (jadkhayat.github.io/amboss-liste) mit Startseite (Übersicht) und Amboss-Liste (`#liste`)
 - `kurse.json`: Kurse mit Kapiteln
 - `supabase.sql`: Nutzer mit PIN und Haken
 
@@ -17,3 +17,8 @@ Spätere Semester werden ab dort automatisch weitergezählt (SS 27 = 2. klinisch
 Stimmt die Zählung einmal nicht (z. B. Auslandssemester), dort einen eigenen Eintrag ergänzen.
 Ein Kurs außerhalb der üblichen Zeiten kann mit `"semester": "WS 26/27"` fest zugeordnet werden.
 Die Haken gelten über alle Semester: Ein Kapitel, das schon gelesen ist, bleibt abgehakt, wenn es später wieder vorkommt.
+
+## Startseite
+
+Zeigt den nächsten Kurs, diese und nächste Woche, Kurse mit offenen Kapiteln zum Nachholen, den Fortschritt je Fach und die Quellen.
+Die Quellen stehen oben im Skript von `index.html` in `QUELLEN`.
