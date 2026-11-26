@@ -37,3 +37,9 @@ Eigene Skripte als Datei unter `skripte/<Fach>/` ablegen und in `dateien.json` e
 - `kurs` (optional): ID aus `kurse.json`. Dann erscheint die Datei auch in der Amboss-Liste beim Kurs und im richtigen Semester.
 - `datum` (optional, ohne Kurs): ordnet die Datei einem Semester zu. Ohne Kurs und Datum erscheint sie in jedem Semester.
 - Statt `datei` geht auch `url` (z. B. Link zu Ilias oder OneDrive). Offizielle Unterlagen der Uni nur verlinken, nicht hochladen: Die Seite ist öffentlich.
+
+## Anki
+
+Je Kapitel in `kurse.json` optional `"anki"`: die Anki-Suchanfrage für den Ankiphil-Stapel (so wie Amboss sie kopiert).
+Dann zeigt die Amboss-Liste beim Kapitel einen Knopf „Anki“ zum Kopieren und beim Kurs „Anki: alle Kapitel dieses Kurses“ (alle Anfragen mit `or` verbunden).
+Lässt sich die Anfrage aus der Kapitel-ID ableiten, reicht stattdessen `ANKI_VORLAGE` in `index.html`.

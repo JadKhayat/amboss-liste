@@ -127,6 +127,17 @@ ul.art a{color:var(--fg);font-weight:500;text-decoration:none;font-size:16px}
 ul.art a::after{content:" ›";color:var(--tert)}
 ul.art a:hover,ul.art a:focus-visible{color:var(--accent)}
 ul.art .why{color:var(--muted);font-size:14px}
+ul.art li>div{flex:1;min-width:0}
+.anki{all:unset;box-sizing:border-box;flex:none;display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--accent);background:var(--tint);border-radius:8px;padding:4px 9px;cursor:pointer;white-space:nowrap}
+.anki svg{width:14px;height:14px}
+.anki:hover{filter:brightness(.95)}
+.anki:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.anki.ok{background:#34C759;color:#fff}
+.anki.alle{margin-top:8px;align-self:flex-start;padding:6px 12px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:30;max-width:calc(100% - 32px);
+  background:rgba(30,30,32,.92);color:#fff;font-size:15px;line-height:1.35;padding:10px 16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);transition:opacity .2s,transform .2s;text-align:center}
+.toast.an{opacity:1;transform:translate(-50%,0)}
+@media (max-width:760px){.toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
 ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .badge{font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--tint);color:var(--accent);margin-left:6px;vertical-align:2px;white-space:nowrap}
 .badge.nk{background:var(--fill);color:var(--muted)}
@@ -309,6 +320,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
   </div>
   <p class="note" id="hinweis"></p>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
 
 <script>
@@ -534,8 +546,10 @@ function render(){
         cb.addEventListener("change",()=>abhaken(k,a.id,cb.checked,cb));
         const txt=el("div");const link=el("a",null,a.t);link.href=AMBOSS+a.id;link.target="_blank";link.rel="noopener";
         txt.append(link);if(a.vk){txt.append(el("span","badge vk","Vorklinik"))}if(a.w){txt.append(el("span","why"," · "+a.w))}
-        li.append(cb,txt);ul.append(li)});
+        li.append(cb,txt);const q=ankiQuery(a);if(q)li.append(ankiKnopf(q,"Anki",a.t));ul.append(li)});
       body.append(ul);
+      const qs=[...new Set(art(k).map(ankiQuery).filter(Boolean))];
+      if(qs.length>1){const b=ankiKnopf(qs.map(q=>"("+q+")").join(" or "),"Anki: alle Kapitel dieses Kurses","alle "+qs.length+" Kapitel");b.classList.add("alle");body.append(b)}
       const du=dateienZuKurs(k);
       if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,"📄 "+f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
       const dup=art(k).filter(a=>besitzer.get(a.id)!==k);
@@ -617,6 +631,24 @@ function nachBereich(){
   zeigeBereich();const z=sprungZiel;sprungZiel=null;
   const r=z&&document.getElementById("k-"+z);
   if(r){r.scrollIntoView({block:"start"});r.classList.remove("blink");void r.offsetWidth;r.classList.add("blink")}else window.scrollTo({top:0})}
+/* ---------- Anki ----------
+   Je Kapitel in kurse.json optional "anki": die Anki-Suchanfrage für den Ankiphil-Stapel (wie in Amboss kopiert).
+   ANKI_VORLAGE: falls die Anfrage sich aus der Kapitel-ID ableiten lässt, z. B. 'tag:*{id}*' ({id}, {titel}). */
+const ANKI_VORLAGE=null;
+const ankiQuery=a=>a.anki||(ANKI_VORLAGE?ANKI_VORLAGE.replace(/\{id\}/g,a.id).replace(/\{titel\}/g,a.t):null);
+const KOPIER_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+async function kopiere(t){
+  try{await navigator.clipboard.writeText(t);return true}catch(e){}
+  try{const ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.append(ta);ta.select();ta.setSelectionRange(0,t.length);const ok=document.execCommand("copy");ta.remove();return ok}catch(e){return false}}
+let toastZeit=null;
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("an");clearTimeout(toastZeit);toastZeit=setTimeout(()=>e.classList.remove("an"),2600)}
+function ankiKnopf(q,label,was){
+  const b=el("button","anki");b.type="button";b.innerHTML=KOPIER_SVG;b.append(document.createTextNode(label));
+  b.title="Anki-Suchanfrage kopieren: "+q;b.setAttribute("aria-label","Anki-Suchanfrage kopieren für "+was);
+  b.addEventListener("click",async()=>{const ok=await kopiere(q);
+    if(ok){toast("Anki-Suchanfrage kopiert. In Anki unter „Durchsuchen“ einfügen.");b.classList.add("ok");setTimeout(()=>b.classList.remove("ok"),1500)}
+    else{window.prompt("Kopieren hat nicht geklappt. Bitte selbst kopieren:",q)}});
+  return b}
 /* ---------- Skripte ----------
    dateien.json: {"dateien":[{"t":Titel, "datei":"skripte/<Fach>/<Name>.pdf" ODER "url":"https://…",
      "fach", "kurs": Kurs-ID aus kurse.json (optional), "datum": "JJJJ-MM-TT" (optional), "art": "Eigenes Skript" | "Unterlagen" …, "w": kurzer Hinweis (optional)}]} */
