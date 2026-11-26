@@ -601,7 +601,7 @@ function render(){
       const mitAnki=[...new Map(art(k).filter(a=>ankiQuery(a)).map(a=>[a.id,a])).values()],qs=[...new Set(mitAnki.map(ankiQuery))];
       if(qs.length>1){const st=ankiStand(mitAnki);const b=ankiKnopf(qs.map(q=>"("+q+")").join(" or "),"Anki: alle Kapitel dieses Kurses"+(st.bekannt?" · "+st.ges+" Notizen":""),"alle "+qs.length+" Kapitel");b.classList.add("alle");body.append(b)}
       const du=dateienZuKurs(k);
-      if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,"📄 "+f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
+      if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
       const dup=art(k).filter(a=>besitzer.get(a.id)!==k);
       if(dup.length){body.append(el("p","dup","Schon bei einem früheren Kurs: "+dup.map(a=>{const b=besitzer.get(a.id);return a.t+(b?" ("+fmt(new Date(b.datum+"T12:00:00"))+")":"")}).join(" · ")))}
       row.append(when,body);sec.append(row)}
