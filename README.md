@@ -9,7 +9,7 @@ Amboss-Kapitel zur Vorbereitung auf die Pflichtkurse im klinischen Abschnitt (Un
 
 ## Semester
 
-Das Semester wählt man unter „Profil“ (oben auf der Seite steht das gewählte Semester). Die Kurse werden über ihr Datum zugeordnet:
+Das Semester wählt man unter „Profil“. Die Kurse werden über ihr Datum zugeordnet:
 Wintersemester von Oktober bis März, Sommersemester von April bis September.
 Neue Kurse einfach wie bisher an `kurse` anhängen, ein neues Semester erscheint dann von selbst.
 

@@ -36,9 +36,6 @@ h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-heig
 .lead{margin:0;color:var(--muted);font-size:15px;max-width:62ch}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* Semester-Auswahl (oberste Ebene) */
-.sem{align-self:flex-start;max-width:100%;margin:2px 0 4px;font-size:15px;font-weight:600;color:var(--accent);background:var(--tint);border-radius:999px;padding:6px 14px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sem:hover{opacity:.85}
-.sem:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* Auswahlzeile in den Einstellungen */
 .wahl{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;font-size:17px}
 .wahl select{font:inherit;font-size:16px;padding:8px 32px 8px 12px;border:0;border-radius:10px;background-color:var(--fill);color:var(--fg);flex:1;min-width:0;text-overflow:ellipsis;cursor:pointer;-webkit-appearance:none;appearance:none;
@@ -212,7 +209,6 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .toggle input:disabled{opacity:.5;cursor:not-allowed}
 .fuss{margin:0;padding:7px 16px 0;font-size:13px;line-height:1.4;color:var(--muted)}
 .fuss.fehler{color:var(--red)}
-body[data-v="profil"] .sem{display:none}
 .loginHinweis{display:block;font-size:15px;color:var(--accent);text-decoration:none}
 .loginHinweis:hover{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.kurs.blink{animation:none}}
@@ -222,7 +218,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <div class="wrap">
   <header>
     <h1>Lernplaner</h1>
-    <a class="sem" id="semBox" href="#profil" hidden title="Semester in den Einstellungen ändern"></a>
     <p class="lead" id="lead"></p>
   </header>
   <nav class="tabs" id="tabs" aria-label="Bereiche">
@@ -342,10 +337,9 @@ function baueSemester(){
   semAuswahl=alle.includes(gemerkt)?gemerkt:heute;
   const sel=$("semWahl");sel.replaceChildren();
   alle.forEach(i=>{const b=semBeschreibung(i);const o=new Option(semKurz(i)+(b?" · "+b:""),i);o.title=semLang(i);sel.append(o)});
-  sel.value=semAuswahl;zeigeSemKopf();
+  sel.value=semAuswahl;
 }
-function zeigeSemKopf(){const b=semBeschreibung(semAuswahl),k=$("semBox");k.textContent=semKurz(semAuswahl)+(b?" · "+b:"");k.title=semLang(semAuswahl)+" · in den Einstellungen ändern";k.hidden=false}
-document.getElementById("semWahl").addEventListener("change",e=>{semAuswahl=+e.target.value;try{localStorage.setItem("semester",semAuswahl)}catch(_){}auswahl={woche:null,fach:null};zeigeSemKopf();render()});
+document.getElementById("semWahl").addEventListener("change",e=>{semAuswahl=+e.target.value;try{localStorage.setItem("semester",semAuswahl)}catch(_){}auswahl={woche:null,fach:null};render()});
 
 let besitzer=new Map();
 let ohneVk=false; try{ohneVk=localStorage.getItem("ohneVk")==="1"}catch(e){}
