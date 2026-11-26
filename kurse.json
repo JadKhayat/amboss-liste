@@ -10,17 +10,23 @@
     {
      "id": "En08Eg",
      "t": "Anamnese",
-     "w": "Aufbau und Gesprächsführung"
+     "w": "Aufbau und Gesprächsführung",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "WQ0PEf",
      "t": "Antisepsis",
-     "w": "Händedesinfektion"
+     "w": "Händedesinfektion",
+     "anki": "nid:1723473350174 OR nid:1723473356940 OR nid:1723474007592 OR nid:1723474586296 OR nid:1723475749891 OR nid:1723475923186 OR nid:1723476027450 OR nid:1723476152377 OR nid:1723476306629 OR nid:1723478743167 OR nid:1723479002902 OR note:Ankiphil* AMBOSS*:*WQ0PEf*",
+     "ankiN": 11
     },
     {
      "id": "_f05K2",
      "t": "Nosokomiale Infektionen",
-     "w": "Basishygiene, Prävention"
+     "w": "Basishygiene, Prävention",
+     "anki": "nid:1723370269237 OR nid:1723370796511 OR nid:1723370955377 OR nid:1723370991318 OR nid:1723371131338 OR nid:1723371279264 OR nid:1723371409066 OR nid:1723371590964 OR nid:1723372941497 OR nid:1723373025359 OR nid:1723373165971 OR nid:1723373350845 OR nid:1723373466627 OR nid:1723373923472 OR nid:1723374090804 OR nid:1723374675887 OR nid:1723374740622 OR nid:1723374901180 OR nid:1723375747392 OR nid:1723377880962 OR nid:1723378229452 OR nid:1723378554471 OR nid:1723379581878 OR nid:1723380799291 OR nid:1723381392698 OR nid:1723383004294 OR nid:1723385418218 OR nid:1723385537286 OR nid:1723387387829 OR nid:1723387817361 OR nid:1723388898259 OR note:Ankiphil* AMBOSS*:*_f05K2*",
+     "ankiN": 31
     }
    ],
    "datum": "2026-10-13",
@@ -35,12 +41,16 @@
     {
      "id": "wQ0hyf",
      "t": "Arbeitsmedizinische Organe und Gesetze",
-     "w": "Arbeitsschutzgesetz, Zuständigkeiten"
+     "w": "Arbeitsschutzgesetz, Zuständigkeiten",
+     "anki": "nid:1722334883567 OR nid:1722335044733 OR nid:1722335158172 OR note:Ankiphil* AMBOSS*:*wQ0hyf*",
+     "ankiN": 3
     },
     {
      "id": "9Q0Nyf",
      "t": "Verhütung und Früherkennung beruflich bedingter Schäden",
-     "w": "Vorsorge, Schutzmaßnahmen"
+     "w": "Vorsorge, Schutzmaßnahmen",
+     "anki": "nid:1722321050811 OR nid:1722321478003 OR nid:1722321578609 OR nid:1722321967878 OR nid:1722322127804 OR note:Ankiphil* AMBOSS*:*9Q0Nyf*",
+     "ankiN": 5
     }
    ],
    "datum": "2026-10-14",
@@ -55,17 +65,23 @@
     {
      "id": "XL09wg",
      "t": "Ablauf einer allgemeinen körperlichen Aufnahmeuntersuchung",
-     "w": "Vitalparameter im Untersuchungsablauf"
+     "w": "Vitalparameter im Untersuchungsablauf",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "hE0cv3",
      "t": "Hämodynamisches Monitoring",
-     "w": "Blutdruckmessung"
+     "w": "Blutdruckmessung",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "xH0Esh",
      "t": "Kindervorsorgeuntersuchungen",
-     "w": "Perzentilen, Wachstum"
+     "w": "Perzentilen, Wachstum",
+     "anki": "nid:1720162528933 OR nid:1720162714547 OR nid:1720162870204 OR nid:1720163067090 OR nid:1720163453371 OR nid:1720163751979 OR nid:1720164117367 OR nid:1720164416129 OR nid:1720164538560 OR nid:1720165355067 OR nid:1720169331905 OR note:Ankiphil* AMBOSS*:*xH0Esh*",
+     "ankiN": 11
     }
    ],
    "datum": "2026-10-15",
@@ -80,19 +96,25 @@
     {
      "id": "Mn0MFg",
      "t": "Nuklearmedizin und Strahlenschutz",
-     "w": "Grundlagen, Geräte, Tracer"
+     "w": "Grundlagen, Geräte, Tracer",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "k60mOS",
      "t": "Ionisierende Strahlung",
      "vk": true,
-     "w": "Strahlenarten, Dosisgrößen"
+     "w": "Strahlenarten, Dosisgrößen",
+     "anki": "nid:1582035489133 OR nid:1582035730162 OR nid:1582036948494 OR nid:1582037074461 OR nid:1582037470714 OR nid:1582037629260 OR nid:1582037659955 OR nid:1582038728826 OR nid:1582038858739 OR nid:1582039132389 OR nid:1582039224030 OR nid:1582039282375 OR nid:1582039582245 OR nid:1582039792874 OR nid:1582040547129 OR nid:1582040789356 OR nid:1582040863586 OR nid:1582043068104 OR nid:1582043763008 OR nid:1582043952357 OR nid:1582044103131 OR nid:1582044525938 OR nid:1582044915373 OR nid:1582045120267 OR nid:1582045218962 OR nid:1582045405094 OR nid:1582045718605 OR nid:1582045818359 OR nid:1582045883021 OR nid:1582045981851 OR nid:1582046174463 OR nid:1582046641990 OR nid:1582046761911 OR nid:1582047987696 OR nid:1582048301096 OR nid:1582048384162 OR nid:1582048525536 OR nid:1582048619167 OR nid:1582048773328 OR nid:1582048867072 OR nid:1582049023172 OR nid:1582049075003 OR nid:1582049191278 OR nid:1582049303980 OR nid:1589380354570 OR nid:1687253698013 OR note:Ankiphil* AMBOSS*:*k60mOS*",
+     "ankiN": 46
     },
     {
      "id": "hK0cTS",
      "t": "Aufbau der Materie",
      "vk": true,
-     "w": "Radioaktiver Zerfall, Halbwertszeit"
+     "w": "Radioaktiver Zerfall, Halbwertszeit",
+     "anki": "nid:1583481181672 OR nid:1583481428212 OR nid:1583481962197 OR nid:1583482120838 OR nid:1583483720146 OR nid:1583483802648 OR nid:1583484124313 OR nid:1583494322152 OR nid:1583503783710 OR nid:1583505686663 OR nid:1583505844620 OR nid:1583506114737 OR nid:1583506398906 OR nid:1583508241926 OR nid:1583508797818 OR nid:1583509608077 OR nid:1583510013212 OR nid:1583510678782 OR nid:1583564917865 OR nid:1583565124360 OR nid:1583565286650 OR nid:1583565381684 OR nid:1583565484451 OR nid:1583565583206 OR nid:1583567035446 OR nid:1583567316167 OR nid:1583567559872 OR nid:1583567967162 OR nid:1583568377606 OR nid:1583568698831 OR nid:1583571614266 OR nid:1583571989382 OR nid:1583572338476 OR nid:1583572813996 OR nid:1583575200677 OR nid:1583575305656 OR nid:1583576173797 OR nid:1583576629841 OR nid:1583577964679 OR nid:1583578421478 OR nid:1583578682427 OR nid:1583580086475 OR nid:1583580504520 OR nid:1583580583537 OR nid:1583582277552 OR nid:1583582547841 OR nid:1583582686696 OR nid:1583582825629 OR nid:1583583160725 OR nid:1583583290968 OR nid:1583583454220 OR nid:1583583799449 OR nid:1583583877784 OR nid:1583583971573 OR nid:1583584032979 OR nid:1583584348169 OR nid:1594895438211 OR nid:1594895783432 OR nid:1594895874866 OR nid:1594896268156 OR nid:1678557806221 OR note:Ankiphil* AMBOSS*:*hK0cTS*",
+     "ankiN": 61
     }
    ],
    "datum": "2026-10-19",
@@ -109,18 +131,24 @@
      "id": "k60mOS",
      "t": "Ionisierende Strahlung",
      "vk": true,
-     "w": "Energiedosis, Äquivalentdosis, Wirkung"
+     "w": "Energiedosis, Äquivalentdosis, Wirkung",
+     "anki": "nid:1582035489133 OR nid:1582035730162 OR nid:1582036948494 OR nid:1582037074461 OR nid:1582037470714 OR nid:1582037629260 OR nid:1582037659955 OR nid:1582038728826 OR nid:1582038858739 OR nid:1582039132389 OR nid:1582039224030 OR nid:1582039282375 OR nid:1582039582245 OR nid:1582039792874 OR nid:1582040547129 OR nid:1582040789356 OR nid:1582040863586 OR nid:1582043068104 OR nid:1582043763008 OR nid:1582043952357 OR nid:1582044103131 OR nid:1582044525938 OR nid:1582044915373 OR nid:1582045120267 OR nid:1582045218962 OR nid:1582045405094 OR nid:1582045718605 OR nid:1582045818359 OR nid:1582045883021 OR nid:1582045981851 OR nid:1582046174463 OR nid:1582046641990 OR nid:1582046761911 OR nid:1582047987696 OR nid:1582048301096 OR nid:1582048384162 OR nid:1582048525536 OR nid:1582048619167 OR nid:1582048773328 OR nid:1582048867072 OR nid:1582049023172 OR nid:1582049075003 OR nid:1582049191278 OR nid:1582049303980 OR nid:1589380354570 OR nid:1687253698013 OR note:Ankiphil* AMBOSS*:*k60mOS*",
+     "ankiN": 46
     },
     {
      "id": "Yp0nLS",
      "t": "Replikation und Reparaturmechanismen der DNA",
      "vk": true,
-     "w": "Doppelstrangbruch-Reparatur"
+     "w": "Doppelstrangbruch-Reparatur",
+     "anki": "nid:1581498906001 OR nid:1581499429684 OR nid:1581517675014 OR nid:1581518677180 OR nid:1581518772622 OR nid:1581519195133 OR nid:1581519502289 OR nid:1581519780751 OR nid:1581523967499 OR nid:1581524568339 OR nid:1581524919927 OR nid:1581525704287 OR nid:1581525919257 OR nid:1581526159934 OR nid:1581526319801 OR nid:1581526546119 OR nid:1581691723533 OR nid:1581692052772 OR nid:1581692238240 OR nid:1581692395287 OR nid:1581692747774 OR nid:1581692872154 OR nid:1581692947192 OR nid:1581693263546 OR nid:1581693769022 OR nid:1581693864302 OR nid:1581694994717 OR nid:1581695410333 OR nid:1581697097629 OR nid:1581697375654 OR nid:1589313659889 OR nid:1595179248281 OR nid:1595184047508 OR nid:1681250224941 OR nid:1681252468290 OR nid:1754569347435 OR note:Ankiphil* AMBOSS*:*Yp0nLS*",
+     "ankiN": 36
     },
     {
      "id": "L50wkg",
      "t": "Strahlentherapie",
-     "w": "Fraktionierung"
+     "w": "Fraktionierung",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-10-22",
@@ -145,17 +173,23 @@
     {
      "id": "il0J9T",
      "t": "Schilddrüsenszintigrafie",
-     "w": "heißer und kalter Knoten"
+     "w": "heißer und kalter Knoten",
+     "anki": "nid:1760700736120 OR nid:1760700775735 OR nid:1760700814540 OR nid:1760701010324 OR nid:1760701205602 OR nid:1760701332921 OR note:Ankiphil* AMBOSS*:*il0J9T*",
+     "ankiN": 6
     },
     {
      "id": "JN0sXg",
      "t": "Knochenszintigrafie",
-     "w": "Indikationen, Befunde"
+     "w": "Indikationen, Befunde",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "Gl0ByT",
      "t": "Radioiodtherapie",
-     "w": "Indikationen, Strahlenschutz"
+     "w": "Indikationen, Strahlenschutz",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-10-26",
@@ -171,12 +205,16 @@
     {
      "id": "8n0OEg",
      "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
-     "w": "Abdomen-Untersuchung, Zeichen"
+     "w": "Abdomen-Untersuchung, Zeichen",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "N50-4g",
      "t": "Akutes Abdomen",
-     "w": "klinische Zeichen"
+     "w": "klinische Zeichen",
+     "anki": "nid:1678823956318 OR nid:1678824271108 OR nid:1678824623989 OR nid:1678825505308 OR nid:1678827895140 OR nid:1678828333289 OR nid:1678828473405 OR nid:1678828682101 OR nid:1678864205512 OR nid:1678864468689 OR nid:1678868359664 OR nid:1678880120243 OR nid:1726312222241 OR nid:1761046417309 OR note:Ankiphil* AMBOSS*:*N50-4g*",
+     "ankiN": 14
     }
    ],
    "datum": "2026-10-27",
@@ -191,7 +229,9 @@
     {
      "id": "L50wkg",
      "t": "Strahlentherapie",
-     "w": "Konzepte, Indikationen, Nebenwirkungen"
+     "w": "Konzepte, Indikationen, Nebenwirkungen",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-10-28",
@@ -206,12 +246,16 @@
     {
      "id": "tl0XAT",
      "t": "Klinische Untersuchung der Lunge",
-     "w": "Perkussion, Auskultation"
+     "w": "Perkussion, Auskultation",
+     "anki": "nid:1672398772539 OR nid:1672400981778 OR nid:1672401204542 OR nid:1672401411757 OR nid:1672481835970 OR nid:1672489661278 OR nid:1672489952726 OR nid:1672654068928 OR nid:1672654392509 OR nid:1672654417436 OR note:Ankiphil* AMBOSS*:*tl0XAT*",
+     "ankiN": 10
     },
     {
      "id": "8n0OEg",
      "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
-     "w": "Thorax-Befunde"
+     "w": "Thorax-Befunde",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-10-29",
@@ -227,7 +271,8 @@
      "id": "Tg06u2",
      "t": "Phäochromozytom",
      "w": "Klinik, Metanephrine, Clonidin-Hemmtest",
-     "anki": "nid:1681192697105 OR nid:1681193098069 OR nid:1681193592170 OR nid:1681194186834 OR nid:1681194713800 OR nid:1681195334369 OR nid:1681195385851 OR nid:1681195562065 OR nid:1681196120147 OR nid:1681196480687 OR nid:1681198162794 OR nid:1681198605479 OR nid:1681198721771 OR nid:1681200308327 OR nid:1681200824495 OR nid:1681200952300 OR nid:1681203666263 OR nid:1681203978243 OR note:Ankiphil* AMBOSS*:*Tg06u2*"
+     "anki": "nid:1681192697105 OR nid:1681193098069 OR nid:1681193592170 OR nid:1681194186834 OR nid:1681194713800 OR nid:1681195334369 OR nid:1681195385851 OR nid:1681195562065 OR nid:1681196120147 OR nid:1681196480687 OR nid:1681198162794 OR nid:1681198605479 OR nid:1681198721771 OR nid:1681200308327 OR nid:1681200824495 OR nid:1681200952300 OR nid:1681203666263 OR nid:1681203978243 OR note:Ankiphil* AMBOSS*:*Tg06u2*",
+     "ankiN": 18
     },
     {
      "id": "oo001S",
@@ -348,7 +393,9 @@
     {
      "id": "L50wkg",
      "t": "Strahlentherapie",
-     "w": "Akut- und Spätfolgen, Therapiekonzepte"
+     "w": "Akut- und Spätfolgen, Therapiekonzepte",
+     "anki": false,
+     "ankiN": 0
     },
     {
      "id": "WM0Png",
@@ -359,7 +406,9 @@
      "id": "k60mOS",
      "t": "Ionisierende Strahlung",
      "vk": true,
-     "w": "Dosis, deterministische und stochastische Wirkung"
+     "w": "Dosis, deterministische und stochastische Wirkung",
+     "anki": "nid:1582035489133 OR nid:1582035730162 OR nid:1582036948494 OR nid:1582037074461 OR nid:1582037470714 OR nid:1582037629260 OR nid:1582037659955 OR nid:1582038728826 OR nid:1582038858739 OR nid:1582039132389 OR nid:1582039224030 OR nid:1582039282375 OR nid:1582039582245 OR nid:1582039792874 OR nid:1582040547129 OR nid:1582040789356 OR nid:1582040863586 OR nid:1582043068104 OR nid:1582043763008 OR nid:1582043952357 OR nid:1582044103131 OR nid:1582044525938 OR nid:1582044915373 OR nid:1582045120267 OR nid:1582045218962 OR nid:1582045405094 OR nid:1582045718605 OR nid:1582045818359 OR nid:1582045883021 OR nid:1582045981851 OR nid:1582046174463 OR nid:1582046641990 OR nid:1582046761911 OR nid:1582047987696 OR nid:1582048301096 OR nid:1582048384162 OR nid:1582048525536 OR nid:1582048619167 OR nid:1582048773328 OR nid:1582048867072 OR nid:1582049023172 OR nid:1582049075003 OR nid:1582049191278 OR nid:1582049303980 OR nid:1589380354570 OR nid:1687253698013 OR note:Ankiphil* AMBOSS*:*k60mOS*",
+     "ankiN": 46
     }
    ],
    "datum": "2026-11-02",
@@ -380,7 +429,9 @@
     {
      "id": "8n0OEg",
      "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
-     "w": "Herzuntersuchung, Pulse"
+     "w": "Herzuntersuchung, Pulse",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-11-03",
@@ -400,12 +451,16 @@
     {
      "id": "_f05K2",
      "t": "Nosokomiale Infektionen",
-     "w": "Multiresistente Erreger (MRE), Prävention"
+     "w": "Multiresistente Erreger (MRE), Prävention",
+     "anki": "nid:1723370269237 OR nid:1723370796511 OR nid:1723370955377 OR nid:1723370991318 OR nid:1723371131338 OR nid:1723371279264 OR nid:1723371409066 OR nid:1723371590964 OR nid:1723372941497 OR nid:1723373025359 OR nid:1723373165971 OR nid:1723373350845 OR nid:1723373466627 OR nid:1723373923472 OR nid:1723374090804 OR nid:1723374675887 OR nid:1723374740622 OR nid:1723374901180 OR nid:1723375747392 OR nid:1723377880962 OR nid:1723378229452 OR nid:1723378554471 OR nid:1723379581878 OR nid:1723380799291 OR nid:1723381392698 OR nid:1723383004294 OR nid:1723385418218 OR nid:1723385537286 OR nid:1723387387829 OR nid:1723387817361 OR nid:1723388898259 OR note:Ankiphil* AMBOSS*:*_f05K2*",
+     "ankiN": 31
     },
     {
      "id": "WQ0PEf",
      "t": "Antisepsis",
-     "w": "Aseptisches Arbeiten, Händedesinfektion"
+     "w": "Aseptisches Arbeiten, Händedesinfektion",
+     "anki": "nid:1723473350174 OR nid:1723473356940 OR nid:1723474007592 OR nid:1723474586296 OR nid:1723475749891 OR nid:1723475923186 OR nid:1723476027450 OR nid:1723476152377 OR nid:1723476306629 OR nid:1723478743167 OR nid:1723479002902 OR note:Ankiphil* AMBOSS*:*WQ0PEf*",
+     "ankiN": 11
     }
    ],
    "datum": "2026-11-04",
@@ -486,7 +541,9 @@
     {
      "id": "XL09wg",
      "t": "Ablauf einer allgemeinen körperlichen Aufnahmeuntersuchung",
-     "w": "Einordnung der neurologischen Untersuchung"
+     "w": "Einordnung der neurologischen Untersuchung",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-11-10",
@@ -512,7 +569,9 @@
     {
      "id": "8n0OEg",
      "t": "Befunde und Techniken der internistischen und chirurgischen Untersuchung",
-     "w": "Wiederholung körperliche Untersuchung"
+     "w": "Wiederholung körperliche Untersuchung",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-11-11",
@@ -534,7 +593,9 @@
     {
      "id": "En08Eg",
      "t": "Anamnese",
-     "w": "Aufbau und Gesprächsführung"
+     "w": "Aufbau und Gesprächsführung",
+     "anki": false,
+     "ankiN": 0
     }
    ],
    "datum": "2026-11-16",
