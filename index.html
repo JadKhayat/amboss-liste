@@ -74,6 +74,10 @@ h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-heig
 .track{flex:1;height:6px;background:var(--fill);border-radius:3px;overflow:hidden}
 .fill{height:100%;background:var(--accent);width:0;border-radius:3px;transition:width .35s cubic-bezier(.2,.8,.2,1)}
 .count{font-size:15px;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+.ankiZeile{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ankiZeile b{color:var(--fg);font-weight:600}
+.ankiZeile .klein{font-size:13px}
+.liste .ankiZeile{padding:0 16px 14px;margin-top:-6px}
 .seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:2px;margin:10px 16px;padding:2px!important;border-top:0!important}
 .seg button{flex:1;font:inherit;font-size:14px;font-weight:500;padding:6px 10px;border:0;border-radius:7px;background:transparent;color:var(--fg);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--seg-on);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04);font-weight:600}
@@ -309,6 +313,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="bar">
     <a class="loginHinweis" id="loginHinweis" href="#profil" hidden>Zum Abhaken unter „Profil“ anmelden ›</a>
     <div class="prog"><div class="track"><div class="fill" id="fill"></div></div><span class="count" id="count">–</span></div>
+    <div class="ankiZeile" id="ankiZeile" hidden></div>
     <div class="seg" role="group" aria-label="Sortierung"><button type="button" id="v-woche" aria-pressed="true">Nach Woche</button><button type="button" id="v-fach" aria-pressed="false">Nach Fach</button></div>
     <label class="toggle"><input type="checkbox" id="nurOffen"> Nur offene Kurse</label>
     <label class="toggle"><input type="checkbox" id="ohneKlausur"> Fächer ohne Klausur ausblenden</label>
@@ -510,6 +515,7 @@ function render(){
   [...sichtbar].sort((a,b)=>(a.datum+a.zeit).localeCompare(b.datum+b.zeit)).forEach(k=>art(k).forEach(a=>{if(!besitzer.has(a.id))besitzer.set(a.id,k)}));
   sichtbar.forEach(k=>{eigen(k).forEach(a=>{ges++;if(fertig(a.id))ok++})});
   document.getElementById("count").textContent=ok+" von "+ges+" Kapiteln";
+  {const az=$("ankiZeile"),st=ankiStand(sichtbar.flatMap(eigen));az.hidden=!st.bekannt&&!st.unbekannt;ankiText(az,st)}
   document.getElementById("fill").style.width=(ges?ok/ges*100:0)+"%";
   if(!sichtbar.length){root.append(el("div","empty",kurse.some(k=>semAuswahl===null||semVon(k)===semAuswahl)?"Keine Kurse mit Klausur in diesem Semester.":"Für dieses Semester sind noch keine Kurse eingetragen. Claude ergänzt sie Woche für Woche."));baueIndex([]);return}
   const wochen=new Map();
@@ -546,10 +552,10 @@ function render(){
         cb.addEventListener("change",()=>abhaken(k,a.id,cb.checked,cb));
         const txt=el("div");const link=el("a",null,a.t);link.href=AMBOSS+a.id;link.target="_blank";link.rel="noopener";
         txt.append(link);if(a.vk){txt.append(el("span","badge vk","Vorklinik"))}if(a.w){txt.append(el("span","why"," · "+a.w))}
-        li.append(cb,txt);const q=ankiQuery(a);if(q)li.append(ankiKnopf(q,"Anki",a.t));ul.append(li)});
+        li.append(cb,txt);const q=ankiQuery(a),n=ankiZahl(a);if(q)li.append(ankiKnopf(q,n!=null?"Anki · "+n:"Anki",a.t));ul.append(li)});
       body.append(ul);
-      const qs=[...new Set(art(k).map(ankiQuery).filter(Boolean))];
-      if(qs.length>1){const b=ankiKnopf(qs.map(q=>"("+q+")").join(" or "),"Anki: alle Kapitel dieses Kurses","alle "+qs.length+" Kapitel");b.classList.add("alle");body.append(b)}
+      const mitAnki=[...new Map(art(k).filter(a=>ankiQuery(a)).map(a=>[a.id,a])).values()],qs=[...new Set(mitAnki.map(ankiQuery))];
+      if(qs.length>1){const st=ankiStand(mitAnki);const b=ankiKnopf(qs.map(q=>"("+q+")").join(" or "),"Anki: alle Kapitel dieses Kurses"+(st.bekannt?" · "+st.ges+" Notizen":""),"alle "+qs.length+" Kapitel");b.classList.add("alle");body.append(b)}
       const du=dateienZuKurs(k);
       if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,"📄 "+f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
       const dup=art(k).filter(a=>besitzer.get(a.id)!==k);
@@ -585,7 +591,7 @@ function renderStart(sichtbar){
   if(naechst){const {g,o}=stand(naechst);const d=new Date(naechst.datum+"T12:00:00");
     const h=el("button","hero");h.type="button";
     h.append(el("span","k","Als Nächstes · "+wann(naechst.datum)),el("span","t",naechst.kurs),
-      el("span","u",naechst.fach+" · "+TAGE[d.getDay()]+" "+fmt(d)+(naechst.zeit?" um "+naechst.zeit:"")+(g?" · "+o+" von "+g+" Kapiteln gelesen":"")));
+      el("span","u",naechst.fach+" · "+TAGE[d.getDay()]+" "+fmt(d)+(naechst.zeit?" um "+naechst.zeit:"")+(g?" · "+o+" von "+g+" Kapiteln gelesen":"")+(()=>{const st=ankiStand(eigen(naechst));return st.bekannt?" · "+st.offen+" Anki-Notizen offen":""})()));
     if(g){const bb=el("span","bar2"),i=el("i");i.style.width=(o/g*100)+"%";bb.append(i);h.append(bb)}
     h.addEventListener("click",()=>oeffneKurs(naechst));n.append(h)}
   // Diese und nächste Woche
@@ -609,6 +615,7 @@ function renderStart(sichtbar){
   const l4=gruppe("sFort",darf?"Dein Fortschritt im Semester":nutzer?"Fortschritt von "+nutzer:"Fortschritt im Semester");
   const gr=el("div","gross");gr.append(el("b",null,(ges?Math.round(ok/ges*100):0)+" %"),el("span",null,ok+" von "+ges+" Kapiteln gelesen"));
   const tr=el("div","track"),fi=el("div","fill");fi.style.width=(ges?ok/ges*100:0)+"%";tr.append(fi);l4.append(gr,tr);
+  {const st=ankiStand(sichtbar.flatMap(eigen));if(st.bekannt||st.unbekannt){const az=el("div","ankiZeile");ankiText(az,st);l4.append(az)}}
   if(!nutzer||privat){const a=el("a","leer loginHinweis",!nutzer?"Unter „Profil“ anmelden, dann siehst du hier deinen Stand ›":nutzer+" hat den Fortschritt verborgen.");if(!nutzer)a.href="#profil";l4.append(a)}
   [...faecher.entries()].filter(([,f])=>f.g).sort((a,b)=>a[0].localeCompare(b[0],"de")).forEach(([fach,f])=>{
     const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
@@ -641,6 +648,15 @@ const KOPIER_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" str
 async function kopiere(t){
   try{await navigator.clipboard.writeText(t);return true}catch(e){}
   try{const ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.append(ta);ta.select();ta.setSelectionRange(0,t.length);const ok=document.execCommand("copy");ta.remove();return ok}catch(e){return false}}
+/* Anki-Notizen: je Kapitel "ankiN" (Zahl wie auf der Amboss-Seite); abgehakte Kapitel zählen als erledigt */
+const ankiZahl=a=>a.anki===false?0:(typeof a.ankiN==="number"&&isFinite(a.ankiN)?a.ankiN:null);
+function ankiStand(liste){let offen=0,ges=0,bekannt=0,unbekannt=0;const ids=new Set();
+  liste.forEach(a=>{if(ids.has(a.id))return;ids.add(a.id);const n=ankiZahl(a);if(n===null){unbekannt++;return}if(a.anki!==false)bekannt++;ges+=n;if(!fertig(a.id))offen+=n});
+  return {offen,ges,bekannt,unbekannt}}
+function ankiText(z,st){z.replaceChildren();
+  if(!st.bekannt){z.append(el("span",null,"Anki-Notizen: Zahlen folgen, sobald sie aus Amboss übernommen sind."));return}
+  const b=el("b",null,st.offen+" Anki-Notizen offen");z.append(b,el("span",null,"von "+st.ges));
+  if(st.unbekannt)z.append(el("span","klein","· bei "+st.unbekannt+(st.unbekannt===1?" Kapitel":" Kapiteln")+" noch ohne Zahl"))}
 let toastZeit=null;
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("an");clearTimeout(toastZeit);toastZeit=setTimeout(()=>e.classList.remove("an"),2600)}
 function ankiKnopf(q,label,was){
