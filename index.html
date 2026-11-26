@@ -206,6 +206,7 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .zeile .mini.anki-m{margin-top:4px}
 .zeile .mini.anki-m i{background:var(--anki)}
 .zeile .r .ra{display:block;font-size:12px;color:var(--anki);text-align:right}
+.zeile .r.fr{min-width:84px;text-align:right}
 .zeile.link .ic{flex:none;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
 .hero{background:var(--accent);color:var(--accent-fg);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;border:0;font:inherit;text-align:left}
 .hero:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
@@ -267,6 +268,7 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .profil{display:flex;flex-direction:column;gap:26px;max-width:640px;width:100%}
 .profil .who{border-radius:var(--r)}
 .liste>.toggle{padding:12px 16px}
+.liste>.toggle.trenn{border-top:.5px solid var(--sep);margin-left:16px;padding-left:0}
 .liste>.seg{margin:12px 16px}
 .toggle input:disabled{opacity:.5;cursor:not-allowed}
 .fuss{margin:0;padding:7px 16px 0;font-size:13px;line-height:1.4;color:var(--muted)}
@@ -333,8 +335,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p class="fuss">Übersicht und Amboss-Liste zeigen nur die Kurse dieses Semesters. Neue Semester erscheinen von selbst, sobald Kurse eingetragen sind. Gilt für dieses Gerät.</p>
     </section>
     <section class="gruppe"><h2>Kapitel</h2>
-      <div class="liste"><label class="toggle"><input type="checkbox" id="ohneVk"> Vorklinik-Kapitel ausblenden</label></div>
-      <p class="fuss">Blendet Kapitel aus, die zur Vorklinik gehören (z. B. Physiologie oder Biochemie). Sie zählen dann auch nicht im Fortschritt mit. Gilt für dieses Gerät.</p>
+      <div class="liste"><label class="toggle"><input type="checkbox" id="ohneKlausur"> Fächer ohne Klausur ausblenden</label><label class="toggle trenn"><input type="checkbox" id="ohneVk"> Vorklinik-Kapitel ausblenden</label></div>
+      <p class="fuss">Ausgeblendetes verschwindet überall (Übersicht, Amboss-Liste, Fortschritt) und zählt nicht mit. „Fächer ohne Klausur“ sind z. B. Skills Lab und Studienorganisation, „Vorklinik-Kapitel“ z. B. Physiologie oder Biochemie. Gilt für dieses Gerät.</p>
     </section>
     <section class="gruppe"><h2>Darstellung</h2>
       <div class="liste"><div class="seg" role="group" aria-label="Darstellung"><button type="button" data-thema="auto">Automatisch</button><button type="button" data-thema="light">Hell</button><button type="button" data-thema="dark">Dunkel</button></div></div>
@@ -355,7 +357,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="ankiZeile" id="ankiZeile" hidden></div>
     <div class="seg" role="group" aria-label="Sortierung"><button type="button" id="v-woche" aria-pressed="true">Nach Woche</button><button type="button" id="v-fach" aria-pressed="false">Nach Fach</button></div>
     <label class="toggle"><input type="checkbox" id="nurOffen"> Nur offene Kurse</label>
-    <label class="toggle"><input type="checkbox" id="ohneKlausur"> Fächer ohne Klausur ausblenden</label>
   </div>
   <div class="layout">
     <nav class="index" id="index" aria-label="Index"><span class="ilabel">Index</span></nav>
@@ -668,8 +669,8 @@ function renderStart(sichtbar){
     const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
     const mi=el("div","mini"),i=el("i");i.style.width=(f.o/f.g*100)+"%";mi.append(i);m.append(mi);
     const st=ankiStand(f.art),r=el("span","r"+(f.o===f.g?" ok":""),f.o===f.g?"✓":f.o+"/"+f.g);
-    if(st.bekannt){const ma=el("div","mini anki-m"),ia=el("i");ia.style.width=(st.ges?(st.ges-st.offen)/st.ges*100:0)+"%";ma.append(ia);m.append(ma);
-      r.append(el("span","ra",(st.ges-st.offen)+"/"+st.ges+" Anki"));b.title=fach+": "+st.offen+" Anki-Notizen offen"}
+    {const ma=el("div","mini anki-m"),ia=el("i");ia.style.width=(st.ges?(st.ges-st.offen)/st.ges*100:0)+"%";ma.append(ia);m.append(ma);
+      r.classList.add("fr");r.append(el("span","ra",(st.ges-st.offen)+"/"+st.ges+" Anki"));b.title=fach+": "+st.offen+" Anki-Notizen offen"}
     b.append(m,r);
     b.addEventListener("click",()=>{auswahl.fach=fach;setAnsicht("fach");geheZu("liste")});l4.append(b)});
   // Quellen
@@ -801,13 +802,13 @@ function abhaken(k,id,val){
 const TOUR=[
  {v:"start",sel:null,t:"Willkommen im Lernplaner",x:"<p>Hier findest du für jede Pflichtveranstaltung die passenden Amboss-Kapitel, deine Anki-Karten dazu und deine Skripte.</p><p>Die Tour dauert eine Minute. Du kannst sie jederzeit unter <b>Profil</b> neu starten.</p>"},
  {v:"profil",sel:"#who",t:"Erst anmelden",x:"<p>Wähle deinen Namen oder lege dich über <b>+ Neu anlegen</b> mit einer PIN (4 bis 8 Ziffern) an.</p><p>Ohne Anmeldung kannst du alles ansehen, aber nichts abhaken.</p>"},
- {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, ob Vorklinik-Kapitel angezeigt werden, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
+ {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, ob Fächer ohne Klausur und Vorklinik-Kapitel angezeigt werden, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
  {v:"start",sel:"#sNaechst .hero",t:"Übersicht",x:"<p><b>Als Nächstes</b> zeigt den nächsten Kurs. Antippen springt direkt zu seinen Kapiteln.</p><p>Darunter: diese Woche und was du noch nachholen solltest.</p>"},
  {v:"start",sel:"#sFort .liste",t:"Dein Fortschritt",x:"<p>Wie viele Kapitel du gelesen hast, gesamt und je Fach. Der <b>blaue Balken</b> zählt die Anki-Notizen dieser Kapitel.</p>"},
  {v:"liste",sel:"#liste ul.art li",t:"Kapitel lesen und abhaken",x:"<p>Der Titel öffnet das Kapitel in Amboss. Gelesen? Dann den <b>Kreis</b> antippen. Dein Haken wird gespeichert, und die Anki-Notizen des Kapitels zählen als erledigt.</p>"},
  {v:"liste",sel:"#liste ul.art .anki:not(:disabled)",t:"Anki-Karten zum Kapitel",x:"<p>Der Knopf <b>Anki</b> kopiert die Suchanfrage für deine Ankiphil-Karten. Die Zahl daneben ist die Zahl der Notizen. Grau heißt: Zu diesem Kapitel gibt es keine Ankiphil-Karten.</p><p>So geht’s in Anki:</p><ol><li><b>Durchsuchen</b> öffnen</li><li>Suchanfrage oben einfügen, Enter</li><li>Zum Lernen: <b>Extras → Gefilterten Stapel erstellen</b> und die Suchanfrage dort einfügen. Sind die Karten ausgesetzt, vorher im Browser markieren und <b>Aussetzen</b> aufheben.</li></ol>"},
  {v:"liste",sel:"#liste .anki.alle",t:"Alle Karten eines Kurses",x:"<p><b>Anki: alle Kapitel dieses Kurses</b> kopiert eine Suchanfrage für alle Kapitel des Kurses auf einmal, ideal kurz vor einem POL-Fall oder Praktikum.</p>"},
- {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach, blende Erledigtes oder Fächer ohne Klausur aus. Vorklinik-Kapitel kannst du im Profil ausblenden.</p>"},
+ {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach oder blende erledigte Kurse aus. Fächer ohne Klausur und Vorklinik-Kapitel kannst du im Profil ausblenden.</p>"},
  {v:"skripte",sel:"#v-skripte",t:"Skripte",x:"<p>Hier findest du Skripte zu den Kursen, nach Fach sortiert und durchsuchbar. Gehört ein Skript zu einem Kurs, steht es auch in der Amboss-Liste beim Kurs.</p>"},
  {v:"start",sel:"#tabs",t:"Fertig!",x:"<p>Unten (am Laptop oben) wechselst du zwischen Übersicht, Amboss-Liste, Skripte und Profil.</p><p>Viel Erfolg beim Lernen!</p>"},
 ];
