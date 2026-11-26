@@ -29,6 +29,13 @@ body{background:var(--bg);color:var(--fg);font-family:var(--f);font-size:17px;li
 header{display:flex;flex-direction:column;gap:6px;padding:0 4px}
 h1{font-size:clamp(30px,6vw,34px);font-weight:700;letter-spacing:.01em;line-height:1.15;margin:0;text-wrap:balance}
 .lead{margin:0;color:var(--muted);font-size:15px;max-width:62ch}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* Semester-Auswahl (oberste Ebene) */
+.sem{align-self:flex-start;max-width:100%;margin:2px 0 4px}
+.sem select{font:inherit;font-size:17px;font-weight:600;color:var(--accent);background-color:var(--tint);border:0;border-radius:999px;padding:7px 36px 7px 14px;max-width:100%;text-overflow:ellipsis;cursor:pointer;-webkit-appearance:none;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.sem select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sem select option{color:var(--fg);background:var(--card);font-weight:400}
 
 /* Karte: Nutzer */
 .who{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;padding:14px 16px;background:var(--card);border-radius:var(--r)}
@@ -131,7 +138,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <div class="wrap">
   <header>
     <h1>Amboss-Liste</h1>
-    <p class="lead">Pflichtveranstaltungen des 1. klinischen Semesters mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist.</p>
+    <label class="sem" id="semBox" hidden><span class="vh">Semester</span><select id="semWahl" aria-label="Semester wählen"></select></label>
+    <p class="lead">Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist.</p>
   </header>
   <div class="who" id="who">
     <label for="nutzerWahl">Wer bist du?</label>
@@ -178,6 +186,30 @@ function kw(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate(
 function montag(d){const m=new Date(d);m.setDate(d.getDate()-((d.getDay()+6)%7));return m}
 const fmt=d=>String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+".";
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+
+/* Semester: automatisch aus dem Datum (WS: Oktober bis März, SS: April bis September).
+   Optional in kurse.json: "semester": {"WS 26/27": "1. klinisches Semester"} für die Beschreibung;
+   spätere Semester werden ab dort weitergezählt. Ein Kurs kann mit "semester": "WS 26/27" fest zugeordnet werden. */
+function semIndex(datum){const y=+datum.slice(0,4),m=+datum.slice(5,7);return m>=10?y*2+1:m<=3?(y-1)*2+1:y*2}
+function semKurz(i){const y=Math.floor(i/2);return i%2?"WS "+String(y%100).padStart(2,"0")+"/"+String((y+1)%100).padStart(2,"0"):"SS "+String(y%100).padStart(2,"0")}
+function semLang(i){const y=Math.floor(i/2);return i%2?"Wintersemester "+y+"/"+String((y+1)%100).padStart(2,"0"):"Sommersemester "+y}
+function semAusKurz(s){const m=/^(WS|SS) ?(\d{2})/.exec(s||"");if(!m)return null;const y=2000+ +m[2];return m[1]==="WS"?y*2+1:y*2}
+let semTitel={}, semAuswahl=null;
+const semVon=k=>(k.semester&&semAusKurz(k.semester))||semIndex(k.datum);
+function semBeschreibung(i){
+  const k=semKurz(i);if(semTitel[k])return semTitel[k];
+  const anker=Object.entries(semTitel).map(([s,t])=>[semAusKurz(s),/^(\d+)\.\s*(.*)$/.exec(t)]).filter(([j,m])=>j!=null&&m&&j<=i).sort((a,b)=>b[0]-a[0])[0];
+  return anker?(+anker[1][1]+i-anker[0])+". "+anker[1][2]:""}
+function baueSemester(){
+  const t=new Date(),heute=semIndex(t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0"));
+  const alle=[...new Set([...kurse.map(semVon),heute])].sort((a,b)=>a-b);
+  let gemerkt=null;try{gemerkt=+localStorage.getItem("semester")||null}catch(e){}
+  semAuswahl=alle.includes(gemerkt)?gemerkt:heute;
+  const sel=$("semWahl");sel.replaceChildren();
+  alle.forEach(i=>{const b=semBeschreibung(i);const o=new Option(semKurz(i)+(b?" · "+b:""),i);o.title=semLang(i);sel.append(o)});
+  sel.value=semAuswahl;$("semBox").hidden=false;
+}
+document.getElementById("semWahl").addEventListener("change",e=>{semAuswahl=+e.target.value;try{localStorage.setItem("semester",semAuswahl)}catch(_){}auswahl={woche:null,fach:null};render();window.scrollTo({top:0})});
 
 let besitzer=new Map();
 let ohneVk=false; try{ohneVk=localStorage.getItem("ohneVk")==="1"}catch(e){}
@@ -254,13 +286,13 @@ function baueIndex(eintraege){
 function render(){
   const root=document.getElementById("liste");root.replaceChildren();const idx=[];
   let ges=0,ok=0;
-  const sichtbar=ohneAus?kurse.filter(k=>!keineKlausur(k)):kurse;
+  const sichtbar=kurse.filter(k=>(semAuswahl===null||semVon(k)===semAuswahl)&&!(ohneAus&&keineKlausur(k)));
   besitzer=new Map();
   [...sichtbar].sort((a,b)=>(a.datum+a.zeit).localeCompare(b.datum+b.zeit)).forEach(k=>art(k).forEach(a=>{if(!besitzer.has(a.id))besitzer.set(a.id,k)}));
   sichtbar.forEach(k=>{eigen(k).forEach(a=>{ges++;if(fertig(a.id))ok++})});
   document.getElementById("count").textContent=ok+" von "+ges+" Kapiteln";
   document.getElementById("fill").style.width=(ges?ok/ges*100:0)+"%";
-  if(!kurse.length){root.append(el("div","empty","Noch keine Kurse eingetragen. Claude ergänzt sie Woche für Woche."));baueIndex([]);return}
+  if(!sichtbar.length){root.append(el("div","empty",kurse.some(k=>semAuswahl===null||semVon(k)===semAuswahl)?"Keine Kurse mit Klausur in diesem Semester.":"Für dieses Semester sind noch keine Kurse eingetragen. Claude ergänzt sie Woche für Woche."));baueIndex([]);return}
   const wochen=new Map();
   [...sichtbar].sort((a,b)=>(a.datum+a.zeit).localeCompare(b.datum+b.zeit)).forEach(k=>{
     const offen=eigen(k).some(a=>!fertig(a.id));
@@ -315,7 +347,7 @@ function abhaken(k,id,val){
     catch(e){status("Nicht gespeichert: "+e.message,true);await ladeStand()}});
 }
 (async()=>{
-  try{const r=await fetch("kurse.json?v="+Date.now(),{cache:"no-store"});const d=await r.json();kurse=d.kurse||[];
+  try{const r=await fetch("kurse.json?v="+Date.now(),{cache:"no-store"});const d=await r.json();kurse=d.kurse||[];semTitel=(d.semester&&typeof d.semester==="object")?d.semester:{};baueSemester();
     $("hinweis").textContent=d.stand?"Kursliste zuletzt aktualisiert: "+d.stand.split("-").reverse().join(".")+".":""}
   catch(e){$("liste").replaceChildren(el("div","empty","Die Kursliste konnte nicht geladen werden. Seite neu laden."));return}
   render();

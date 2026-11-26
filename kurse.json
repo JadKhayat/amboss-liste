@@ -1,5 +1,8 @@
 {
  "stand": "2026-11-26",
+ "semester": {
+  "WS 26/27": "1. klinisches Semester"
+ },
  "kurse": [
   {
    "id": "2026-10-13-skillslab-1",
