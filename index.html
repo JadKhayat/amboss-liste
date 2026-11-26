@@ -223,6 +223,25 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .kurs.blink{animation:blink 1.6s ease-out}
 @keyframes blink{0%,30%{background:var(--tint)}100%{background:var(--card)}}
 @media (max-width:760px){.start{grid-template-columns:1fr}}
+/* Tour */
+.tour{position:fixed;inset:0;z-index:50}
+.tour-loch{position:fixed;border-radius:14px;box-shadow:0 0 0 9999px rgba(0,0,0,.55);transition:all .25s ease;pointer-events:none}
+.tour-loch.mitte{left:50%!important;top:40%!important;width:0!important;height:0!important}
+.tour-karte{position:fixed;width:min(360px,calc(100vw - 32px));background:var(--card);color:var(--fg);border-radius:16px;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.3);transition:top .25s ease,left .25s ease}
+.tour-kopf{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tour-n{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tour-x{all:unset;font-size:14px;color:var(--muted);cursor:pointer}
+.tour-karte h2{font-size:19px;font-weight:700;margin:0 0 6px;line-height:1.25}
+.tour-text{font-size:15px;line-height:1.45;color:var(--fg)}
+.tour-text p{margin:0 0 8px}
+.tour-text ol{margin:0 0 8px;padding-left:20px}
+.tour-text code{font-size:13px;background:var(--fill);padding:1px 5px;border-radius:5px}
+.tour-fuss{display:flex;justify-content:space-between;gap:10px;margin-top:10px}
+.tour-fuss button{font:inherit;font-size:16px;font-weight:600;padding:9px 18px;border-radius:10px;border:0;cursor:pointer}
+.tour-zur{background:var(--fill);color:var(--fg)}
+.tour-weiter{background:var(--accent);color:var(--accent-fg);margin-left:auto}
+.tour button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.tour-loch,.tour-karte{transition:none}}
 /* Skripte */
 .skripte{display:flex;flex-direction:column;gap:18px;max-width:780px;width:100%}
 .suche input{width:100%;font:inherit;font-size:17px;padding:9px 14px 9px 36px;border:0;border-radius:10px;background:var(--fill);color:var(--fg);-webkit-appearance:none;appearance:none;
@@ -311,6 +330,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="liste"><div class="seg" role="group" aria-label="Darstellung"><button type="button" data-thema="auto">Automatisch</button><button type="button" data-thema="light">Hell</button><button type="button" data-thema="dark">Dunkel</button></div></div>
       <p class="fuss">„Automatisch“ folgt der Einstellung deines Geräts. Gilt nur für dieses Gerät.</p>
     </section>
+    <section class="gruppe"><h2>Hilfe</h2>
+      <div class="liste"><button type="button" class="zeile" id="tourNeu"><span class="m"><span class="t">Tour neu starten</span><span class="u">Kurze Einführung in den Lernplaner, inklusive Anki</span></span></button></div>
+    </section>
     <section class="gruppe"><h2>Privatsphäre</h2>
       <div class="liste"><label class="toggle"><input type="checkbox" id="oeffentlich" disabled> Fortschritt für andere sichtbar</label></div>
       <p class="fuss" id="privFuss"></p>
@@ -333,6 +355,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
   <p class="note" id="hinweis"></p>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="tour" id="tour" hidden>
+    <div class="tour-loch" id="tourLoch"></div>
+    <div class="tour-karte" id="tourKarte" role="dialog" aria-modal="true" aria-labelledby="tourTitel">
+      <div class="tour-kopf"><span class="tour-n" id="tourN"></span><button type="button" class="tour-x" id="tourX" aria-label="Tour beenden">Überspringen</button></div>
+      <h2 id="tourTitel"></h2>
+      <div class="tour-text" id="tourText"></div>
+      <div class="tour-fuss"><button type="button" class="tour-zur" id="tourZur">Zurück</button><button type="button" class="tour-weiter" id="tourWeiter">Weiter</button></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -743,7 +774,51 @@ function abhaken(k,id,val){
   try{await ladeNamen()}catch(e){status("Benutzer konnten nicht geladen werden: "+e.message,true)}
   zeigeWer();
   if(nutzer&&pin){if(!await anmelden(nutzer,pin))await ladeStand()}else await ladeStand();
+  if(!ls.get("tourGesehen"))setTimeout(()=>tourStart(),400);
 })();
+/* ---------- Tour ---------- */
+const TOUR=[
+ {v:"start",sel:null,t:"Willkommen im Lernplaner",x:"<p>Hier findest du für jede Pflichtveranstaltung die passenden Amboss-Kapitel, deine Anki-Karten dazu und deine Skripte.</p><p>Die Tour dauert eine Minute. Du kannst sie jederzeit unter <b>Profil</b> neu starten.</p>"},
+ {v:"profil",sel:"#who",t:"Erst anmelden",x:"<p>Wähle deinen Namen oder lege dich über <b>+ Neu anlegen</b> mit einer PIN (4 bis 8 Ziffern) an.</p><p>Ohne Anmeldung kannst du alles ansehen, aber nichts abhaken.</p>"},
+ {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
+ {v:"start",sel:"#sNaechst .hero",t:"Übersicht",x:"<p><b>Als Nächstes</b> zeigt den nächsten Kurs. Antippen springt direkt zu seinen Kapiteln.</p><p>Darunter: diese Woche und was du noch nachholen solltest.</p>"},
+ {v:"start",sel:"#sFort .liste",t:"Dein Fortschritt",x:"<p>Wie viele Kapitel du gelesen hast, gesamt und je Fach. Der <b>blaue Balken</b> zählt die Anki-Notizen dieser Kapitel.</p>"},
+ {v:"liste",sel:"#liste ul.art li",t:"Kapitel lesen und abhaken",x:"<p>Der Titel öffnet das Kapitel in Amboss. Gelesen? Dann den <b>Kreis</b> antippen. Dein Haken wird gespeichert, und die Anki-Notizen des Kapitels zählen als erledigt.</p>"},
+ {v:"liste",sel:"#liste ul.art .anki:not(:disabled)",t:"Anki-Karten zum Kapitel",x:"<p>Der Knopf <b>Anki</b> kopiert die Suchanfrage für deine Ankiphil-Karten. Die Zahl daneben ist die Zahl der Notizen. Grau heißt: Zu diesem Kapitel gibt es keine Ankiphil-Karten.</p><p>So geht’s in Anki:</p><ol><li><b>Durchsuchen</b> öffnen</li><li>Suchanfrage oben einfügen, Enter</li><li>Zum Lernen: <b>Extras → Gefilterten Stapel erstellen</b> und die Suchanfrage dort einfügen. Sind die Karten ausgesetzt, vorher im Browser markieren und <b>Aussetzen</b> aufheben.</li></ol>"},
+ {v:"liste",sel:"#liste .anki.alle",t:"Alle Karten eines Kurses",x:"<p><b>Anki: alle Kapitel dieses Kurses</b> kopiert eine Suchanfrage für alle Kapitel des Kurses auf einmal, ideal kurz vor einem POL-Fall oder Praktikum.</p>"},
+ {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach, blende Erledigtes, Fächer ohne Klausur oder Vorklinik-Kapitel aus.</p>"},
+ {v:"skripte",sel:"#v-skripte",t:"Skripte",x:"<p>Hier landen deine eigenen Skripte, nach Fach sortiert und durchsuchbar. Gehört ein Skript zu einem Kurs, steht es auch in der Amboss-Liste beim Kurs.</p>"},
+ {v:"start",sel:"#tabs",t:"Fertig!",x:"<p>Unten (am Laptop oben) wechselst du zwischen Übersicht, Amboss-Liste, Skripte und Profil.</p><p>Viel Erfolg beim Lernen!</p>"},
+];
+let tourI=-1,tourZiel=null;
+function tourStart(){tourI=0;$("tour").hidden=false;document.body.style.overflow="hidden";tourZeige()}
+function tourEnde(){$("tour").hidden=true;document.body.style.overflow="";tourI=-1;tourZiel=null;ls.set("tourGesehen","1");geheZu("start")}
+function tourZeige(){
+  const st=TOUR[tourI];
+  if(location.hash!=="#"+st.v)geheZu(st.v);
+  setTimeout(()=>{
+    let z=st.sel?[...document.querySelectorAll(st.sel)].find(e=>e.offsetParent!==null||e.getClientRects().length):null;
+    if(!z&&st.sel){if(tourI<TOUR.length-1&&tourRichtung>0){tourI++;return tourZeige()}if(tourRichtung<0&&tourI>0){tourI--;return tourZeige()}}
+    tourZiel=z||null;
+    if(z)z.scrollIntoView({block:"center"});
+    $("tourN").textContent=(tourI+1)+" / "+TOUR.length;$("tourTitel").textContent=st.t;$("tourText").innerHTML=st.x;
+    $("tourZur").style.visibility=tourI?"visible":"hidden";$("tourWeiter").textContent=tourI===TOUR.length-1?"Los geht’s":"Weiter";
+    requestAnimationFrame(tourLage);$("tourWeiter").focus({preventScroll:true})},location.hash==="#"+st.v?60:220)}
+function tourLage(){
+  if(tourI<0)return;const loch=$("tourLoch"),k=$("tourKarte"),vw=innerWidth,vh=innerHeight,kw=k.offsetWidth,kh=k.offsetHeight,pad=8;
+  if(!tourZiel){loch.classList.add("mitte");k.style.left=(vw-kw)/2+"px";k.style.top=Math.max(16,(vh-kh)/2)+"px";return}
+  loch.classList.remove("mitte");const r=tourZiel.getBoundingClientRect();
+  const t=Math.max(4,r.top-pad),b=Math.min(vh-4,r.bottom+pad);
+  Object.assign(loch.style,{left:(r.left-pad)+"px",top:t+"px",width:(r.width+2*pad)+"px",height:Math.max(0,b-t)+"px"});
+  let top=b+12<=vh-kh-12?b+12:(t-12-kh>=12?t-12-kh:Math.max(12,vh-kh-12));
+  let left=Math.min(Math.max(16,r.left+r.width/2-kw/2),vw-kw-16);k.style.left=left+"px";k.style.top=top+"px"}
+let tourRichtung=1;
+$("tourWeiter").addEventListener("click",()=>{if(tourI>=TOUR.length-1)return tourEnde();tourRichtung=1;tourI++;tourZeige()});
+$("tourZur").addEventListener("click",()=>{if(tourI>0){tourRichtung=-1;tourI--;tourZeige()}});
+$("tourX").addEventListener("click",tourEnde);
+$("tourNeu").addEventListener("click",tourStart);
+addEventListener("resize",()=>requestAnimationFrame(tourLage));
+addEventListener("keydown",e=>{if(tourI<0)return;if(e.key==="Escape")tourEnde();else if(e.key==="ArrowRight")$("tourWeiter").click();else if(e.key==="ArrowLeft")$("tourZur").click()});
 </script>
 </body>
 </html>
