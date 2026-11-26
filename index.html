@@ -203,6 +203,9 @@ ul.art li.ok a{color:var(--done);text-decoration:line-through}
 .zeile.vorbei{opacity:.55}
 .zeile .mini{height:4px;background:var(--fill);border-radius:2px;overflow:hidden;margin-top:6px}
 .zeile .mini i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.zeile .mini.anki-m{margin-top:4px}
+.zeile .mini.anki-m i{background:var(--anki)}
+.zeile .r .ra{display:block;font-size:12px;color:var(--anki);text-align:right}
 .zeile.link .ic{flex:none;width:30px;height:30px;border-radius:7px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
 .hero{background:var(--accent);color:var(--accent-fg);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;border:0;font:inherit;text-align:left}
 .hero:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
@@ -538,7 +541,7 @@ function render(){
   for(const [key,w] of wochen){
     if(auswahl[ansicht]!==null&&key!==auswahl[ansicht])continue;
     const sec=el("section","week");
-    if(ansicht==="fach"){const h2=el("h2",null,key);let g=0,o=0;w.list.forEach(k=>eigen(k).forEach(a=>{g++;if(fertig(a.id))o++}));h2.append(el("span","n",w.list.length+(w.list.length===1?" Kurs · ":" Kurse · ")+o+"/"+g+" gelesen"));sec.append(h2)}
+    if(ansicht==="fach"){const h2=el("h2",null,key);let g=0,o=0;w.list.forEach(k=>eigen(k).forEach(a=>{g++;if(fertig(a.id))o++}));const sta=ankiStand(w.list.flatMap(eigen));h2.append(el("span","n",w.list.length+(w.list.length===1?" Kurs · ":" Kurse · ")+o+"/"+g+" gelesen"+(sta.bekannt?" · "+sta.offen+" Anki offen":"")));sec.append(h2)}
     else{const m=montag(w.d);const f=new Date(m);f.setDate(m.getDate()+4);
     sec.append(el("h2",null,"KW "+kw(w.d)+" · "+fmt(m)+"–"+fmt(f)+m.getFullYear()))}
     for(const k of w.list){
@@ -615,7 +618,7 @@ function renderStart(sichtbar){
   else gruppe("sNach",null);
   // Fortschritt
   let ges=0,ok=0;const faecher=new Map();
-  sichtbar.forEach(k=>{const {g,o}=stand(k);ges+=g;ok+=o;if(!faecher.has(k.fach))faecher.set(k.fach,{g:0,o:0});const f=faecher.get(k.fach);f.g+=g;f.o+=o});
+  sichtbar.forEach(k=>{const {g,o}=stand(k);ges+=g;ok+=o;if(!faecher.has(k.fach))faecher.set(k.fach,{g:0,o:0,art:[]});const f=faecher.get(k.fach);f.g+=g;f.o+=o;f.art.push(...eigen(k))});
   const l4=gruppe("sFort",darf?"Dein Fortschritt im Semester":nutzer?"Fortschritt von "+nutzer:"Fortschritt im Semester");
   const gr=el("div","gross");gr.append(el("b",null,(ges?Math.round(ok/ges*100):0)+" %"),el("span",null,ok+" von "+ges+" Kapiteln gelesen"));
   const tr=el("div","track"),fi=el("div","fill");fi.style.width=(ges?ok/ges*100:0)+"%";tr.append(fi);l4.append(gr,tr);
@@ -624,7 +627,10 @@ function renderStart(sichtbar){
   [...faecher.entries()].filter(([,f])=>f.g).sort((a,b)=>a[0].localeCompare(b[0],"de")).forEach(([fach,f])=>{
     const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
     const mi=el("div","mini"),i=el("i");i.style.width=(f.o/f.g*100)+"%";mi.append(i);m.append(mi);
-    b.append(m,el("span","r"+(f.o===f.g?" ok":""),f.o===f.g?"✓":f.o+"/"+f.g));
+    const st=ankiStand(f.art),r=el("span","r"+(f.o===f.g?" ok":""),f.o===f.g?"✓":f.o+"/"+f.g);
+    if(st.bekannt){const ma=el("div","mini anki-m"),ia=el("i");ia.style.width=(st.ges?(st.ges-st.offen)/st.ges*100:0)+"%";ma.append(ia);m.append(ma);
+      r.append(el("span","ra",(st.ges-st.offen)+"/"+st.ges+" Anki"));b.title=fach+": "+st.offen+" Anki-Notizen offen"}
+    b.append(m,r);
     b.addEventListener("click",()=>{auswahl.fach=fach;setAnsicht("fach");geheZu("liste")});l4.append(b)});
   // Quellen
   const l5=gruppe("sQuellen","Quellen");
