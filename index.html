@@ -332,6 +332,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="liste"><label class="wahl"><span class="vh">Semester</span><select id="semWahl"></select></label></div>
       <p class="fuss">Übersicht und Amboss-Liste zeigen nur die Kurse dieses Semesters. Neue Semester erscheinen von selbst, sobald Kurse eingetragen sind. Gilt für dieses Gerät.</p>
     </section>
+    <section class="gruppe"><h2>Kapitel</h2>
+      <div class="liste"><label class="toggle"><input type="checkbox" id="ohneVk"> Vorklinik-Kapitel ausblenden</label></div>
+      <p class="fuss">Blendet Kapitel aus, die zur Vorklinik gehören (z. B. Physiologie oder Biochemie). Sie zählen dann auch nicht im Fortschritt mit. Gilt für dieses Gerät.</p>
+    </section>
     <section class="gruppe"><h2>Darstellung</h2>
       <div class="liste"><div class="seg" role="group" aria-label="Darstellung"><button type="button" data-thema="auto">Automatisch</button><button type="button" data-thema="light">Hell</button><button type="button" data-thema="dark">Dunkel</button></div></div>
       <p class="fuss">„Automatisch“ folgt der Einstellung deines Geräts. Gilt nur für dieses Gerät.</p>
@@ -352,7 +356,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="seg" role="group" aria-label="Sortierung"><button type="button" id="v-woche" aria-pressed="true">Nach Woche</button><button type="button" id="v-fach" aria-pressed="false">Nach Fach</button></div>
     <label class="toggle"><input type="checkbox" id="nurOffen"> Nur offene Kurse</label>
     <label class="toggle"><input type="checkbox" id="ohneKlausur"> Fächer ohne Klausur ausblenden</label>
-    <label class="toggle"><input type="checkbox" id="ohneVk"> Vorklinik-Kapitel ausblenden</label>
   </div>
   <div class="layout">
     <nav class="index" id="index" aria-label="Index"><span class="ilabel">Index</span></nav>
@@ -764,7 +767,7 @@ function renderSkripte(){
     root.append(sec)});
 }
 /* ---------- Bereiche ---------- */
-const LEAD={skripte:"Skripte zu den Kursen, nach Fach oder Kurs sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+const LEAD={skripte:"Skripte zu den Kursen, nach Fach oder Kurs sortiert.",profil:"Anmeldung, Semester, Kapitel, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
 function zeigeBereich(){
   const v={"#liste":"liste","#skripte":"skripte","#profil":"profil"}[location.hash]||"start";
   $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("v-skripte").hidden=v!=="skripte";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
@@ -798,13 +801,13 @@ function abhaken(k,id,val){
 const TOUR=[
  {v:"start",sel:null,t:"Willkommen im Lernplaner",x:"<p>Hier findest du für jede Pflichtveranstaltung die passenden Amboss-Kapitel, deine Anki-Karten dazu und deine Skripte.</p><p>Die Tour dauert eine Minute. Du kannst sie jederzeit unter <b>Profil</b> neu starten.</p>"},
  {v:"profil",sel:"#who",t:"Erst anmelden",x:"<p>Wähle deinen Namen oder lege dich über <b>+ Neu anlegen</b> mit einer PIN (4 bis 8 Ziffern) an.</p><p>Ohne Anmeldung kannst du alles ansehen, aber nichts abhaken.</p>"},
- {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
+ {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, ob Vorklinik-Kapitel angezeigt werden, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
  {v:"start",sel:"#sNaechst .hero",t:"Übersicht",x:"<p><b>Als Nächstes</b> zeigt den nächsten Kurs. Antippen springt direkt zu seinen Kapiteln.</p><p>Darunter: diese Woche und was du noch nachholen solltest.</p>"},
  {v:"start",sel:"#sFort .liste",t:"Dein Fortschritt",x:"<p>Wie viele Kapitel du gelesen hast, gesamt und je Fach. Der <b>blaue Balken</b> zählt die Anki-Notizen dieser Kapitel.</p>"},
  {v:"liste",sel:"#liste ul.art li",t:"Kapitel lesen und abhaken",x:"<p>Der Titel öffnet das Kapitel in Amboss. Gelesen? Dann den <b>Kreis</b> antippen. Dein Haken wird gespeichert, und die Anki-Notizen des Kapitels zählen als erledigt.</p>"},
  {v:"liste",sel:"#liste ul.art .anki:not(:disabled)",t:"Anki-Karten zum Kapitel",x:"<p>Der Knopf <b>Anki</b> kopiert die Suchanfrage für deine Ankiphil-Karten. Die Zahl daneben ist die Zahl der Notizen. Grau heißt: Zu diesem Kapitel gibt es keine Ankiphil-Karten.</p><p>So geht’s in Anki:</p><ol><li><b>Durchsuchen</b> öffnen</li><li>Suchanfrage oben einfügen, Enter</li><li>Zum Lernen: <b>Extras → Gefilterten Stapel erstellen</b> und die Suchanfrage dort einfügen. Sind die Karten ausgesetzt, vorher im Browser markieren und <b>Aussetzen</b> aufheben.</li></ol>"},
  {v:"liste",sel:"#liste .anki.alle",t:"Alle Karten eines Kurses",x:"<p><b>Anki: alle Kapitel dieses Kurses</b> kopiert eine Suchanfrage für alle Kapitel des Kurses auf einmal, ideal kurz vor einem POL-Fall oder Praktikum.</p>"},
- {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach, blende Erledigtes, Fächer ohne Klausur oder Vorklinik-Kapitel aus.</p>"},
+ {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach, blende Erledigtes oder Fächer ohne Klausur aus. Vorklinik-Kapitel kannst du im Profil ausblenden.</p>"},
  {v:"skripte",sel:"#v-skripte",t:"Skripte",x:"<p>Hier findest du Skripte zu den Kursen, nach Fach sortiert und durchsuchbar. Gehört ein Skript zu einem Kurs, steht es auch in der Amboss-Liste beim Kurs.</p>"},
  {v:"start",sel:"#tabs",t:"Fertig!",x:"<p>Unten (am Laptop oben) wechselst du zwischen Übersicht, Amboss-Liste, Skripte und Profil.</p><p>Viel Erfolg beim Lernen!</p>"},
 ];
