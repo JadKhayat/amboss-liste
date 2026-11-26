@@ -41,7 +41,7 @@ Eigene Skripte als Datei unter `skripte/<Fach>/` ablegen und in `dateien.json` e
 ## Anki
 
 Je Kapitel in `kurse.json` optional `"anki"`: die Anki-Suchanfrage für den Ankiphil-Stapel (so wie Amboss sie kopiert).
-`"anki": false` heißt: Amboss zeigt für das Kapitel keine Ankiphil-Karten, dann gibt es keinen Knopf.
+`"anki": false` heißt: Amboss zeigt für das Kapitel keine Ankiphil-Karten, dann ist der Knopf ausgegraut.
 `"ankiN"`: Zahl der Anki-Notizen, wie Amboss sie anzeigt. Daraus zählt die Seite die offenen Notizen (abgehakte Kapitel gelten als erledigt).
 Dann zeigt die Amboss-Liste beim Kapitel einen Knopf „Anki“ zum Kopieren und beim Kurs „Anki: alle Kapitel dieses Kurses“ (alle Anfragen mit `or` verbunden).
 Ohne `"anki"` nimmt die Seite die Grundabfrage `ANKI_VORLAGE` aus `index.html` (`note:Ankiphil* AMBOSS*:*<Kapitel-ID>*`). Die vollständige Abfrage aus Amboss (Knopf oben rechts auf der Kapitelseite, mit zusätzlichen `nid:…`) findet mehr Karten.
