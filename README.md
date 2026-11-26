@@ -42,4 +42,4 @@ Eigene Skripte als Datei unter `skripte/<Fach>/` ablegen und in `dateien.json` e
 
 Je Kapitel in `kurse.json` optional `"anki"`: die Anki-Suchanfrage für den Ankiphil-Stapel (so wie Amboss sie kopiert).
 Dann zeigt die Amboss-Liste beim Kapitel einen Knopf „Anki“ zum Kopieren und beim Kurs „Anki: alle Kapitel dieses Kurses“ (alle Anfragen mit `or` verbunden).
-Lässt sich die Anfrage aus der Kapitel-ID ableiten, reicht stattdessen `ANKI_VORLAGE` in `index.html`.
+Ohne `"anki"` nimmt die Seite die Grundabfrage `ANKI_VORLAGE` aus `index.html` (`note:Ankiphil* AMBOSS*:*<Kapitel-ID>*`). Die vollständige Abfrage aus Amboss (Knopf oben rechts auf der Kapitelseite, mit zusätzlichen `nid:…`) findet mehr Karten.
