@@ -746,7 +746,7 @@ function renderSkripte(){
     root.append(sec)});
 }
 /* ---------- Bereiche ---------- */
-const LEAD={skripte:"Deine Skripte und Unterlagen, nach Fach sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
+const LEAD={skripte:"Skripte zu den Kursen, nach Fach sortiert.",profil:"Anmeldung, Semester, Darstellung und Privatsphäre.",start:"Dein Überblick: was ansteht, was offen ist und wo du was findest.",liste:"Pflichtveranstaltungen mit den passenden Amboss-Kapiteln. Themen aus Ilias und den Kursunterlagen. Abhaken, was gelesen ist."};
 function zeigeBereich(){
   const v={"#liste":"liste","#skripte":"skripte","#profil":"profil"}[location.hash]||"start";
   $("v-start").hidden=v!=="start";$("v-liste").hidden=v!=="liste";$("v-profil").hidden=v!=="profil";$("v-skripte").hidden=v!=="skripte";$("lead").textContent=LEAD[v];document.body.dataset.v=v;
@@ -787,7 +787,7 @@ const TOUR=[
  {v:"liste",sel:"#liste ul.art .anki:not(:disabled)",t:"Anki-Karten zum Kapitel",x:"<p>Der Knopf <b>Anki</b> kopiert die Suchanfrage für deine Ankiphil-Karten. Die Zahl daneben ist die Zahl der Notizen. Grau heißt: Zu diesem Kapitel gibt es keine Ankiphil-Karten.</p><p>So geht’s in Anki:</p><ol><li><b>Durchsuchen</b> öffnen</li><li>Suchanfrage oben einfügen, Enter</li><li>Zum Lernen: <b>Extras → Gefilterten Stapel erstellen</b> und die Suchanfrage dort einfügen. Sind die Karten ausgesetzt, vorher im Browser markieren und <b>Aussetzen</b> aufheben.</li></ol>"},
  {v:"liste",sel:"#liste .anki.alle",t:"Alle Karten eines Kurses",x:"<p><b>Anki: alle Kapitel dieses Kurses</b> kopiert eine Suchanfrage für alle Kapitel des Kurses auf einmal, ideal kurz vor einem POL-Fall oder Praktikum.</p>"},
  {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach, blende Erledigtes, Fächer ohne Klausur oder Vorklinik-Kapitel aus.</p>"},
- {v:"skripte",sel:"#v-skripte",t:"Skripte",x:"<p>Hier landen deine eigenen Skripte, nach Fach sortiert und durchsuchbar. Gehört ein Skript zu einem Kurs, steht es auch in der Amboss-Liste beim Kurs.</p>"},
+ {v:"skripte",sel:"#v-skripte",t:"Skripte",x:"<p>Hier findest du Skripte zu den Kursen, nach Fach sortiert und durchsuchbar. Gehört ein Skript zu einem Kurs, steht es auch in der Amboss-Liste beim Kurs.</p>"},
  {v:"start",sel:"#tabs",t:"Fertig!",x:"<p>Unten (am Laptop oben) wechselst du zwischen Übersicht, Amboss-Liste, Skripte und Profil.</p><p>Viel Erfolg beim Lernen!</p>"},
 ];
 let tourI=-1,tourZiel=null;
