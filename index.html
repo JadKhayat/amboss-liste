@@ -227,6 +227,9 @@ ul.art li.weg .xknopf{color:var(--accent);font-size:16px}
 .gross{display:flex;align-items:baseline;gap:8px;padding:14px 16px 4px}
 .gross b{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
 .gross span{color:var(--muted);font-size:15px}
+.gross.anki-g{padding-top:4px}
+.gross.anki-g b{color:var(--anki)}
+.liste .track.anki-t .fill{background:var(--anki)}
 .liste .track{margin:6px 16px 14px;flex:none}
 .kurs{scroll-margin-top:72px}
 .kurs.blink{animation:blink 1.6s ease-out}
@@ -682,7 +685,11 @@ function renderStart(sichtbar){
   const l4=gruppe("sFort",darf?"Dein Fortschritt im Semester":nutzer?"Fortschritt von "+nutzer:"Fortschritt im Semester");
   const gr=el("div","gross");gr.append(el("b",null,(ges?Math.round(ok/ges*100):0)+" %"),el("span",null,ok+" von "+ges+" Kapiteln gelesen"));
   const tr=el("div","track"),fi=el("div","fill");fi.style.width=(ges?ok/ges*100:0)+"%";tr.append(fi);l4.append(gr,tr);
-  {const st=ankiStand(sichtbar.flatMap(eigen));if(st.bekannt||st.unbekannt){const az=el("div","ankiZeile");ankiText(az,st);l4.append(az)}}
+  {const st=ankiStand(sichtbar.flatMap(eigen));if(st.bekannt){const erl=st.ges-st.offen,g2=el("div","gross anki-g");g2.append(el("b",null,(st.ges?Math.round(erl/st.ges*100):0)+" %"),el("span",null,erl+" von "+st.ges+" Anki-Notizen erledigt"));
+    const t2=el("div","track"),f2=el("div","fill");f2.style.width=(st.ges?erl/st.ges*100:0)+"%";t2.append(f2);t2.classList.add("anki-t");
+    const inf=el("div","ankiZeile");const i2=el("div","info");i2.append(el("b",null,st.offen+" offen"));if(st.unbekannt)i2.append(el("span",null,"bei "+st.unbekannt+(st.unbekannt===1?" Kapitel":" Kapiteln")+" noch ohne Zahl"));inf.append(i2);
+    l4.append(g2,t2,inf)}
+  else if(st.unbekannt){const az=el("div","ankiZeile");ankiText(az,st);l4.append(az)}}
   if(!nutzer||privat){const a=el("a","leer loginHinweis",!nutzer?"Unter „Profil“ anmelden, dann siehst du hier deinen Stand ›":nutzer+" hat den Fortschritt verborgen.");if(!nutzer)a.href="#profil";l4.append(a)}
   [...faecher.entries()].filter(([,f])=>f.g).sort((a,b)=>a[0].localeCompare(b[0],"de")).forEach(([fach,f])=>{
     const b=el("button","zeile");b.type="button";const m=el("div","m");m.append(el("span","t",fach));
