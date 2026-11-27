@@ -1,9 +1,70 @@
 {
- "stand": "2026-11-26",
+ "stand": "2026-11-27",
  "semester": {
   "WS 26/27": "1. klinisches Semester"
  },
  "kurse": [
+  {
+   "id": "2026-10-12-pharma-grundlagen",
+   "datum": "2026-10-12",
+   "zeit": "",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "Grundlagen der Pharmakologie (Selbststudium)",
+   "thema": "Basiskapitel zum Semesterstart: Pharmakokinetik und -dynamik, Rezeptoren und Signalwege, Nebenwirkungen (Allergie bis SJS/TEN, laut Vorlesung Müller) und Arzneimittel in der Schwangerschaft (Altklausuren: Phenprocoumon teratogen, α-Methyldopa, Sartane kontraindiziert).",
+   "artikel": [
+    {
+     "id": "7N04cg",
+     "t": "Pharmakologische Grundlagen",
+     "w": "LADME, Halbwertszeit, Clearance, Dosis-Wirkungs-Kurve, Interaktionen, CYP450",
+     "anki": "nid:1664954748693 OR nid:1664954882949 OR nid:1664955081133 OR nid:1664955328144 OR nid:1664955641108 OR nid:1664955843953 OR nid:1664956061349 OR nid:1664956076184 OR nid:1664956170415 OR nid:1664957052597 OR nid:1664957244213 OR nid:1664957540219 OR nid:1664958725210 OR nid:1664958888985 OR nid:1664959480354 OR nid:1664959827563 OR nid:1664961190291 OR nid:1664961539140 OR nid:1664961895553 OR nid:1664962077073 OR nid:1664962246959 OR nid:1664962416846 OR nid:1664962623402 OR nid:1664962672262 OR nid:1664962685963 OR nid:1664962705559 OR nid:1664962714128 OR nid:1664963041426 OR nid:1664963330863 OR nid:1706199192276 OR nid:1706200555468 OR nid:1706201315566 OR nid:1706211700471 OR nid:1706212041050 OR nid:1706212977031 OR nid:1706215083272 OR nid:1706268358517 OR nid:1711384528581 OR note:Ankiphil* AMBOSS*:*7N04cg*",
+     "ankiN": 38
+    },
+    {
+     "id": "Qp0u6S",
+     "t": "Signaltransduktion",
+     "vk": true,
+     "w": "Rezeptortypen, G-Proteine, Second Messenger",
+     "anki": "nid:1586670352006 OR nid:1586670879739 OR nid:1586671004785 OR nid:1586671051786 OR nid:1586671389208 OR nid:1586671525597 OR nid:1586672685200 OR nid:1586672874847 OR nid:1586673771668 OR nid:1586673932171 OR nid:1586679317655 OR nid:1586679459509 OR nid:1586679902609 OR nid:1586680426649 OR nid:1586681061918 OR nid:1586682343260 OR nid:1586682693923 OR nid:1586683065593 OR nid:1586683295072 OR nid:1586683484650 OR nid:1586683573592 OR nid:1586684140190 OR nid:1586684274488 OR nid:1586684503788 OR nid:1586684713463 OR nid:1586684795754 OR nid:1586685249962 OR nid:1586686563873 OR nid:1586686619598 OR nid:1586686726822 OR nid:1586687093399 OR nid:1586687844388 OR nid:1586687926776 OR nid:1586688254520 OR nid:1586688499277 OR nid:1586688905820 OR nid:1590244085562 OR nid:1590251644566 OR nid:1590254748341 OR nid:1594805895387 OR nid:1597159965782 OR nid:1681242053545 OR nid:1681243664367 OR nid:1685631175564 OR nid:1687262388176 OR note:Ankiphil* AMBOSS*:*Qp0u6S*",
+     "ankiN": 45
+    },
+    {
+     "id": "tK0XRS",
+     "t": "Nervengewebe, Synapsen und Transmitter",
+     "vk": true,
+     "w": "Synaptische Übertragung, Transmitter, Rezeptoren",
+     "anki": "nid:1548450387966 OR nid:1548451390876 OR nid:1548485510826 OR nid:1548486490594 OR nid:1548486617099 OR nid:1548486846897 OR nid:1548487931810 OR nid:1548488424331 OR nid:1548488475906 OR nid:1548488547987 OR nid:1548488608291 OR nid:1548488716180 OR nid:1548488981247 OR nid:1548491040692 OR nid:1548491173029 OR nid:1548491254704 OR nid:1548491474520 OR nid:1548491535274 OR nid:1548491655135 OR nid:1548491737345 OR nid:1548491910092 OR nid:1554792010584 OR nid:1554795144366 OR nid:1554795453921 OR nid:1554797185657 OR nid:1554797360831 OR nid:1554797716579 OR nid:1554797798716 OR nid:1554882610421 OR nid:1554882817211 OR nid:1554883032721 OR nid:1554884160925 OR nid:1554884531465 OR nid:1554886312614 OR nid:1554886463326 OR nid:1554911842650 OR nid:1554912860918 OR nid:1554912935987 OR nid:1554913776448 OR nid:1554913993992 OR nid:1554915132441 OR nid:1554915202843 OR nid:1554915376913 OR nid:1554915711119 OR nid:1554915801273 OR nid:1554916245631 OR nid:1587070832795 OR nid:1587071371504 OR nid:1587075269977 OR nid:1591020195415 OR nid:1591021080406 OR nid:1591021654083 OR nid:1591023269207 OR nid:1591023605092 OR nid:1591026968378 OR nid:1591029147848 OR nid:1591035585241 OR nid:1677538304882 OR nid:1677541017343 OR nid:1677544233811 OR nid:1698663111846 OR nid:1698665364911 OR nid:1698674440501 OR note:Ankiphil* AMBOSS*:*tK0XRS*",
+     "ankiN": 63
+    },
+    {
+     "id": "G-0BAi",
+     "t": "Überempfindlichkeitsreaktionen auf Arzneimittel",
+     "w": "Allergische und pseudoallergische Reaktionen, Typen",
+     "anki": false,
+     "ankiN": 0
+    },
+    {
+     "id": "aYaQnQ",
+     "t": "Kutane allergische Arzneimittelreaktionen",
+     "w": "Arzneimittelexanthem, SJS/TEN",
+     "anki": false,
+     "ankiN": 0
+    },
+    {
+     "id": "dm0oeg",
+     "t": "Pharmakotherapie in der Schwangerschaft",
+     "w": "Teratogene Wirkstoffe, erlaubte Alternativen",
+     "anki": "nid:1667547530089 OR nid:1667547729996 OR nid:1667547978291 OR nid:1667548343285 OR nid:1667548457253 OR nid:1667548970140 OR nid:1667549760223 OR nid:1667550433903 OR nid:1667550618653 OR nid:1667552016600 OR nid:1667552316824 OR nid:1667552694496 OR nid:1667552868614 OR nid:1667555245934 OR nid:1667555986946 OR nid:1667556063020 OR nid:1667556088413 OR nid:1667556147806 OR nid:1667556154278 OR nid:1667556158578 OR nid:1667556211750 OR nid:1667556247474 OR nid:1667556265344 OR nid:1667556272033 OR nid:1667556312370 OR nid:1667556335415 OR nid:1667556342485 OR nid:1668584934765 OR nid:1706306286496 OR nid:1727776732796 OR nid:1753978286603 OR note:Ankiphil* AMBOSS*:*dm0oeg*",
+     "ankiN": 31
+    },
+    {
+     "id": "XM09Mg",
+     "t": "Arzneimittelrezept",
+     "w": "Rezeptarten, BtM-Rezept, Formalien",
+     "anki": "nid:1664963735981 OR nid:1664964542713 OR nid:1664964914870 OR nid:1664965098239 OR nid:1664965325758 OR note:Ankiphil* AMBOSS*:*XM09Mg*",
+     "ankiN": 5
+    }
+   ]
+  },
   {
    "id": "2026-10-13-skillslab-1",
    "artikel": [
@@ -963,6 +1024,40 @@
    "thema": "Impulsvortrag und Gespräch mit Dr. med. Janice Jeschke (Centrum für Reproduktionsmedizin und Andrologie, UKM); Seminarabschluss und Evaluation.",
    "zeit": "12:15",
    "ohneAmboss": true
+  },
+  {
+   "id": "2026-11-30-patho-makro",
+   "datum": "2026-11-30",
+   "zeit": "08:30",
+   "termine": 2,
+   "fach": "Allgemeine Pathologie",
+   "kurs": "Praktikum: Diskussionsmikroskop/Schnellschnitt und Makroskopie",
+   "thema": "Methoden der Pathologie: Gewebeentnahme, intraoperativer Schnellschnitt am Diskussionsmikroskop, Makroskopie und Zuschnitt (passend zu den Vorlesungen 2 und 3). Ilias-Ordner beider Kurse noch leer.",
+   "artikel": [
+    {
+     "t": "Untersuchungsmethoden in der Pathologie",
+     "id": "dP0odT",
+     "w": "Schnellschnitt (Gefrierschnitt), Fixierung, Makroskopie, Färbungen",
+     "anki": false,
+     "ankiN": 0
+    },
+    {
+     "t": "Allgemeine Onkologie",
+     "id": "WM0Png",
+     "w": "Dignität, TNM, R-Klassifikation (Resektionsränder im Schnellschnitt)",
+     "anki": "nid:1732736475799 OR note:Ankiphil* AMBOSS*:*WM0Png*",
+     "ankiN": 1
+    }
+   ]
+  },
+  {
+   "id": "2026-12-04-pol-7",
+   "datum": "2026-12-04",
+   "zeit": "14:15",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Fall 6 (Jonas Grass)",
+   "thema": "Lernziele noch nicht in Ilias. Fall: 22-jähriger Student mit Bauchkoliken, Anämie und Polyneuropathie; Bleivergiftung durch gestrecktes Marihuana (Blei im Vollblut 132 µg/dl). Ilias-Dateien liegen in „PoL 6“.",
+   "artikel": []
   }
  ]
 }
