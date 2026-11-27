@@ -10,7 +10,7 @@
    "zeit": "",
    "fach": "Allgemeine Pharmakologie",
    "kurs": "Grundlagen der Pharmakologie (Selbststudium)",
-   "thema": "Basiskapitel zum Semesterstart: Pharmakokinetik und -dynamik, Rezeptoren und Signalwege, Nebenwirkungen (Allergie bis SJS/TEN, laut Vorlesung Müller) und Arzneimittel in der Schwangerschaft (Altklausuren: Phenprocoumon teratogen, α-Methyldopa, Sartane kontraindiziert).",
+   "thema": "Basiskapitel zum Semesterstart: Pharmakokinetik und -dynamik, Rezeptoren und Signalwege, Nebenwirkungen (allergische Reaktionen, laut Vorlesung Müller) und Arzneimittel in der Schwangerschaft (Altklausuren: Phenprocoumon teratogen, α-Methyldopa, Sartane kontraindiziert).",
    "artikel": [
     {
      "id": "7N04cg",
@@ -39,13 +39,6 @@
      "id": "G-0BAi",
      "t": "Überempfindlichkeitsreaktionen auf Arzneimittel",
      "w": "Allergische und pseudoallergische Reaktionen, Typen",
-     "anki": false,
-     "ankiN": 0
-    },
-    {
-     "id": "aYaQnQ",
-     "t": "Kutane allergische Arzneimittelreaktionen",
-     "w": "Arzneimittelexanthem, SJS/TEN",
      "anki": false,
      "ankiN": 0
     },
