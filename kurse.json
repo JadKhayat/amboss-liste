@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-26",
+ "stand": "2026-11-27",
  "semester": {
   "WS 26/27": "1. klinisches Semester"
  },
@@ -963,6 +963,40 @@
    "thema": "Impulsvortrag und Gespräch mit Dr. med. Janice Jeschke (Centrum für Reproduktionsmedizin und Andrologie, UKM); Seminarabschluss und Evaluation.",
    "zeit": "12:15",
    "ohneAmboss": true
+  },
+  {
+   "id": "2026-11-30-patho-makro",
+   "datum": "2026-11-30",
+   "zeit": "08:30",
+   "termine": 2,
+   "fach": "Allgemeine Pathologie",
+   "kurs": "Praktikum: Diskussionsmikroskop/Schnellschnitt und Makroskopie",
+   "thema": "Methoden der Pathologie: Gewebeentnahme, intraoperativer Schnellschnitt am Diskussionsmikroskop, Makroskopie und Zuschnitt (passend zu den Vorlesungen 2 und 3). Ilias-Ordner beider Kurse noch leer.",
+   "artikel": [
+    {
+     "t": "Untersuchungsmethoden in der Pathologie",
+     "id": "dP0odT",
+     "w": "Schnellschnitt (Gefrierschnitt), Fixierung, Makroskopie, Färbungen",
+     "anki": false,
+     "ankiN": 0
+    },
+    {
+     "t": "Allgemeine Onkologie",
+     "id": "WM0Png",
+     "w": "Dignität, TNM, R-Klassifikation (Resektionsränder im Schnellschnitt)",
+     "anki": "nid:1732736475799 OR note:Ankiphil* AMBOSS*:*WM0Png*",
+     "ankiN": 1
+    }
+   ]
+  },
+  {
+   "id": "2026-12-04-pol-7",
+   "datum": "2026-12-04",
+   "zeit": "14:15",
+   "fach": "Allgemeine Pharmakologie",
+   "kurs": "POL-Kurs: Fall 6 (Jonas Grass)",
+   "thema": "Lernziele noch nicht in Ilias. Fall: 22-jähriger Student mit Bauchkoliken, Anämie und Polyneuropathie; Bleivergiftung durch gestrecktes Marihuana (Blei im Vollblut 132 µg/dl). Ilias-Dateien liegen in „PoL 6“.",
+   "artikel": []
   }
  ]
 }
