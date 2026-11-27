@@ -340,15 +340,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </section>
     <section class="gruppe"><h2>Semester</h2>
       <div class="liste"><label class="wahl"><span class="vh">Semester</span><select id="semWahl"></select></label></div>
-      <p class="fuss">Übersicht und Amboss-Liste zeigen nur die Kurse dieses Semesters. Neue Semester erscheinen von selbst, sobald Kurse eingetragen sind. Gilt für dieses Gerät.</p>
+      <p class="fuss">Übersicht und Amboss-Liste zeigen nur die Kurse dieses Semesters. Neue Semester erscheinen von selbst, sobald Kurse eingetragen sind.</p>
     </section>
     <section class="gruppe"><h2>Kapitel</h2>
       <div class="liste"><label class="toggle"><input type="checkbox" id="ohneKlausur"> Fächer ohne Klausur ausblenden</label><label class="toggle trenn"><input type="checkbox" id="ohneVk"> Vorklinik-Kapitel ausblenden</label></div>
-      <p class="fuss">Ausgeblendetes verschwindet überall (Übersicht, Amboss-Liste, Fortschritt) und zählt nicht mit. „Fächer ohne Klausur“ sind z. B. Skills Lab und Studienorganisation, „Vorklinik-Kapitel“ z. B. Physiologie oder Biochemie. Gilt für dieses Gerät.</p>
+      <p class="fuss">Ausgeblendetes verschwindet überall (Übersicht, Amboss-Liste, Fortschritt) und zählt nicht mit. „Fächer ohne Klausur“ sind z. B. Skills Lab und Studienorganisation, „Vorklinik-Kapitel“ z. B. Physiologie oder Biochemie.</p>
     </section>
     <section class="gruppe"><h2>Darstellung</h2>
       <div class="liste"><div class="seg" role="group" aria-label="Darstellung"><button type="button" data-thema="auto">Automatisch</button><button type="button" data-thema="light">Hell</button><button type="button" data-thema="dark">Dunkel</button></div></div>
-      <p class="fuss">„Automatisch“ folgt der Einstellung deines Geräts. Gilt nur für dieses Gerät.</p>
+      <p class="fuss">„Automatisch“ folgt der Einstellung deines Geräts.</p>
+      <p class="fuss" id="einstHinweis"></p>
     </section>
     <section class="gruppe"><h2>Hilfe</h2>
       <div class="liste"><button type="button" class="zeile" id="tourNeu"><span class="m"><span class="t">Tour neu starten</span><span class="u">Kurze Einführung in den Lernplaner, inklusive Anki</span></span></button></div>
@@ -400,7 +401,7 @@ const OHNE_KLAUSUR=["Skills Lab","Studienorganisation","Allgemeinmedizin","Grund
 const keineKlausur=k=>!!k.keineKlausur||OHNE_KLAUSUR.includes(k.fach);
 let ohneAus=false; try{ohneAus=localStorage.getItem("ohneKlausur")==="1"}catch(e){}
 document.getElementById("ohneKlausur").checked=ohneAus;
-document.getElementById("ohneKlausur").addEventListener("change",e=>{ohneAus=e.target.checked;try{localStorage.setItem("ohneKlausur",ohneAus?"1":"0")}catch(_){}render()});
+document.getElementById("ohneKlausur").addEventListener("change",e=>{ohneAus=e.target.checked;try{localStorage.setItem("ohneKlausur",ohneAus?"1":"0")}catch(_){}einstSetzen("ohneKlausur",ohneAus?"1":"0");render()});
 let ansicht="woche"; try{if(localStorage.getItem("ansicht")==="fach")ansicht="fach"}catch(e){}
 function setAnsicht(a){ansicht=a;document.getElementById("v-woche").setAttribute("aria-pressed",a==="woche");document.getElementById("v-fach").setAttribute("aria-pressed",a==="fach");try{localStorage.setItem("ansicht",a)}catch(e){}render()}
 document.getElementById("v-woche").addEventListener("click",()=>setAnsicht("woche"));
@@ -434,12 +435,12 @@ function baueSemester(){
   alle.forEach(i=>{const b=semBeschreibung(i);const o=new Option(semKurz(i)+(b?" · "+b:""),i);o.title=semLang(i);sel.append(o)});
   sel.value=semAuswahl;
 }
-document.getElementById("semWahl").addEventListener("change",e=>{semAuswahl=+e.target.value;try{localStorage.setItem("semester",semAuswahl)}catch(_){}auswahl={woche:null,fach:null};render()});
+document.getElementById("semWahl").addEventListener("change",e=>{semAuswahl=+e.target.value;try{localStorage.setItem("semester",semAuswahl)}catch(_){}einstSetzen("semester",String(semAuswahl));auswahl={woche:null,fach:null};render()});
 
 let besitzer=new Map();
 let ohneVk=false; try{ohneVk=localStorage.getItem("ohneVk")==="1"}catch(e){}
 document.getElementById("ohneVk").checked=ohneVk;
-document.getElementById("ohneVk").addEventListener("change",e=>{ohneVk=e.target.checked;try{localStorage.setItem("ohneVk",ohneVk?"1":"0")}catch(_){}render()});
+document.getElementById("ohneVk").addEventListener("change",e=>{ohneVk=e.target.checked;try{localStorage.setItem("ohneVk",ohneVk?"1":"0")}catch(_){}einstSetzen("ohneVk",ohneVk?"1":"0");render()});
 const art=k=>(k.artikel||[]).filter(a=>!(ohneVk&&a.vk));
 /* Ausgeblendete Kapitel: gespeichert wie Haken, mit Präfix "x:" (z. B. "x:En08Eg") */
 const ausgeblendet=id=>meine.has("x:"+id);
@@ -465,6 +466,7 @@ function zeigeWer(){
   $("pinBox").hidden=neu||!nutzer||darf;
   $("abmelden").hidden=!darf;
   $("loginHinweis").hidden=darf;
+  $("einstHinweis").textContent=darf?"Semester, Kapitel und Darstellung werden in deinem Profil gespeichert und gelten auf allen Geräten, auf denen du angemeldet bist.":"Nicht angemeldet: Diese Einstellungen gelten nur auf diesem Gerät. Angemeldet werden sie in deinem Profil gespeichert und gelten überall.";
   $("pinKarte").hidden=!darf;if(!darf){pinFormZu();pinStatus("")}
   $("tabProfil").textContent=darf?nutzer:"Profil";
   zeigePrivat();
@@ -488,7 +490,7 @@ async function ladeStand(){
   meine=new Set();privat=false;
   if(nutzer){try{
     if(darf){const v=await meinStand();
-      if(v){meine=new Set(v.fertig||[]);oeffentlich=v.oeffentlich!==false}
+      if(v){meine=new Set(v.fertig||[]);oeffentlich=v.oeffentlich!==false;einstAbgleichen()}
       else{darf=false;ls.set("pin",null);status("PIN nicht mehr gültig. Bitte neu eingeben.",true)}}
     else{const v=await rpc("fortschritt",{p_name:nutzer});if(Array.isArray(v))meine=new Set(v);else privat=true}
   }catch(e){status(e.message,true)}}
@@ -548,7 +550,7 @@ function setzeThema(t){
   ls.set("thema",t==="auto"?null:t);
   document.querySelectorAll('meta[name="theme-color"]').forEach((m,i)=>m.setAttribute("content",t==="light"?"#F2F2F7":t==="dark"?"#000000":(i?"#000000":"#F2F2F7")));
   document.querySelectorAll("[data-thema]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.thema===t))}
-document.querySelectorAll("[data-thema]").forEach(b=>b.addEventListener("click",()=>setzeThema(b.dataset.thema)));
+document.querySelectorAll("[data-thema]").forEach(b=>b.addEventListener("click",()=>{setzeThema(b.dataset.thema);einstSetzen("thema",b.dataset.thema)}));
 setzeThema(ls.get("thema")||"auto");
 let auswahl={woche:null,fach:null};
 function knopf(label,zahl,fertig,aktiv,onClick){
@@ -797,7 +799,23 @@ let schreibt=Promise.resolve();
 function abhaken(k,id,val){
   if(!darf)return;
   if(val)meine.add(id);else meine.delete(id);
-  render();
+  render();speichereStand()}
+/* Profil-Einstellungen: gespeichert wie Haken, als "e:<name>=<wert>" (gilt auf allen Geräten, wenn angemeldet) */
+const EINST=["semester","thema","ohneKlausur","ohneVk"];
+function einstAusProfil(){const o={};meine.forEach(x=>{if(x.startsWith("e:")){const i=x.indexOf("=");if(i>2)o[x.slice(2,i)]=x.slice(i+1)}});return o}
+function einstSetzen(name,wert){if(!darf)return;[...meine].forEach(x=>{if(x.startsWith("e:"+name+"="))meine.delete(x)});meine.add("e:"+name+"="+wert);speichereStand()}
+function einstLokal(){return {semester:String(semAuswahl),thema:ls.get("thema")||"auto",ohneKlausur:ohneAus?"1":"0",ohneVk:ohneVk?"1":"0"}}
+function einstAnwenden(o){
+  if(o.thema)setzeThema(o.thema);
+  if(o.ohneKlausur!=null){ohneAus=o.ohneKlausur==="1";$("ohneKlausur").checked=ohneAus;ls.set("ohneKlausur",o.ohneKlausur)}
+  if(o.ohneVk!=null){ohneVk=o.ohneVk==="1";$("ohneVk").checked=ohneVk;ls.set("ohneVk",o.ohneVk)}
+  if(o.semester){const sel=$("semWahl"),w=+o.semester;if([...sel.options].some(op=>+op.value===w)&&w!==semAuswahl){semAuswahl=w;sel.value=String(w);ls.set("semester",String(w));auswahl={woche:null,fach:null}}}}
+function einstAbgleichen(){
+  const o=einstAusProfil();
+  if(Object.keys(o).length)einstAnwenden(o);
+  else{const l=einstLokal();EINST.forEach(n=>meine.add("e:"+n+"="+l[n]));speichereStand()}}
+function speichereStand(){
+  if(!darf)return;
   const stand=[...meine];
   schreibt=schreibt.then(async()=>{
     try{const ok=await rpc("speichern",{p_name:nutzer,p_pin:pin,p_fertig:stand});
