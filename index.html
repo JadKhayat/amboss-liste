@@ -148,6 +148,13 @@ ul.art li>div{flex:1;min-width:0}
 .toast.an{opacity:1;transform:translate(-50%,0)}
 @media (max-width:760px){.toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
 ul.art li.ok a{color:var(--done);text-decoration:line-through}
+.xknopf{all:unset;box-sizing:border-box;flex:none;width:26px;height:26px;margin:-2px -4px 0 -4px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1;color:var(--tert);cursor:pointer}
+.xknopf:hover{background:var(--fill);color:var(--muted)}
+.xknopf:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.xknopf:disabled{opacity:.35;cursor:default;background:none}
+ul.art li.weg>div,ul.art li.weg>input,ul.art li.weg>.anki{opacity:.4}
+ul.art li.weg a{text-decoration:none}
+ul.art li.weg .xknopf{color:var(--accent);font-size:16px}
 .badge{font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:var(--tint);color:var(--accent);margin-left:6px;vertical-align:2px;white-space:nowrap}
 .badge.nk{background:var(--fill);color:var(--muted)}
 .dup{margin:4px 0 0;font-size:13px;color:var(--muted)}
@@ -434,7 +441,10 @@ let ohneVk=false; try{ohneVk=localStorage.getItem("ohneVk")==="1"}catch(e){}
 document.getElementById("ohneVk").checked=ohneVk;
 document.getElementById("ohneVk").addEventListener("change",e=>{ohneVk=e.target.checked;try{localStorage.setItem("ohneVk",ohneVk?"1":"0")}catch(_){}render()});
 const art=k=>(k.artikel||[]).filter(a=>!(ohneVk&&a.vk));
-const eigen=k=>art(k).filter(a=>besitzer.get(a.id)===k);
+/* Ausgeblendete Kapitel: gespeichert wie Haken, mit Präfix "x:" (z. B. "x:En08Eg") */
+const ausgeblendet=id=>meine.has("x:"+id);
+const eigenAlle=k=>art(k).filter(a=>besitzer.get(a.id)===k);
+const eigen=k=>eigenAlle(k).filter(a=>!ausgeblendet(a.id));
 let meine=new Set();
 const fertig=id=>meine.has(id);
 const SUPA_URL="https://qseuqccxvmhqgelkqrvw.supabase.co", SUPA_KEY="sb_publishable_zVqWIZl21DqBTmYPYKyH-Q_zoeyEk09";
@@ -594,16 +604,22 @@ function render(){
       const h=el("h3",null,k.kurs);if(k.termine>1){h.append(el("span","badge",k.termine+" Termine"))}if(keineKlausur(k)){h.append(el("span","badge nk","keine Klausur"))}body.append(h);
       if(k.thema)body.append(el("p","thema",k.thema));
       const ul=el("ul","art");
-      eigen(k).forEach(a=>{
-        const li=el("li");const done=fertig(a.id);if(done)li.classList.add("ok");
-        const cb=el("input");cb.type="checkbox";cb.id="cb-"+k.id+"-"+a.id;cb.checked=done;cb.disabled=!darf;if(!darf)cb.title="Zum Abhaken unter „Profil“ anmelden";
+      eigenAlle(k).forEach(a=>{
+        const li=el("li");const done=fertig(a.id),weg=ausgeblendet(a.id);if(done)li.classList.add("ok");if(weg)li.classList.add("weg");
+        const cb=el("input");cb.type="checkbox";cb.id="cb-"+k.id+"-"+a.id;cb.checked=done;cb.disabled=!darf||weg;if(!darf)cb.title="Zum Abhaken unter „Profil“ anmelden";
         cb.setAttribute("aria-label",a.t+" gelesen");
         cb.addEventListener("change",()=>abhaken(k,a.id,cb.checked,cb));
         const txt=el("div");const link=el("a",null,a.t);link.href=AMBOSS+a.id;link.target="_blank";link.rel="noopener";
         txt.append(link);if(a.vk){txt.append(el("span","badge vk","Vorklinik"))}if(a.w){txt.append(el("span","why"," · "+a.w))}
-        li.append(cb,txt);const q=ankiQuery(a),n=ankiZahl(a);if(q)li.append(ankiKnopf(q,n!=null?"Anki · "+n:"Anki",a.t));else if(a.anki===false)li.append(ankiLeer(a.t));ul.append(li)});
+        li.append(cb,txt);const q=ankiQuery(a),n=ankiZahl(a);if(q)li.append(ankiKnopf(q,n!=null?"Anki · "+n:"Anki",a.t));else if(a.anki===false)li.append(ankiLeer(a.t));
+        if(weg)txt.append(el("span","badge nk","ausgeblendet"));
+        const x=el("button","xknopf",weg?"↺":"×");x.type="button";x.disabled=!darf;
+        x.title=!darf?"Zum Ausblenden unter „Profil“ anmelden":weg?"Wieder einblenden":"Für mich ausblenden (zählt nicht mehr in der Statistik)";
+        x.setAttribute("aria-label",(weg?"Wieder einblenden: ":"Ausblenden: ")+a.t);
+        x.addEventListener("click",()=>{abhaken(k,"x:"+a.id,!weg);toast(weg?"„"+a.t+"“ wird wieder mitgezählt.":"„"+a.t+"“ ausgeblendet. Mit ↺ wieder einblenden.")});
+        li.append(x);ul.append(li)});
       body.append(ul);
-      const mitAnki=[...new Map(art(k).filter(a=>ankiQuery(a)).map(a=>[a.id,a])).values()],qs=[...new Set(mitAnki.map(ankiQuery))];
+      const mitAnki=[...new Map(art(k).filter(a=>ankiQuery(a)&&!ausgeblendet(a.id)).map(a=>[a.id,a])).values()],qs=[...new Set(mitAnki.map(ankiQuery))];
       if(qs.length>1){const st=ankiStand(mitAnki);const b=ankiKnopf(qs.map(q=>"("+q+")").join(" or "),"Anki: alle Kapitel dieses Kurses"+(st.bekannt?" · "+st.ges+" Notizen":""),"alle "+qs.length+" Kapitel");b.classList.add("alle");body.append(b)}
       const du=dateienZuKurs(k);
       if(du.length){const w=el("div","unterlagen");du.forEach(f=>{const a=el("a",null,f.t);a.href=dateiUrl(f);a.target="_blank";a.rel="noopener";w.append(a)});body.append(w)}
@@ -806,7 +822,7 @@ const TOUR=[
  {v:"profil",sel:"#v-profil .gruppe:nth-of-type(2)",t:"Einstellungen",x:"<p>Im Profil wählst du außerdem das <b>Semester</b>, ob Fächer ohne Klausur und Vorklinik-Kapitel angezeigt werden, Hell oder Dunkel, ob andere deinen Fortschritt sehen dürfen, und kannst deine PIN ändern.</p>"},
  {v:"start",sel:"#sNaechst .hero",t:"Übersicht",x:"<p><b>Als Nächstes</b> zeigt den nächsten Kurs. Antippen springt direkt zu seinen Kapiteln.</p><p>Darunter: diese Woche und was du noch nachholen solltest.</p>"},
  {v:"start",sel:"#sFort .liste",t:"Dein Fortschritt",x:"<p>Wie viele Kapitel du gelesen hast, gesamt und je Fach. Der <b>blaue Balken</b> zählt die Anki-Notizen dieser Kapitel.</p>"},
- {v:"liste",sel:"#liste ul.art li",t:"Kapitel lesen und abhaken",x:"<p>Der Titel öffnet das Kapitel in Amboss. Gelesen? Dann den <b>Kreis</b> antippen. Dein Haken wird gespeichert, und die Anki-Notizen des Kapitels zählen als erledigt.</p>"},
+ {v:"liste",sel:"#liste ul.art li",t:"Kapitel lesen und abhaken",x:"<p>Der Titel öffnet das Kapitel in Amboss. Gelesen? Dann den <b>Kreis</b> antippen. Dein Haken wird gespeichert, und die Anki-Notizen des Kapitels zählen als erledigt.</p><p>Brauchst du ein Kapitel nicht? Mit dem <b>×</b> rechts blendest du es für dich aus. Es wird ausgegraut und zählt nicht mehr mit, <b>↺</b> holt es zurück.</p>"},
  {v:"liste",sel:"#liste ul.art .anki:not(:disabled)",t:"Anki-Karten zum Kapitel",x:"<p>Der Knopf <b>Anki</b> kopiert die Suchanfrage für deine Ankiphil-Karten. Die Zahl daneben ist die Zahl der Notizen. Grau heißt: Zu diesem Kapitel gibt es keine Ankiphil-Karten.</p><p>So geht’s in Anki:</p><ol><li><b>Durchsuchen</b> öffnen</li><li>Suchanfrage oben einfügen, Enter</li><li>Zum Lernen: <b>Extras → Gefilterten Stapel erstellen</b> und die Suchanfrage dort einfügen. Sind die Karten ausgesetzt, vorher im Browser markieren und <b>Aussetzen</b> aufheben.</li></ol>"},
  {v:"liste",sel:"#liste .anki.alle",t:"Alle Karten eines Kurses",x:"<p><b>Anki: alle Kapitel dieses Kurses</b> kopiert eine Suchanfrage für alle Kapitel des Kurses auf einmal, ideal kurz vor einem POL-Fall oder Praktikum.</p>"},
  {v:"liste",sel:".bar",t:"Filtern und sortieren",x:"<p>Oben siehst du deinen Stand. Sortiere nach Woche oder Fach oder blende erledigte Kurse aus. Fächer ohne Klausur und Vorklinik-Kapitel kannst du im Profil ausblenden.</p>"},
